@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//SD//DTD SourceData FigurePackage DTD v1.0"  "SourceData-FigurePackage-1.0.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="figure-package">
+  <front>
+    <article-meta>
+      <title-group>
+        <article-title>Figure Package</article-title>
+      </title-group>
+      <contrib-group content-type="author">
+        <contrib contrib-type="person" equal-contrib="yes" corresp="no" deceased="no">
+          <name>
+            <surname>John Doe</surname>
+            <given-names>Stefan</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1" />
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <institution content-type="orgname">Example University</institution>
+        <institution content-type="orgdiv1">Example Lab</institution>
+        <city>Heidelberg</city>
+        <country>Germany</country>
+      </aff>
+      <pub-date date-type="pub" iso-8601-date="1999-01-29">
+        <day>29</day>
+        <month>01</month>
+        <year>1999</year>
+      </pub-date>
+    </article-meta>
+  </front>
+  <body id="body">
+    <fig-group id="fig">
+      <fig id="panel-a">
+        <label>(a)</label>
+        <caption id="panel-a-caption">
+          <title>First panel</title>
+          <p id="panel-a-caption-p1">First panel caption. </p>
+          <p id="panel-a-caption-p2">The dataset <xref id="xref-1" ref-type="bibr" rid="r1">[1]</xref> has been analysed to generate the following projection:</p>
+        </caption>
+        <kwd-group kwd-group-type="exp-system">
+          <label>Exp. System</label>
+          <kwd>immunostaining</kwd>
+          <kwd>confocal microscopy</kwd>
+        </kwd-group>
+        <kwd-group kwd-group-type="measured-variables">
+          <label>Measured-Variables</label>
+          <kwd>immunostaining</kwd>
+          <kwd>confocal microscopy</kwd>
+        </kwd-group>
+        <graphic id="panel-a-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-a.jpg" />
+      </fig>
+      <fig id="panel-b">
+        <label>(b)</label>
+        <caption id="panel-b-caption">
+          <title>Second panel</title>
+          <p id="panel-b-caption-p1">Second panel caption</p>
+        </caption>
+        <graphic id="panel-b-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-b.jpg" />
+      </fig>
+    </fig-group>
+  </body>
+  <back>
+    <ref-list>
+      <ref id="r1">
+        <element-citation publication-type="data">
+          <year>2016</year>
+          <pub-id pub-id-type="accession">GSE69545</pub-id>
+          <source>NCBI Gene Expression Omnibus</source>
+          <data-title>Affinity and Dose of TCR Engagement Yield Proportional Enhancer and Gene Activity in CD4+ T Cells</data-title>
+          <uri>http://www.michaeleisen.org/blog/?p=1894</uri>
+        </element-citation>
+      </ref>
+      <ref id="r2">
+        <element-citation publication-type="article">
+          <year>2017</year>
+          <pub-id pub-id-type="doi">10.1101/102392</pub-id>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Alasoo</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Mukhopadhyay</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Knights</surname>
+              <given-names>AJ</given-names>
+            </name>
+            <name>
+              <surname>Mann</surname>
+              <given-names>AL</given-names>
+            </name>
+            <name>
+              <surname>Kundu</surname>
+              <given-names>K</given-names>
+            </name>
+            <collab>
+              <named-content content-type="name">HIPSCI Consortium</named-content>
+            </collab>
+            <name>
+              <surname>Hale</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Dougan</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Gaffney</surname>
+              <given-names>DJ</given-names>
+            </name>
+          </person-group>
+          <source>bioRxiv</source>
+          <article-title>Shared genetic effects on chromatin and gene expression reveal widespread enhancer priming in immune response</article-title>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
