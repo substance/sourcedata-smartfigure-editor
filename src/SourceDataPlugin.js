@@ -3,20 +3,10 @@ import { SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID } from './FigurePackageConstants'
 import FigurePackageJATSImporter from './FigurePackageJATSImporter'
 import FigurePackageJATSExporter from './FigurePackageJATSExporter'
 
-// nodes
-
-// converters
-
-// commands
-
-// components
-
-// services
-
 Texture.registerPlugin({
   name: 'source-data-plugin',
   configure (configurator) {
-    let articleConfig = configurator.getConfiguration('article')
+    const articleConfig = configurator.getConfiguration('article')
 
     // let Texture know about a JATS customization used by this plugin
     articleConfig.registerSchemaId(SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID)
