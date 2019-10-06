@@ -1,5 +1,5 @@
 {
-  "name": "texture-plugin-source-data",
+  "name": "texture-plugin-sourcedata",
   "version": "0.1.0",
   "description": "Texture plugin for SourceData",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/substance/texture-plugin-source-data.git"
+    "url": "git+https://github.com/substance/texture-plugin-sourcedata.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/substance/texture-plugin-source-data/issues"
+    "url": "https://github.com/substance/texture-plugin-sourcedata/issues"
   },
-  "homepage": "https://github.com/substance/texture-plugin-source-data#readme",
+  "homepage": "https://github.com/substance/texture-plugin-sourcedata#readme",
   "devDependencies": {
     "rollup": "^1.23.1",
     "rollup-plugin-commonjs": "^10.1.0",
