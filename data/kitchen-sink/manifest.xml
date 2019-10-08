@@ -5,6 +5,11 @@
   <assets>
     <asset id="panel-a" type="image/jpg" path="panel-a.jpg"/>
     <asset id="panel-b" type="image/jpg" path="panel-b.jpg"/>
+    <asset id="panel-c" type="image/jpg" path="panel-c.jpg"/>
+    <asset id="panel-d" type="image/jpg" path="panel-d.jpg"/>
+    <asset id="panel-e" type="image/jpg" path="panel-e.jpg"/>
+    <asset id="panel-f" type="image/jpg" path="panel-f.jpg"/>
+    <asset id="panel-g" type="image/jpg" path="panel-g.jpg"/>
     <asset id="panel-a-source-data" type="text/csv" path="panel-a-source-data.csv"/>
   </assets>
 </dar>
