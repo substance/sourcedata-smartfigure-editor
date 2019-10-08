@@ -61,9 +61,9 @@ b.task('build:demo', () => {
       format: 'umd',
       name: 'figurePackageDemo',
       globals: {
-        'substance': 'substance',
+        substance: 'substance',
         'substance-texture': 'texture',
-        'katex': 'katex'
+        katex: 'katex'
       }
     },
     external: ['substance', 'substance-texture', 'katex'],
@@ -86,6 +86,6 @@ b.task('build:vfs', () => {
 })
 
 // Server configuration
-let port = process.env['PORT'] || 4020
+const port = process.env.PORT || 4020
 b.setServerPort(port)
 b.serve({ static: true, route: '/', folder: './dist' })
