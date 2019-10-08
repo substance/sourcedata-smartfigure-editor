@@ -3,19 +3,21 @@ import {
   renderProperty, ManuscriptSection, HideIfEmpty, AuthorsListComponent,
   ReferenceListComponent
 } from 'substance-texture'
-import FigureComponent from './SourceDataFigureComponent'
+import FigureComponent from './FigureComponent'
 
 export default class FigurePackageComponent extends Component {
   render () {
     const document = this.context.editorState.document
+    const figure = document.find('body > figure')
+
     const el = $$('div', { class: 'sc-figure-package' })
 
     // front matter:
     // - title
     el.append(
       $$(ManuscriptSection, { name: 'title', label: this.getLabel('title-label') },
-        renderProperty(this, document, ['article', 'title'], {
-          placeholder: this.getLabel('title-placeholder')
+        renderProperty(this, document, [figure.id, 'title'], {
+          placeholder: 'Enter figure title'
         }).addClass('sm-title')
       )
     )
@@ -32,23 +34,26 @@ export default class FigurePackageComponent extends Component {
       )
     )
 
-    // body (= figure)
-    const figure = document.find('body > figure')
+    // Note: for now we decided not to show the abstract
+    // const abstract = document.resolve(['article', 'abstract'])
+    // const abstractPath = [abstract.id, 'content']
+    // el.append(
+    //   $$(HideIfEmpty, { document, path: abstractPath },
+    //     $$(ManuscriptSection, { name: 'abstract', label: this.getLabel('abstract-label') },
+    //       renderProperty(this, document, abstractPath, {
+    //         name: 'abstract',
+    //         placeholder: this.getLabel('abstract-placeholder')
+    //       }).addClass('sm-abstract')
+    //     )
+    //   )
+    // )
+
     el.append(
-      $$(ManuscriptSection, { name: 'figure', label: this.getLabel('figure') },
-        $$(FigureComponent, { node: figure })
-      )
+      $$(FigureComponent, { node: figure })
     )
 
-    // Figure title
-    // - panel overview (2 cols)
-    // - panel cards
-    // Figure footer (= legend of <fig-group>)
+    // Back matter
 
-    // back matter
-    // - Files
-
-    // - References
     // References
     const referencesPath = ['article', 'references']
     el.append(

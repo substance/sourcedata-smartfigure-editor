@@ -1,5 +1,5 @@
 import { Component, $$ } from 'substance'
-import { renderProperty } from 'substance-texture'
+import { renderProperty, getLabel } from 'substance-texture'
 
 export default class FigurePanelComponent extends Component {
   render () {
@@ -7,13 +7,18 @@ export default class FigurePanelComponent extends Component {
     const document = node.getDocument()
     const SectionLabel = this.getComponent('section-label')
 
-    const el = $$('div')
-      .attr('data-id', node.id)
+    const el = $$('div', { class: 'sc-figure-panel', 'data-id': node.id })
 
     el.append(
-      $$(SectionLabel, { label: 'title-label' }),
-      renderProperty(this, document, [node.id, 'title'], { placeholder: this.getLabel('title-placeholder') }).addClass('se-title'),
-      $$(SectionLabel, { label: 'legend-label' }),
+      $$(SectionLabel, { label: getLabel(node) })
+    )
+
+    el.append(
+      renderProperty(this, document, [node.id, 'image'])
+    )
+
+    el.append(
+      $$(SectionLabel, { label: 'Legend' }),
       renderProperty(this, document, [node.id, 'legend'], { placeholder: this.getLabel('legend-placeholder') }).addClass('se-legend')
     )
 
