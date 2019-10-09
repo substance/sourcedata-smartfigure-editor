@@ -1,0 +1,8 @@
+.sc-figure-package-toc .sc-layouted-figure-panels {
+  box-shadow: none;
+}
+
+.sc-figure-package-toc .sc-layouted-figure-panels .se-label {
+  font-weight: 600;
+  font-size: 10px;
+}

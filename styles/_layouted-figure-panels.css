@@ -1,0 +1,20 @@
+.sc-layouted-figure-panels {
+  padding: 20px;
+  box-shadow: 0 0 0 0.75pt #f8f5f5, 0 0 3pt 0.75pt #ccc;
+}
+
+.sc-layouted-figure-panels table,
+.sc-layouted-figure-panels tbody,
+.sc-layouted-figure-panels tr,
+.sc-layouted-figure-panels td {
+  vertical-align: top;
+}
+
+/*
+  TODO: originally I wanted to put the box-shadow on the preview
+  but then it was not taking full space, maybe padding?
+  Putting it on td works as desired
+*/
+.sc-layouted-figure-panels td:hover {
+  box-shadow: 0 0 0 0.75pt #f8f5f5, 0 0 3pt 0.75pt #ccc;
+}

@@ -11,7 +11,8 @@ export default class FigurePackageEditor extends BasicArticleEditor {
   }
 
   _renderTOC () {
-    return $$(FigurePackageTOC).ref('toc')
+    const document = this.props.editorSession.getDocument()
+    return $$(FigurePackageTOC, { document }).ref('toc')
   }
 
   _renderManuscript () {

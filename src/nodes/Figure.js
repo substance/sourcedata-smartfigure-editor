@@ -1,4 +1,4 @@
-import { DocumentNode, CHILDREN, TEXT, CONTAINER } from 'substance'
+import { DocumentNode, CHILDREN, TEXT, CONTAINER, STRING } from 'substance'
 import { RICH_TEXT_ANNOS } from 'substance-texture'
 
 export default class Figure extends DocumentNode {
@@ -38,6 +38,10 @@ export default class Figure extends DocumentNode {
       ))
     }
   }
+
+  getLayout () {
+    return this.layout || '<table><colgroup><col width="50%"><col width="50%"></colgroup><tr><td /><td /></tr></table>'
+  }
 }
 Figure.schema = {
   type: 'figure',
@@ -46,5 +50,6 @@ Figure.schema = {
   additionalInformation: CONTAINER({
     nodeTypes: ['paragraph'],
     defaultTextType: 'paragraph'
-  })
+  }),
+  layout: STRING
 }

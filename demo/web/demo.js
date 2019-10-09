@@ -7,6 +7,7 @@ window.addEventListener('load', () => {
     archiveId: getQueryStringParam('archive') || 'kitchen-sink',
     storageType: getQueryStringParam('storage') || 'vfs',
     storageUrl: getQueryStringParam('storageUrl') || '/archives',
-    vfs: window.vfs
+    vfs: window.vfs,
+    enableRouting: true
   }, window.document.body)
 })

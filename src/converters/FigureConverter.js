@@ -11,9 +11,11 @@ export default class FigureConverter {
   import (el, node, importer) {
     const $$ = el.createElement.bind(el.getOwnerDocument())
 
-    const figEls = el.findAll('fig')
     const captionEl = findChild(el, 'caption') || $$('caption')
     const titleEl = findChild(captionEl, 'title') || $$('title')
+    const figEls = el.findAll('fig')
+    // EXPERIMENTAL: using a table to store a custom layout
+    const layoutEl = el.find('alternatives > table[content-type="layout"]')
 
     node.title = importer.annotatedText(titleEl, [node.id, 'title'])
     node.panels = figEls.map(child => importer.convertElement(child).id)
@@ -25,13 +27,18 @@ export default class FigureConverter {
       captionEl.append($$('p'))
     }
     node.additionalInformation = captionEl.children.map(child => importer.convertElement(child).id)
+
+    if (layoutEl) {
+      // strip content from td elements
+      layoutEl.findAll('td').forEach(td => td.empty())
+      node.layout = layoutEl.serialize()
+    }
   }
 
   export (node, el, exporter) {
     const $$ = exporter.$$
     const doc = exporter.getDocument()
     el.attr('id', node.id)
-    el.append(node.panels.map(id => exporter.convertNode(doc.get(id))))
 
     if (node.title || node.additionalInformation) {
       const captionEl = $$('caption')
@@ -50,6 +57,16 @@ export default class FigureConverter {
       }
       el.append(captionEl)
     }
+
+    if (node.layout) {
+      el.append(
+        $$('alternatives').append(
+          $$('table').attr('content-type', 'layout').setInnerXML(node.layout)
+        )
+      )
+    }
+
+    el.append(node.panels.map(id => exporter.convertNode(doc.get(id))))
 
     return el
   }
