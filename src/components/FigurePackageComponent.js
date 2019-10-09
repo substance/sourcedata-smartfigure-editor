@@ -3,7 +3,7 @@ import {
   renderProperty, ManuscriptSection, HideIfEmpty, AuthorsListComponent,
   ReferenceListComponent
 } from 'substance-texture'
-import FigureComponent from './FigureComponent'
+import FigurePanels from './FigurePanels'
 
 export default class FigurePackageComponent extends Component {
   render () {
@@ -49,7 +49,15 @@ export default class FigurePackageComponent extends Component {
     // )
 
     el.append(
-      $$(FigureComponent, { node: figure })
+      $$(ManuscriptSection, { name: 'panels', label: 'Panels' },
+        $$(FigurePanels, { node: figure })
+      )
+    )
+
+    el.append(
+      $$(ManuscriptSection, { name: 'additionalInformation', label: 'Additional Information' },
+        renderProperty(this, document, [figure.id, 'additionalInformation'], { placeholder: 'Enter additional information' }).addClass('se-additional-information')
+      )
     )
 
     // Back matter
