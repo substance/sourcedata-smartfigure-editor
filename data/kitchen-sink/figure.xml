@@ -37,49 +37,49 @@
         </table>
       </alternatives>
       <fig id="panel-a">
-        <label>(A)</label>
+        <label>A</label>
         <caption>
           <p id="panel-a-caption-p1">Hepatocytes were treated with BSA, Palm, or Palm + Rap for 24 h. Cells were stained for lipid droplet accumulation (BODIPY 493/503, green) and nuclei (Hoechst, blue). Lipid accumulation was quantified using automated image‐based analysis (n = 4 biological replicates). Scale bar represents 100 μm.</p>
         </caption>
         <graphic id="panel-a-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-a.jpg" />
       </fig>
       <fig id="panel-b">
-        <label>(B)</label>
+        <label>B</label>
         <caption>
           <p id="panel-b-caption-p1">Shown is one representative Western blot from two independent experiments of hepatocytes transfected with siRNA targeting ASK1 (siASK1) or non‐targeting siRNA control (siCtrl).</p>
         </caption>
         <graphic id="panel-b-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-b.jpg" />
       </fig>
       <fig id="panel-c">
-        <label>(C)</label>
+        <label>C</label>
         <caption>
           <p id="panel-c-caption-p1">Lipid accumulation was quantified using automated image‐based analysis in ASK1‐knockdown (siASK1; gray bars) or control (siCtrl; black bars) cells treated with BSA, Palm, and Palm + Rap and stained as mentioned above (n = 4 biological replicates).</p>
         </caption>
         <graphic id="panel-c-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-c.jpg" />
       </fig>
       <fig id="panel-d">
-        <label>(D)</label>
+        <label>D</label>
         <caption>
           <p id="panel-d-caption-p1">Shown is one representative Western blot from two independent experiments (left) and quantification of LC3‐II/I and p62 protein levels Palm (right).</p>
         </caption>
         <graphic id="panel-d-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-d.jpg" />
       </fig>
       <fig id="panel-e">
-        <label>(E)</label>
+        <label>E</label>
         <caption>
           <p id="panel-e-caption-p1">Colocalization of in siCtrl (n = 4 biological replicates) or siASK1 (n = 4 biological replicates) cells treated with LC3‐II punctate (red) with lipid (BODIPY 493/503, green) and nuclei (Hoechst, blue) in siCtrl or siASK1 cells treated with BSA, Palm, or Palm + Rap. Scale bar represents 100 μm.</p>
         </caption>
         <graphic id="panel-e-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-e.jpg" />
       </fig>
       <fig id="panel-f">
-        <label>(F)</label>
+        <label>F</label>
         <caption>
           <p id="panel-f-caption-p1">Colocalization of LC3‐II punctate with lipid droplets (BODIPY 493/503, green) was quantified in hepatocytes transfected with siRNA targeting ASK1 (siASK1; gray bars) or non‐targeting siRNA control (siCtrl; black bars) and treated with BSA or BSA + Baf for 24 h (n = 4 biological replicates).</p>
         </caption>
         <graphic id="panel-f-graphic" mime-subtype="jpeg" mimetype="image" xlink:href="panel-f.jpg" />
       </fig>
       <fig id="panel-g">
-        <label>(G)</label>
+        <label>G</label>
         <caption>
           <p id="panel-g-caption-p1">Lipid accumulation was quantified using automated image‐based analysis in ASK1‐knockdown (siASK1; gray bars) or control (siCtrl; black bars) cells treated with BSA, Palm, or Palm + Baf and stained as mentioned above (n = 4 biological replicates).</p>
         </caption>
