@@ -7,3 +7,11 @@
   font-size: var(--t-title-font-size);
   font-weight: var(--t-bold-font-weight);
 }
+
+.sc-figure-package .sc-surface {
+  cursor: text;
+}
+
+.sc-figure-package > * + * {
+  margin-top: 20px;
+}
