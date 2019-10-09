@@ -2,7 +2,6 @@ import { Component, $$ } from 'substance'
 import { SectionLabel, renderProperty } from 'substance-texture'
 // import FigurePanelPreview from './FigurePanelPreview'
 import FigurePanelComponent from './FigurePanelComponent'
-import LayoutedFigurePanels from './LayoutedFigurePanels'
 
 export default class FigureComponent extends Component {
   render () {
@@ -10,10 +9,6 @@ export default class FigureComponent extends Component {
     const document = node.getDocument()
     const panels = node.resolve('panels')
     const el = $$('div', { class: 'sc-figure' })
-
-    el.append(
-      $$(LayoutedFigurePanels, { figure: node })
-    )
 
     el.append(
       $$(SectionLabel, { label: 'Panels' })
