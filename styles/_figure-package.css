@@ -1,0 +1,8 @@
+.sc-figure-package {
+  padding: 10px;
+}
+
+.sc-figure-package .sc-text-input.sm-title {
+  font-size: var(--t-title-font-size);
+  font-weight: var(--t-bold-font-weight);
+}

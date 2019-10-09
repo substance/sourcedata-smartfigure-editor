@@ -3,8 +3,8 @@
     <document id="manuscript" type="article" path="figure.xml" />
   </documents>
   <assets>
-    <asset id="fig1a" type="image/jpg" path="fig1a.jpg"/>
-    <asset id="fig1a-source-data" type="text/csv" path="fig1a-source-data.csv"/>
-    <asset id="fig1b" type="image/jpg" path="fig1b.jpg"/>
+    <asset id="panel-a" type="image/jpg" path="panel-a.jpg"/>
+    <asset id="panel-b" type="image/jpg" path="panel-b.jpg"/>
+    <asset id="panel-a-source-data" type="text/csv" path="panel-a-source-data.csv"/>
   </assets>
 </dar>

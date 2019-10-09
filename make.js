@@ -21,18 +21,19 @@ b.task('default', ['clean', 'build'])
 
 b.task('build:plugin', () => {
   rollup(b, {
-    input : 'index.js',
+    input: 'index.js',
     output: {
       file: DIST + 'texture-plugin-source-data.js',
       format: 'umd',
       name: 'TexturePluginSourceData',
       globals: {
-        'substance': 'substance',
+        substance: 'substance',
         'substance-texture': 'texture',
-        'katex': 'katex'
-      }
+        katex: 'katex'
+      },
+      sourcemap: true
     },
-    external: [ 'substance', 'substance-texture', 'katex' ],
+    external: ['substance', 'substance-texture', 'katex'],
     plugins: [
       nodeResolve(),
       commonjs()

@@ -2,6 +2,7 @@ import { Texture } from 'substance-texture'
 import { SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID } from './FigurePackageConstants'
 import FigurePackageJATSImporter from './FigurePackageJATSImporter'
 import FigurePackageJATSExporter from './FigurePackageJATSExporter'
+import FigurePackageEditor from './FigurePackageEditor'
 
 Texture.registerPlugin({
   name: 'source-data-plugin',
@@ -18,5 +19,7 @@ Texture.registerPlugin({
     articleConfig.addExporter(SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID, FigurePackageJATSExporter, {
       converterGroups: ['jats', SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID]
     })
+
+    articleConfig.addComponent('article-editor', FigurePackageEditor, { force: true })
   }
 })
