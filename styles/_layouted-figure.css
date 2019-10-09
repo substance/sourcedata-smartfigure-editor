@@ -1,12 +1,17 @@
-.sc-layouted-figure-panels {
+.sc-layouted-figure {
   padding: 20px;
   box-shadow: 0 0 0 0.75pt #f8f5f5, 0 0 3pt 0.75pt #ccc;
 }
 
-.sc-layouted-figure-panels table,
-.sc-layouted-figure-panels tbody,
-.sc-layouted-figure-panels tr,
-.sc-layouted-figure-panels td {
+.sc-layouted-figure.sm-plain {
+  padding: 0px;
+  box-shadow: none;
+}
+
+.sc-layouted-figure table,
+.sc-layouted-figure tbody,
+.sc-layouted-figure tr,
+.sc-layouted-figure td {
   vertical-align: top;
 }
 
@@ -15,6 +20,6 @@
   but then it was not taking full space, maybe padding?
   Putting it on td works as desired
 */
-.sc-layouted-figure-panels td:hover {
+.sc-layouted-figure td:hover {
   box-shadow: 0 0 0 0.75pt #f8f5f5, 0 0 3pt 0.75pt #ccc;
 }

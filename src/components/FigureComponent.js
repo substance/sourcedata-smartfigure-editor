@@ -1,5 +1,5 @@
 import { Component, $$ } from 'substance'
-import { SectionLabel, renderProperty } from 'substance-texture'
+import { renderProperty, ManuscriptSection } from 'substance-texture'
 // import FigurePanelPreview from './FigurePanelPreview'
 import FigurePanelComponent from './FigurePanelComponent'
 
@@ -11,7 +11,7 @@ export default class FigureComponent extends Component {
     const el = $$('div', { class: 'sc-figure' })
 
     el.append(
-      $$(SectionLabel, { label: 'Panels' })
+      $$(ManuscriptSection, { name: 'panels', label: 'Panels' })
     )
 
     for (let idx = 0; idx < panels.length; idx++) {
@@ -22,7 +22,7 @@ export default class FigureComponent extends Component {
     }
 
     el.append(
-      $$(SectionLabel, { label: 'Additional Information' }),
+      $$(ManuscriptSection, { name: 'additionalInformation', label: 'Additional Information' }),
       renderProperty(this, document, [node.id, 'additionalInformation'], { placeholder: 'Enter additional information' }).addClass('se-additional-information')
     )
 

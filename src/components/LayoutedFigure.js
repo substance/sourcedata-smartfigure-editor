@@ -2,17 +2,35 @@ import { Component, $$ } from 'substance'
 import FigurePanelPreview from './FigurePanelPreview'
 import PanelLayout from './PanelLayout'
 
-export default class LayoutedFigurePanels extends Component {
+export default class LayoutedFigure extends Component {
   constructor (...args) {
     super(...args)
 
     this._layout = this._initializeLayout()
   }
 
+  didMount () {
+    const editorState = this.context.editorState
+    if (editorState) {
+      const figure = this.props.figure
+      editorState.addObserver(['document'], this.rerender, this, {
+        stage: 'render',
+        document: { path: [figure.id, 'panels'] }
+      })
+    }
+  }
+
+  dispose () {
+    const editorState = this.context.editorState
+    if (editorState) {
+      editorState.removeObserver(this)
+    }
+  }
+
   render () {
     const figure = this.props.figure
     const tdEls = []
-    const el = $$('div', { class: 'sc-layouted-figure-panels' })
+    const el = $$('div', { class: 'sc-layouted-figure' })
     const table = this._layout.render(tdEls)
     const L = figure.panels.length
     while (tdEls.length < figure.panels.length) {

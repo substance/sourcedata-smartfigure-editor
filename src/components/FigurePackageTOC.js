@@ -1,5 +1,6 @@
-import { Component, $$ } from 'substance'
-import LayoutedFigurePanels from './LayoutedFigurePanels'
+import { Component, $$, domHelpers } from 'substance'
+import LayoutedFigure from './LayoutedFigure'
+import { SectionLabel } from 'substance-texture'
 
 export default class FigurePackageTOC extends Component {
   render () {
@@ -7,8 +8,35 @@ export default class FigurePackageTOC extends Component {
     const figure = document.find('body > figure')
     const el = $$('div', { class: 'sc-figure-package-toc' })
     el.append(
-      $$(LayoutedFigurePanels, { figure })
+      $$(_TOCItem, { scrollTarget: { section: 'title' } },
+        $$(SectionLabel, { label: 'Title' })
+      )
+    )
+    el.append(
+      $$(_TOCItem, { scrollTarget: { section: 'panels' } },
+        $$(SectionLabel, { label: 'Panels' }),
+        $$(LayoutedFigure, { figure }).addClass('sm-plain')
+      )
+    )
+    el.append(
+      $$(_TOCItem, { scrollTarget: { section: 'additionalInformation' } },
+        $$(SectionLabel, { label: 'Additional Information' })
+      )
     )
     return el
+  }
+}
+
+class _TOCItem extends Component {
+  render () {
+    const el = $$('div', { class: 'se-toc-item' })
+    el.append(this.props.children)
+    el.on('click', this._onClick)
+    return el
+  }
+
+  _onClick (e) {
+    domHelpers.stopAndPrevent(e)
+    this.send('scrollTo', this.props.scrollTarget)
   }
 }
