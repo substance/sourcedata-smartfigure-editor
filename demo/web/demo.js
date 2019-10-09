@@ -8,6 +8,6 @@ window.addEventListener('load', () => {
     storageType: getQueryStringParam('storage') || 'vfs',
     storageUrl: getQueryStringParam('storageUrl') || '/archives',
     vfs: window.vfs,
-    enableRouting: true
+    enableRouting: false
   }, window.document.body)
 })
