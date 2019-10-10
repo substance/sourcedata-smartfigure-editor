@@ -1,36 +1,19 @@
-import { Component, $$ } from 'substance'
-import FigurePanelPreview from './FigurePanelPreview'
+import { $$ } from 'substance'
+import { NodeComponent } from 'substance-texture'
+import FigurePanelThumbnail from './FigurePanelThumbnail'
 import PanelLayout from './PanelLayout'
 
-export default class LayoutedFigure extends Component {
+export default class LayoutedFigurePanels extends NodeComponent {
   constructor (...args) {
     super(...args)
 
     this._layout = this._initializeLayout()
   }
 
-  didMount () {
-    const editorState = this.context.editorState
-    if (editorState) {
-      const figure = this.props.figure
-      editorState.addObserver(['document'], this.rerender, this, {
-        stage: 'render',
-        document: { path: [figure.id, 'panels'] }
-      })
-    }
-  }
-
-  dispose () {
-    const editorState = this.context.editorState
-    if (editorState) {
-      editorState.removeObserver(this)
-    }
-  }
-
   render () {
-    const figure = this.props.figure
+    const figure = this.props.node
     const tdEls = []
-    const el = $$('div', { class: 'sc-layouted-figure' })
+    const el = $$('div', { class: 'sc-layouted-figure-panels' })
     const table = this._layout.render(tdEls)
     const L = figure.panels.length
     while (tdEls.length < figure.panels.length) {
@@ -41,11 +24,18 @@ export default class LayoutedFigure extends Component {
       const tdEl = tdEls[idx]
       const panel = panels[idx]
       tdEl.append(
-        $$(FigurePanelPreview, { panel }).ref(panel.id)
+        $$(FigurePanelThumbnail, { node: panel }).ref(panel.id)
       )
     }
     el.append(table)
     return el
+  }
+
+  _onNodeUpdate (change) {
+    // Only rerender this when 'panels' have changed, as opposed to other properties such as title
+    if (change.hasUpdated([this.props.node.id, 'panels'])) {
+      this.rerender()
+    }
   }
 
   _expandTable (table, tdEls) {
@@ -60,7 +50,7 @@ export default class LayoutedFigure extends Component {
   }
 
   _initializeLayout () {
-    const { figure } = this.props
+    const figure = this.props.node
     const layoutStr = figure.getLayout()
     const layout = new PanelLayout(layoutStr)
     return layout

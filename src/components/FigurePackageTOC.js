@@ -1,5 +1,5 @@
 import { Component, $$, domHelpers } from 'substance'
-import LayoutedFigure from './LayoutedFigure'
+import LayoutedFigurePanels from './LayoutedFigurePanels'
 import { SectionLabel } from 'substance-texture'
 
 export default class FigurePackageTOC extends Component {
@@ -15,7 +15,7 @@ export default class FigurePackageTOC extends Component {
     el.append(
       $$(_TOCItem, { scrollTarget: { section: 'panels' } },
         $$(SectionLabel, { label: 'Panels' }),
-        $$(LayoutedFigure, { figure }).addClass('sm-plain')
+        $$(LayoutedFigurePanels, { node: figure }).addClass('sm-plain')
       )
     )
     el.append(

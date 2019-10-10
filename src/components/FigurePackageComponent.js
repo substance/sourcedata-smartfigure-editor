@@ -15,7 +15,7 @@ export default class FigurePackageComponent extends Component {
     // front matter:
     // - title
     el.append(
-      $$(ManuscriptSection, { name: 'title', label: this.getLabel('title-label') },
+      $$(ManuscriptSection, { name: 'title', label: 'Title' },
         renderProperty(this, document, [figure.id, 'title'], {
           placeholder: 'Enter figure title'
         }).addClass('sm-title')
@@ -26,7 +26,7 @@ export default class FigurePackageComponent extends Component {
     const authorsPath = ['metadata', 'authors']
     el.append(
       $$(HideIfEmpty, { document, path: authorsPath },
-        $$(ManuscriptSection, { name: 'authors', label: this.getLabel('authors-label') },
+        $$(ManuscriptSection, { name: 'authors', label: 'Authors' },
           $$(AuthorsListComponent, {
             path: authorsPath
           }).addClass('sm-authors')
@@ -39,7 +39,7 @@ export default class FigurePackageComponent extends Component {
     // const abstractPath = [abstract.id, 'content']
     // el.append(
     //   $$(HideIfEmpty, { document, path: abstractPath },
-    //     $$(ManuscriptSection, { name: 'abstract', label: this.getLabel('abstract-label') },
+    //     $$(ManuscriptSection, { name: 'abstract', label: 'Abstract' },
     //       renderProperty(this, document, abstractPath, {
     //         name: 'abstract',
     //         placeholder: this.getLabel('abstract-placeholder')
