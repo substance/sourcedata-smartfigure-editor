@@ -61,7 +61,9 @@ export default {
         hideDisabled: false,
         items: [
           { type: 'command', name: 'insert-figure-panel', label: 'Insert Panel' },
-          { type: 'command', name: 'remove-figure-panel', label: 'Remove Panel' }
+          { type: 'command', name: 'remove-figure-panel', label: 'Remove Panel' },
+          { type: 'command', name: 'move-figure-panel-up', label: 'Move Panel Up' },
+          { type: 'command', name: 'move-figure-panel-down', label: 'Move Panel Down' }
         ]
       },
       {

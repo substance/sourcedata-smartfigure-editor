@@ -30,6 +30,18 @@ export default {
       tx.setSelection(null)
     })
   },
+  movePanel (panelId, direction) {
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    const figure = panel.getParent()
+    if (!figure) throw new Error('Figure does not exist')
+    const pos = panel.getPosition()
+    const diff = direction === 'up' ? -1 : +1
+    this.editorSession.transaction(tx => {
+      documentHelpers.removeAt(tx, [figure.id, 'panels'], pos)
+      documentHelpers.insertAt(tx, [figure.id, 'panels'], pos + diff, panelId)
+    })
+  },
   _selectPanel (tx, panel) {
     tx.setSelection({
       type: 'custom',

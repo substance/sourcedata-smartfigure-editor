@@ -13,6 +13,7 @@ import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import FigurePackageToolbar from './FigurePackageToolbar'
 import FigurePanelManager from './FigurePanelManager'
 import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
+import { MoveFigurePanelCommand } from './commands/MoveFigurePanelCommand'
 
 Texture.registerPlugin({
   name: 'source-data-plugin',
@@ -46,6 +47,8 @@ Texture.registerPlugin({
 
     articleConfig.addCommand('insert-figure-panel', InsertFigurePanelCommand)
     articleConfig.addCommand('remove-figure-panel', RemoveFigurePanelCommand)
+    articleConfig.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
+    articleConfig.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
 
     articleConfig.import(FigurePackageToolbar)
   }
