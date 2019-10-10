@@ -2,12 +2,14 @@ import { $$ } from 'substance'
 import { BasicArticleEditor } from 'substance-texture'
 import FigurePackageTOC from './FigurePackageTOC'
 import FigurePackageComponent from './FigurePackageComponent'
+import FigurePackageAPI from '../FigurePackageAPI'
 
 export default class FigurePackageEditor extends BasicArticleEditor {
   _initialize (props) {
     super._initialize(props)
 
-    this._model = this.context.api.getArticleModel()
+    // extend ArticleAPI with FigurePackageAPI
+    this.context.api.extend(FigurePackageAPI)
 
     // start the figure manager
     this.context.config.getServiceSync('figure-manager', this.context)
