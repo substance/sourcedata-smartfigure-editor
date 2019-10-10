@@ -13,6 +13,12 @@ export default class FigurePackageEditor extends BasicArticleEditor {
     this.context.config.getServiceSync('figure-manager', this.context)
   }
 
+  getActionHandlers () {
+    return Object.assign({}, super.getActionHandlers(), {
+      selectPanel: this._selectPanel
+    })
+  }
+
   _getClass () {
     // NOTE: adding sc-manuscript-editor to inherit styles
     // TODO: we should tidy this up in Texture
@@ -27,5 +33,14 @@ export default class FigurePackageEditor extends BasicArticleEditor {
   _renderManuscript () {
     const document = this.props.editorSession.getDocument()
     return $$(FigurePackageComponent, { document })
+  }
+
+  _selectPanel (panel) {
+    const editorSession = this.context.editorSession
+    editorSession.setSelection({
+      type: 'custom',
+      nodeId: panel.id,
+      customType: 'panel'
+    })
   }
 }
