@@ -12,6 +12,7 @@ import FigurePackageLabelGenerator from './FigurePackageLabelGenerator'
 import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import FigurePackageToolbar from './FigurePackageToolbar'
 import FigurePanelManager from './FigurePanelManager'
+import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
 
 Texture.registerPlugin({
   name: 'source-data-plugin',
@@ -44,6 +45,7 @@ Texture.registerPlugin({
     articleConfig.addService('figure-panel-manager', FigurePanelManager.create)
 
     articleConfig.addCommand('insert-figure-panel', InsertFigurePanelCommand)
+    articleConfig.addCommand('remove-figure-panel', RemoveFigurePanelCommand)
 
     articleConfig.import(FigurePackageToolbar)
   }

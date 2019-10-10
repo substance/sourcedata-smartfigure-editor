@@ -6,7 +6,7 @@ export default {
     const currentPanel = doc.get(currentPanelId)
     const figure = currentPanel.getParent()
     if (!figure) throw new Error('Figure does not exist')
-    const pos = figure.panels.indexOf(currentPanel.id)
+    const pos = currentPanel.getPosition()
     const href = this.archive.addAsset(file)
     const insertPos = pos + 1
     const template = currentPanel.getTemplate()
@@ -16,6 +16,18 @@ export default {
       const newPanel = documentHelpers.createNodeFromJson(tx, template)
       documentHelpers.insertAt(tx, [figure.id, 'panels'], insertPos, newPanel.id)
       this._selectPanel(tx, newPanel)
+    })
+  },
+  removePanel (panelId) {
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    const figure = panel.getParent()
+    if (!figure) throw new Error('Figure does not exist')
+    const pos = panel.getPosition()
+    this.editorSession.transaction(tx => {
+      documentHelpers.removeAt(tx, [figure.id, 'panels'], pos)
+      documentHelpers.deepDeleteNode(tx, panel.id)
+      tx.setSelection(null)
     })
   },
   _selectPanel (tx, panel) {
