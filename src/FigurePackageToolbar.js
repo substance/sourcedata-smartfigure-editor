@@ -55,23 +55,19 @@ export default {
         ]
       },
       {
-        name: 'text-types',
-        type: 'dropdown',
-        style: 'descriptive',
-        hideDisabled: true,
-        displayActiveCommand: true,
-        items: [
-          { type: 'command-group', name: 'text-types' }
-        ]
-      },
-      {
         name: 'Figure',
         type: 'dropdown',
         style: 'descriptive',
-        hideDisabled: true,
+        hideDisabled: false,
         items: [
-          { type: 'command', name: 'insert-figure-panel', label: 'Insert Panel' }
+          { type: 'command', name: 'insert-figure-panel', label: 'Insert Panel' },
+          { type: 'command', name: 'remove-figure-panel', label: 'Remove Panel' }
         ]
+      },
+      {
+        // FIXME: Texture.ToolGroup should only set a ref if name is present
+        name: 'foo',
+        type: 'spacer'
       }
     ], { force: true })
 
