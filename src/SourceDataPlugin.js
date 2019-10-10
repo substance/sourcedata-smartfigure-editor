@@ -10,6 +10,7 @@ import FigurePackageJATSExporter from './converters/FigurePackageJATSExporter'
 import FigurePackageEditor from './components/FigurePackageEditor'
 import FigurePackageLabelGenerator from './FigurePackageLabelGenerator'
 import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
+import FigurePackageToolbar from './FigurePackageToolbar'
 
 Texture.registerPlugin({
   name: 'source-data-plugin',
@@ -41,5 +42,7 @@ Texture.registerPlugin({
     articleConfig.setValue('figure-label-generator', new FigurePackageLabelGenerator())
 
     articleConfig.addCommand('insert-figure-panel', InsertFigurePanelCommand)
+
+    articleConfig.import(FigurePackageToolbar)
   }
 })
