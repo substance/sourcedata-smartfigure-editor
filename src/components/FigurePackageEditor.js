@@ -11,8 +11,8 @@ export default class FigurePackageEditor extends BasicArticleEditor {
     // extend ArticleAPI with FigurePackageAPI
     this.context.api.extend(FigurePackageAPI)
 
-    // start the figure manager
-    this.context.config.getServiceSync('figure-manager', this.context)
+    // start the figure panel manager
+    this.context.config.getServiceSync('figure-panel-manager', this.context)
   }
 
   getActionHandlers () {

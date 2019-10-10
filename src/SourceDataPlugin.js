@@ -11,6 +11,7 @@ import FigurePackageEditor from './components/FigurePackageEditor'
 import FigurePackageLabelGenerator from './FigurePackageLabelGenerator'
 import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import FigurePackageToolbar from './FigurePackageToolbar'
+import FigurePanelManager from './FigurePanelManager'
 
 Texture.registerPlugin({
   name: 'source-data-plugin',
@@ -40,6 +41,7 @@ Texture.registerPlugin({
     // ATTENTION: this changes Texture's figure label generation. Be aware to do
     // this only in the FigurePackage scenario, with only one figure
     articleConfig.setValue('figure-label-generator', new FigurePackageLabelGenerator())
+    articleConfig.addService('figure-panel-manager', FigurePanelManager.create)
 
     articleConfig.addCommand('insert-figure-panel', InsertFigurePanelCommand)
 
