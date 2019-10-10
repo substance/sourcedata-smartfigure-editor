@@ -16,3 +16,12 @@
 .sc-figure-panel .sc-graphic img {
   max-width: 90%;
 }
+
+/*
+  TODO SectionLabel does set the cursor which is kind of too opinionated for
+  that general purpose. Instead we should the parent context define the 'default'
+  and override for other content, such as surfaces.
+*/
+.sc-figure-panel .sc-section-label {
+  cursor: pointer;
+}
