@@ -2,6 +2,15 @@ import { Component, $$, domHelpers } from 'substance'
 import { renderProperty, getLabel } from 'substance-texture'
 
 export default class FigurePanelComponent extends Component {
+  getInitialState () {
+    const editorState = this.context.editorState
+    const selectionState = editorState.selectionState
+    const selected = (selectionState.node && selectionState.node.id === this.props.node.id)
+    return {
+      selected
+    }
+  }
+
   didMount () {
     const editorState = this.context.editorState
     if (editorState) {
