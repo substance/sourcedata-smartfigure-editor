@@ -6,10 +6,18 @@ export default class FigurePanel extends DocumentNode {
     return doc.get(this.content)
   }
 
+  getTemplate () {
+    const template = FigurePanel.getTemplate()
+    template.metadata = this.resolve('metadata').map(metadataField => (
+      { type: 'metadata-field', name: metadataField.name, value: '' }
+    ))
+    return template
+  }
+
   static getTemplate () {
     return {
       type: 'figure-panel',
-      content: { type: 'graphic' },
+      image: { type: 'graphic' },
       legend: [{ type: 'paragraph' }],
       metadata: [
         { type: 'metadata-field', name: 'Exp. System' },
