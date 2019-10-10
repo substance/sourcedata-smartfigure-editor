@@ -42,6 +42,16 @@ export default {
       documentHelpers.insertAt(tx, [figure.id, 'panels'], pos + diff, panelId)
     })
   },
+  replacePanelImage (panelId, file) {
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    const image = panel.resolve('image')
+    const articleSession = this.editorSession
+    const newPath = this.archive.replaceAsset(image.href, file)
+    articleSession.transaction(tx => {
+      tx.set([image.id, 'href'], newPath)
+    })
+  },
   _selectPanel (tx, panel) {
     tx.setSelection({
       type: 'custom',

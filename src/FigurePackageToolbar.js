@@ -62,6 +62,7 @@ export default {
         items: [
           { type: 'command', name: 'insert-figure-panel', label: 'Insert Panel' },
           { type: 'command', name: 'remove-figure-panel', label: 'Remove Panel' },
+          { type: 'command', name: 'replace-figure-panel-image', label: 'Replace Panel Image' },
           { type: 'command', name: 'move-figure-panel-up', label: 'Move Panel Up' },
           { type: 'command', name: 'move-figure-panel-down', label: 'Move Panel Down' }
         ]
