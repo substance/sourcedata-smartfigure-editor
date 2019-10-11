@@ -2,22 +2,24 @@ import { $$ } from 'substance'
 import { NodeComponent } from 'substance-texture'
 import FigurePanelThumbnail from './FigurePanelThumbnail'
 
+// EXPERIMENTAL: trying to provide a good auto layout based on width/height ratio
 const HORIZONTAL = 2.5
 const VERTICAL = 0.75
 
-// EXPERIMENTAL: trying to provide a good auto layout based on width/height ratio
 export default class AutoLayout extends NodeComponent {
   getInitialState () {
     return { dimensions: null }
   }
 
-  shouldRerender (newProps, newState) {
+  // Note: only doing explicit rerender because of async layout computation
+  shouldRerender () {
     return false
   }
 
   didMount () {
     super.didMount()
 
+    // start an initial layout
     this._layout()
   }
 
@@ -86,7 +88,6 @@ export default class AutoLayout extends NodeComponent {
   _onNodeUpdate (change) {
     // Only rerender this when 'panels' have changed, as opposed to other properties such as title
     if (change.hasUpdated([this.props.node.id, 'panels'])) {
-      this.setState({ dimensions: null })
       this._layout()
     }
   }
