@@ -36,7 +36,8 @@ Texture.registerPlugin({
     })
     // register a factory for an exporter
     articleConfig.addExporter(SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID, FigurePackageJATSExporter, {
-      converterGroups: [SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID, 'jats']
+      // FIXME: it seems that order of converters is opposite to importer
+      converterGroups: ['jats', SOURCE_DATA_FIGURE_PACKAGE_PUBLIC_ID]
     })
 
     articleConfig.addComponent('article-editor', FigurePackageEditor, { force: true })
