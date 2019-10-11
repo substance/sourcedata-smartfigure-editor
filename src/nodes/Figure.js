@@ -38,11 +38,8 @@ export default class Figure extends DocumentNode {
       ))
     }
   }
-
-  getLayout () {
-    return this.layout || '<table><colgroup><col width="50%"><col width="50%"></colgroup><tr><td /><td /></tr></table>'
-  }
 }
+
 Figure.schema = {
   type: 'figure',
   title: TEXT(...RICH_TEXT_ANNOS),

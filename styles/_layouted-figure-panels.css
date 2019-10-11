@@ -8,6 +8,10 @@
   box-shadow: none;
 }
 
+.sc-layouted-figure-panels.sm-hidden {
+  visibility: hidden;
+}
+
 .sc-layouted-figure-panels table,
 .sc-layouted-figure-panels tbody,
 .sc-layouted-figure-panels tr,
