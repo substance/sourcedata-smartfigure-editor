@@ -11,31 +11,6 @@
         <p id="fig-caption-p1">Data information: Values are expressed as mean ± SEM. *P &lt; 0.05; **P &lt; 0.01; ***P &lt; 0.001. Statistical tests used are as follows: ANOVA for (A, C, F, and G); and t‐test for (D).</p>
         <p id="fig-caption-p2">Source data are available online for this figure.</p>
       </caption>
-      <alternatives>
-        <table content-type="layout">
-          <colgroup>
-            <col width="50%" />
-            <col width="50%" />
-          </colgroup>
-          <tr>
-            <td colspan="2" />
-          </tr>
-          <tr>
-            <td />
-            <td rowspan="2"/>
-          </tr>
-          <tr>
-            <td />
-          </tr>
-          <tr>
-            <td colspan="2" />
-          </tr>
-          <tr>
-            <td />
-            <td />
-          </tr>
-        </table>
-      </alternatives>
       <fig id="panel-a">
         <label>A</label>
         <caption>
