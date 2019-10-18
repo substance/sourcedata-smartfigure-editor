@@ -1,0 +1,89 @@
+.sc-button {
+  border-radius: 3px;
+  white-space: nowrap;
+  position: relative;
+  text-align: center;
+}
+
+.sc-button:disabled {
+  opacity: 0.3;
+}
+
+.sc-button.sm-hidden {
+  display: none;
+}
+
+.sc-button > .se-blocker {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  user-select: auto;
+}
+
+.sc-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Sizes */
+.sc-button.sm-size-large {
+  height: var(--large-button-height);
+  padding: 0 var(--double-spacing);
+  @include ts-large-interface;
+}
+
+.sc-button.sm-size-default {
+  height: var(--default-button-height);
+  padding: 0 var(--double-spacing);
+  @include ts-interface;
+}
+
+.sc-button.sm-size-small {
+  height: var(--small-button-height);
+  padding: 0 var(--default-spacing);
+  @include ts-small-interface;
+}
+
+/* Styles */
+.sc-button.sm-style-default {
+  background: var(--default-button-color);
+  padding: 0 var(--double-spacing);
+}
+
+.sc-button.sm-style-primary {
+  background: var(--primary-button-color);
+  @include ts-inverted;
+}
+
+.sc-button.sm-style-secondary {
+  background: var(--default-button-color);
+}
+
+.sc-button.sm-style-danger {
+  border: 1px solid rgb(var(--error-color));
+  @include ts-interface;
+  color: rgb(var(--error-color));
+}
+
+.sc-button.sm-style-plain {
+  padding: 0 var(--half-spacing);
+}
+
+.sc-button.sm-style-plain.sm-active {
+  color: var(--primary-button-color);
+  background-color: rgba(26,115,232,0.15);
+}
+
+/* Focus styles for primary, secondary and danger */
+.sc-button.sm-style-primary:focus,
+.sc-button.sm-style-secondary:focus,
+.sc-button.sm-style-danger:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
+}
+
+.sc-button.sm-style-plain:focus {
+  color: var(--primary-button-color);
+  background-color: rgba(26,115,232,0.1);
+}

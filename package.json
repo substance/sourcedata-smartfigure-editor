@@ -1,5 +1,5 @@
 {
-  "name": "texture-plugin-sourcedata",
+  "name": "sourcedata-smart-figures",
   "version": "0.1.0",
   "description": "Texture plugin for SourceData",
   "main": "index.js",
@@ -17,13 +17,17 @@
   },
   "homepage": "https://github.com/substance/texture-plugin-sourcedata#readme",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "postcss": "^7.0.18",
+    "postcss-comment": "^2.0.0",
+    "postcss-import": "^12.0.1",
+    "postcss-reporter": "^6.0.1",
     "rollup": "^1.23.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "standard": "^14.3.1",
-    "substance": "1.1.0-preview.27",
-    "substance-bundler": "^0.27.1",
-    "substance-test": "0.13.2",
-    "substance-texture": "3.0.0-preview-18"
+    "substance": "2.0.0-preview.8",
+    "substance-bundler": "0.27.2",
+    "substance-test": "0.15.0"
   }
 }

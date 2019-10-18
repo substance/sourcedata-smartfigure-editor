@@ -1,6 +1,6 @@
 import BasicFigurePanelCommand from './_BasicFigurePanelCommand'
 
-export class MoveFigurePanelCommand extends BasicFigurePanelCommand {
+export default class MoveFigurePanelCommand extends BasicFigurePanelCommand {
   getCommandState (params, context) {
     const direction = this.config.direction
     const commandState = super.getCommandState(params, context)

@@ -1,0 +1,37 @@
+/*
+  Typography
+  ---------------------------------
+*/
+
+h1 {
+  @include ts-heading-1;
+}
+
+h2 {
+  @include ts-heading-2;
+  margin-bottom: var(--double-spacing);
+}
+
+h3 {
+  @include ts-heading-3;
+  padding-top: 11px;
+  margin-bottom: 11px;
+}
+
+h4 {
+  @include ts-heading-4;
+  padding-top: var(--default-spacing);
+  margin-bottom: var(--default-spacing);
+}
+
+h5 {
+  @include ts-heading-5;
+  padding-top: var(--default-spacing);
+  margin-bottom: var(--default-spacing);
+}
+
+h6 {
+  @include ts-heading-6;
+  padding-top: var(--default-spacing);
+  margin-bottom: var(--default-spacing);
+}

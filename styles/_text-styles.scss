@@ -1,0 +1,112 @@
+/* Content Text Styles */
+
+@mixin ts-heading-1 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+@mixin ts-heading-2 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 35px;
+}
+
+@mixin ts-heading-3 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+@mixin ts-heading-4 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+@mixin ts-heading-5 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+@mixin ts-heading-6 {
+  font-family: var(--heading-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* The default font */
+@mixin ts-content {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-size: 18px;
+  line-height: 30px;
+}
+
+@mixin ts-large-content {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@mixin ts-small-content {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+@mixin ts-code {
+  font-family: 'Monaco', 'Courier New', Courier, monospace;
+  color: var(--dark-text-color);
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/* Interface Text Styles */
+
+@mixin ts-interface {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+@mixin ts-large-interface {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@mixin ts-small-interface {
+  font-family: var(--default-font);
+  color: var(--dark-text-color);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+@mixin ts-inverted {
+  color: var(--inverted-text-color);
+}
+
+@mixin ts-quiet {
+  color: var(--quiet-text-color);
+}

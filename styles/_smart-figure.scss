@@ -1,0 +1,12 @@
+.sc-smart-figure {
+  @include ts-content;
+  padding-bottom: 100px;
+}
+
+.sc-smart-figure > * {
+  margin: var(--double-spacing) 0;
+}
+
+.sc-smart-figure-panels > * + * {
+  margin-top: 10px;
+}

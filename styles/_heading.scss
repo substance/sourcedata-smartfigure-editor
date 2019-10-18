@@ -1,0 +1,23 @@
+.sc-heading.sm-level-1 {
+  @include ts-heading-1;
+}
+
+.sc-heading.sm-level-2 {
+  @include ts-heading-2;
+}
+
+.sc-heading.sm-level-3 {
+  @include ts-heading-3;
+}
+
+.sc-heading.sm-level-4 {
+  @include ts-heading-4;
+}
+
+.sc-heading.sm-level-5 {
+  @include ts-heading-5;
+}
+
+.sc-heading.sm-level-6 {
+  @include ts-heading-6;
+}

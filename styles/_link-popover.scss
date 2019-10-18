@@ -1,0 +1,30 @@
+.sc-link-popover {
+  width: 370px;
+  margin: -4px 0;
+}
+
+.sc-link-popover > .se-link {
+  @include ts-small-interface;
+  @include ts-quiet;
+  padding: var(--half-spacing) var(--default-spacing);
+  word-break: break-all;
+}
+
+.sc-link-popover > .se-link > a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.sc-link-popover > .sc-horizontal-stack {
+  padding: var(--half-spacing) var(--default-spacing);
+}
+
+.sc-link-popover > .sc-horizontal-stack > .se-label {
+  @include ts-small-interface;
+  @include ts-quiet;
+}
+
+.sc-link-popover > .sc-horizontal-stack > .sc-button {
+  width: 100px;
+  margin: 0 var(--half-spacing);
+}

@@ -1,0 +1,69 @@
+.sc-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.sc-modal .se-modal-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  box-shadow: var(--card-shadow);
+  border-radius: var(--popover-border-radius);
+}
+
+.sc-modal.sm-size-default .se-modal-dialog {
+  width: 800px;
+}
+
+.sc-modal .se-modal-dialog > * {
+  padding: var(--half-spacing) var(--double-spacing);
+}
+
+.sc-modal .se-modal-dialog > .sc-divider {
+  padding: 0!important;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-header {
+  height: 60px;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-header .sc-title {
+  @include ts-heading-4;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-header .sc-button {
+  opacity: 0.5;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-footer {
+  height: 60px;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-footer > .sc-horizontal-stack {
+  justify-content: flex-end;
+}
+
+.sc-modal .se-modal-dialog > .se-modal-body {
+  padding: var(--double-spacing);
+}
+
+.sc-modal .se-modal-dialog > .se-modal-body > .sc-form > * {
+  margin: var(--half-spacing) 0;
+}
+
+.sc-modal.sm-size-small .se-modal-dialog {
+  width: 520px;
+}
+
+.sc-modal.sm-size-small .se-modal-dialog > * {
+  padding: var(--half-spacing) var(--default-spacing);
+}

@@ -1,0 +1,11 @@
+.sc-sourcedata-logo {
+  text-decoration: none;
+  font-size: 32px;
+  line-height: 60px;
+  color: black;
+}
+
+.sc-sourcedata-logo img {
+  display: block;
+  height: 40px;
+}
