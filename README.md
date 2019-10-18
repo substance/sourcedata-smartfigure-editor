@@ -1,8 +1,6 @@
-# Texture SourceData Plugin
+# SourceData SmartFigure Editor
 
-A Texture plugin that extends Texture for SourceData introducing
-an article variant called figure-package, which consists only of one figure
-with multipl panels.
+An editor for SmartFigures based on [Substance](https://github.com/substance/substance.git).
 
 # Getting started
 
