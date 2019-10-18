@@ -1,8 +1,6 @@
-import { $$ } from 'substance'
-import { NodeComponent } from 'substance-texture'
+import { $$, NodeComponent, DefaultDOMElement, domHelpers } from 'substance'
 import FigurePanelThumbnail from './FigurePanelThumbnail'
-import PanelLayout from './PanelLayout'
-import AutoLayout from './AutoLayout'
+import AutoFigurePanelLayout from './_AutoFigurePanelLayout'
 
 export default class LayoutedFigurePanels extends NodeComponent {
   constructor (...args) {
@@ -16,7 +14,7 @@ export default class LayoutedFigurePanels extends NodeComponent {
   render () {
     const figure = this.props.node
     if (!figure.layout) {
-      return $$(AutoLayout, { node: figure }).addClass('sc-layouted-figure-panels')
+      return $$(AutoFigurePanelLayout, { node: figure }).addClass('sc-layouted-figure-panels')
     } else {
       const tdEls = []
       const el = $$('div', { class: 'sc-layouted-figure-panels' })
@@ -61,7 +59,40 @@ export default class LayoutedFigurePanels extends NodeComponent {
 
   _initializeLayout () {
     const layoutStr = this.props.node.layout
-    const layout = new PanelLayout(layoutStr)
+    const layout = new _FigurePanelLayout(layoutStr)
     return layout
+  }
+}
+
+class _FigurePanelLayout {
+  constructor (htmlStr) {
+    const table = DefaultDOMElement.parseSnippet(htmlStr, 'html')
+    if (!table.is('table')) throw new Error('Figure layout must be given as HTML table')
+    this._table = table
+    this._ncols = table.findAll('tr').reduce((cellCount, trEl) => {
+      const tdEls = domHelpers.findAllChildren(trEl, 'td')
+      return Math.max(cellCount, tdEls.length)
+    }, 0)
+  }
+
+  render (tdEls) {
+    return this._renderLayoutElement(this._table, tdEls)
+  }
+
+  getNcols () {
+    return this._ncols
+  }
+
+  _renderLayoutElement (layoutEl, tdEls) {
+    const el = $$(layoutEl.tagName)
+    const attributes = layoutEl.getAttributes()
+    for (const [key, value] of attributes.entries()) {
+      el.setAttribute(key, value)
+    }
+    if (layoutEl.tagName === 'td') tdEls.push(el)
+    el.append(
+      layoutEl.getChildren().map(child => this._renderLayoutElement(child, tdEls))
+    )
+    return el
   }
 }

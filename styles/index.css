@@ -1,6 +1,52 @@
-@import './_figure-package.css';
-@import './_figure-package-toc.css';
-@import './_figure-panel.css';
-@import './_figure-panel-thumbnail.css';
-@import './_figure-panels.css';
-@import './_layouted-figure-panels.css';
+@import './_reset.css';
+@import './_variables.css';
+@import './_text-styles.scss';
+@import './_typography.scss';
+
+/* some core, but only functional styles */
+@import '../node_modules/substance/styles/index.css';
+
+@import './_annotations.scss';
+@import './_button.scss';
+@import './_divider.scss';
+@import './_editor-toolbar.scss';
+@import './_heading.scss';
+@import './_horizontal-stack.scss';
+@import './_isolated-node.scss';
+@import './_limiter.scss';
+@import './_link-popover.scss';
+@import './_menu-item.scss';
+@import './_menu.scss';
+@import './_modal-canvas.scss';
+@import './_modal.scss';
+@import './_placeholder.scss';
+@import './_section.scss';
+@import './_smart-figure-editor.scss';
+@import './_smart-figure-page.scss';
+@import './_smart-figure-panel.scss';
+@import './_smart-figure-panel-thumbnail.scss';
+@import './_smart-figure-toc.scss';
+@import './_smart-figure.scss';
+@import './_two-column-layout.scss';
+@import './_layouted-figure-panels.scss';
+@import './_sourcedata-logo.css';
+@import './_title.scss';
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  /* apply a natural box layout model to all elements... */
+  box-sizing: border-box;
+}
+
+/* ... but allow components to change box-sizing */
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body > .sc-file-select {
+  display: none;
+}

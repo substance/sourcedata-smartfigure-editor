@@ -1,0 +1,30 @@
+.sc-horizontal-stack {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-content: center;
+}
+
+.sc-horizontal-stack > * {
+  align-self: center;
+  margin: 0 var(--default-spacing);
+}
+
+.sc-horizontal-stack.sm-nospacing > * {
+  margin: 0 0;
+}
+
+.sc-horizontal-stack > *:first-child {
+  margin-left: 0px;
+}
+
+.sc-horizontal-stack > *:last-child {
+  margin-right: 0px;
+}
+
+.sc-horizontal-stack > .sc-stack-fill {
+  -webkit-box-flex: 1!important;
+  -ms-flex-positive: 1!important;
+  flex-grow: 1!important;
+  height: 1px;
+}

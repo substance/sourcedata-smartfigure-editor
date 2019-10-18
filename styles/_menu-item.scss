@@ -1,0 +1,51 @@
+/* Menu item */
+
+.sc-menu-item {
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+  padding: 4px var(--default-spacing);
+  @include ts-interface;
+  
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-content: center;
+}
+
+.sc-menu-item > * {
+  align-self: center;
+}
+
+.sc-menu-item .se-icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 30px;
+}
+
+.sc-menu-item .se-shortcut {
+  margin-left: var(--default-spacing);
+  @include ts-small-interface;
+  @include ts-quiet;
+}
+
+.sc-menu-item.sm-active .se-shortcut {
+  color: rgba(255,255,255,0.6)
+}
+
+.sc-menu-item .se-label {
+  flex-grow: 1; /* take up all remaining space */
+}
+
+.sc-menu-item:hover {
+  background: var(--substance-background);
+}
+
+.sc-menu-item:disabled {
+  opacity: 0.3;
+}
+
+.sc-menu-item.sm-active {
+  background: var(--primary-button-color);
+  @include ts-inverted;
+}

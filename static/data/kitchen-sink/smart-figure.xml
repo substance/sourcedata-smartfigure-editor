@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE smart-figure PUBLIC "-//SOURCEDATA//DTD SmartFigure v1.0//EN"  "SourceData-SmartFigure-1.0.dtd">
+<smart-figure>
+  <title>Depletion of hepatic ASK1 increases lipid storage</title>
+  <panels>
+    <panel id="panel-a" label="A">
+      <legend>
+        <paragraph id="panel-a-legend-p1">Hepatocytes were treated with BSA, Palm, or Palm + Rap for 24 h. Cells were stained for lipid droplet accumulation (BODIPY 493/503, green) and nuclei (Hoechst, blue). Lipid accumulation was quantified using automated image‐based analysis (n = 4 biological replicates). Scale bar represents 100 μm.</paragraph>
+      </legend>
+      <image id="panel-a-image" mimetype="image/jpeg" src="panel-a.jpg" />
+    </panel>
+    <panel id="panel-b" label="B">
+      <legend>
+        <paragraph id="panel-b-legend-p1">Shown is one representative Western blot from two independent experiments of hepatocytes transfected with siRNA targeting ASK1 (siASK1) or non‐targeting siRNA control (siCtrl).</paragraph>
+      </legend>
+      <image id="panel-b-image" mimetype="image/jpeg" src="panel-b.jpg" />
+    </panel>
+    <panel id="panel-c" label="C">
+      <legend>
+        <paragraph id="panel-c-legend-p1">Lipid accumulation was quantified using automated image‐based analysis in ASK1‐knockdown (siASK1; gray bars) or control (siCtrl; black bars) cells treated with BSA, Palm, and Palm + Rap and stained as mentioned above (n = 4 biological replicates).</paragraph>
+      </legend>
+      <image id="panel-c-image" mimetype="image/jpeg" src="panel-c.jpg" />
+    </panel>
+    <panel id="panel-d" label="D">
+      <legend>
+        <paragraph id="panel-d-legend-p1">Shown is one representative Western blot from two independent experiments (left) and quantification of LC3‐II/I and p62 protein levels Palm (right).</paragraph>
+      </legend>
+      <image id="panel-d-image" mimetype="image/jpeg" src="panel-d.jpg" />
+    </panel>
+    <panel id="panel-e" label="E">
+      <legend>
+        <paragraph id="panel-e-legend-p1">Colocalization of in siCtrl (n = 4 biological replicates) or siASK1 (n = 4 biological replicates) cells treated with LC3‐II punctate (red) with lipid (BODIPY 493/503, green) and nuclei (Hoechst, blue) in siCtrl or siASK1 cells treated with BSA, Palm, or Palm + Rap. Scale bar represents 100 μm.</paragraph>
+      </legend>
+      <image id="panel-e-image" mimetype="image/jpeg" src="panel-e.jpg" />
+    </panel>
+    <panel id="panel-f" label="F">
+      <legend>
+        <paragraph id="panel-f-legend-p1">Colocalization of LC3‐II punctate with lipid droplets (BODIPY 493/503, green) was quantified in hepatocytes transfected with siRNA targeting ASK1 (siASK1; gray bars) or non‐targeting siRNA control (siCtrl; black bars) and treated with BSA or BSA + Baf for 24 h (n = 4 biological replicates).</paragraph>
+      </legend>
+      <image id="panel-f-image" mimetype="image/jpeg" src="panel-f.jpg" />
+    </panel>
+    <panel id="panel-g" label="G">
+      <legend>
+        <paragraph id="panel-g-legend-p1">Lipid accumulation was quantified using automated image‐based analysis in ASK1‐knockdown (siASK1; gray bars) or control (siCtrl; black bars) cells treated with BSA, Palm, or Palm + Baf and stained as mentioned above (n = 4 biological replicates).</paragraph>
+      </legend>
+      <image id="panel-g-image" mimetype="image/jpeg" src="panel-g.jpg" />
+    </panel>
+  </panels>
+  <additionalInformation>
+    <paragraph id="additional-information-p1">Data information: Values are expressed as mean ± SEM. *P &lt; 0.05; **P &lt; 0.01; ***P &lt; 0.001. Statistical tests used are as follows: ANOVA for (A, C, F, and G); and t‐test for (D).</paragraph>
+    <paragraph id="additional-information-p2">Source data are available online for this figure.</paragraph>
+  </additionalInformation>
+</smart-figure>

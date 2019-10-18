@@ -1,0 +1,13 @@
+.sc-editor-toolbar {
+  height: 40px;
+  box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #ccc;
+  z-index: 4;
+}
+
+.sc-editor-toolbar .sc-horizontal-stack > * {
+  margin: 0 1px;
+}
+
+.sc-editor-toolbar .sc-button {
+  min-width: var(--small-button-height);
+}

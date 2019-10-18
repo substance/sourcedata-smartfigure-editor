@@ -4,84 +4,77 @@ const rollup = require('substance-bundler/extensions/rollup')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const postcss = require('substance-bundler/extensions/postcss')
+const scssMixins = require('substance-bundler/extensions/postcss/postcss-scss-mixins')
 const path = require('path')
 
 const DIST = 'dist/'
 const TMP = 'dist/'
+const POSTCSS_PLUGINS = [
+  require('postcss-import'),
+  scssMixins,
+  require('postcss-reporter')
+]
 
 b.task('clean', function () {
   b.rm(DIST)
   b.rm(TMP)
 }).describe('removes all generated files and folders.')
 
-b.task('build', ['clean', 'build:assets', 'build:demo', 'build:plugin', 'build:css'])
+b.task('build', ['clean', 'build:assets', 'build:fonts', 'build:lib', 'build:css'])
   .describe('builds the library bundle.')
 
 b.task('default', ['clean', 'build'])
 
-b.task('build:plugin', () => {
+b.task('build:lib', () => {
   rollup(b, {
     input: 'index.js',
     output: {
-      file: DIST + 'texture-plugin-source-data.js',
-      format: 'umd',
-      name: 'TexturePluginSourceData',
-      globals: {
-        substance: 'substance',
-        'substance-texture': 'texture',
-        katex: 'katex'
-      },
+      file: DIST + 'smart-figure.js',
+      format: 'es',
       sourcemap: true
     },
-    external: ['substance', 'substance-texture', 'katex'],
     plugins: [
-      nodeResolve(),
+      nodeResolve({
+        mainFields: ['esnext', 'module', 'main']
+      }),
       commonjs()
     ]
   })
 })
 
 b.task('build:assets', ['build:vfs'], () => {
-  b.copy('./node_modules/substance-texture/dist', path.join(DIST, 'lib', 'texture'))
-  b.copy('./data', DIST)
+  b.copy('./static/images', DIST + 'images')
+  b.copy('./static/data', DIST + 'data')
+  b.copy('./static/demo.js', DIST)
+  b.copy('./static/index.html', DIST)
+})
+
+b.task('build:fonts', () => {
+  b.copy('./node_modules/@fortawesome/fontawesome-free', DIST + 'fonts/fontawesome')
+  b.copy('./styles/fonts.css', DIST + 'styles/fonts.css')
 })
 
 b.task('build:css', () => {
   postcss(b, {
     from: 'styles/index.css',
-    to: DIST + 'texture-plugin-source-data.css'
+    to: DIST + 'styles/styles.css',
+    postcss: require('postcss'),
+    plugins: POSTCSS_PLUGINS,
+    parser: require('postcss-comment')
   })
-})
-
-b.task('build:demo', () => {
-  rollup(b, {
-    input: './demo/web/demo.js',
-    output: {
-      file: DIST + 'demo.js',
-      format: 'umd',
-      name: 'figurePackageDemo',
-      globals: {
-        substance: 'substance',
-        'substance-texture': 'texture',
-        katex: 'katex'
-      }
-    },
-    external: ['substance', 'substance-texture', 'katex'],
-    plugins: [
-      nodeResolve(),
-      commonjs()
-    ]
+  postcss(b, {
+    from: 'styles/fonts.css',
+    to: DIST + 'styles/fonts.css'
   })
-  b.copy('./demo/web/index.html', DIST)
 })
 
 b.task('build:vfs', () => {
   vfs(b, {
-    src: ['./data/**/*'],
+    src: ['./static/data/**/*'],
     dest: DIST + 'vfs.js',
     format: 'umd',
     moduleName: 'vfs',
-    rootDir: path.join(__dirname, 'data')
+    rootDir: path.join(__dirname, 'static', 'data')
   })
 })
 

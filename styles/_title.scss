@@ -1,0 +1,9 @@
+.sc-title {
+  @include ts-large-interface;
+}
+
+.sc-title.sm-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

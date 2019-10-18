@@ -1,0 +1,46 @@
+:root {
+  /* Colors */
+  --substance-background: #F5F6F4;
+  --primary-button-color: #1A73E8;
+  --default-button-color: #F0F1EC;
+  --success-color: #6CBA28;
+  --inverted-text-color: #fff;
+  --quiet-text-color: rgba(0, 0, 0, 0.40);
+  --dark-text-color: #212121;
+  --gray-text-color: rgba(33,33,33,0.5);
+  --link-color: #1A73E8;
+  --published-color: #6CBA28;
+  --dark-background-color: #1A1A1A;
+  --light-border-color: #DBDBDB;
+  --error-color: 225, 56, 56;
+
+  /* Fonts */
+  --default-font: Arial;
+  --heading-font: Georgia;
+
+  /* Spacing */
+  --default-spacing: 12px;
+  --half-spacing: 6px;
+  --double-spacing: 24px;
+  --quad-spacing: 48px;
+  --large-width-limiter: 1200px;
+  --large-screen-width: 83.33333333%;
+  --middle-screen-width: 91.666666666%;
+  --header-height: 60px;
+  --footer-height: 230px;
+  --mobile-footer-height: 370px;
+  --content-min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  --mobile-content-min-height: calc(100vh - var(--header-height) - var(--mobile-footer-height));
+  --input-max-width: 500px;
+  --input-height: 36px;
+  --large-button-height: 48px;
+  --default-button-height: 36px;
+  --small-button-height: 26px;
+
+  /* Misc */
+  --action-button-border-radius: 13px;
+  --action-button-padding: 2px 20px;
+  --popover-border-radius: 4px;
+  --popover-shadow: rgb(209, 209, 209) 0px 0px 0px 1px, rgb(204, 204, 204) 0px 0px 4px 1px;
+  --card-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.50);
+}

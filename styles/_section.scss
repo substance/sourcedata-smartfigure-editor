@@ -1,0 +1,4 @@
+.sc-section > .se-section-label {
+  @include ts-small-interface;
+  color: var(--quiet-text-color);
+}

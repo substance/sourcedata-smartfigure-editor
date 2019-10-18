@@ -1,1 +1,1 @@
-import './src/SourceDataPlugin'
+export * from './src/index'

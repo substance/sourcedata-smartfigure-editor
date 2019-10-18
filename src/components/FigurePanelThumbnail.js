@@ -1,14 +1,14 @@
-import { Component, $$, domHelpers } from 'substance'
-import { getLabel, NodeComponent } from 'substance-texture'
+import { Component, $$, domHelpers, ImageComponent } from 'substance'
+import getLabel from './_getLabel'
 
 export default class FigurePanelThumbnail extends Component {
   render () {
     const panel = this.props.node
     const image = panel.resolve('image')
     const label = getLabel(panel)
-    return $$('button', { class: 'sc-figure-panel-thumbnail', title: label },
+    return $$('button', { class: 'sc-smart-figure-panel-thumbnail', title: label },
       $$('div', { class: 'se-label' }, label),
-      $$(_Graphic, { node: image })
+      $$(ImageComponent, { node: image })
     ).on('click', this._onClick)
   }
 
@@ -18,17 +18,5 @@ export default class FigurePanelThumbnail extends Component {
     this.send('selectPanel', panel)
     // TODO: this should not be necessary
     this.send('scrollTo', { nodeId: panel.id })
-  }
-}
-
-class _Graphic extends NodeComponent {
-  render () {
-    const node = this.props.node
-    const urlResolver = this.context.urlResolver
-    let url = node.href
-    if (urlResolver) {
-      url = urlResolver.resolveUrl(url)
-    }
-    return $$('img', { src: url })
   }
 }

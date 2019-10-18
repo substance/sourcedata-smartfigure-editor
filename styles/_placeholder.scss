@@ -1,0 +1,10 @@
+.sc-container-editor > .sc-text-property.sm-empty:only-child:before,
+.sc-text-input > .sc-text-property.sm-empty:before {
+  content: attr(data-placeholder);
+  /* NOTE: make sure the parent scrollpane element is set to position: relative,
+           otherwise the placeholder will be fixed while scrolling. 
+           Currently solved via position:relative in _essay-editor.css */
+  position: absolute;
+  @include ts-quiet;
+  font-style: italic;
+}

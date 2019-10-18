@@ -1,0 +1,26 @@
+.sc-annotation.sm-bold {
+  font-weight: 600;
+}
+
+.sc-annotation.sm-italic {
+  font-style: italic;
+}
+
+.sc-annotation.sm-subscript {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+.sc-annotation.sm-superscript {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+.sc-annotation.sm-strike {
+  text-decoration: line-through;
+}
+
+.sc-annotation.sm-link {
+  color: inherit;
+  text-decoration: underline;
+}
