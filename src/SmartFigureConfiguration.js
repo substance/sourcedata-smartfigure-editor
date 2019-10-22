@@ -12,6 +12,7 @@ import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
 import ReplaceFigurePanelImageCommand from './commands/ReplaceFigurePanelImageCommand'
 import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
+import AddAuthorCommand from './commands/AddAuthorCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -86,6 +87,8 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
     config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
 
+    config.addCommand('add-author', AddAuthorCommand)
+
     // Menus
     const editorToolbar = {
       type: 'toolbar',
@@ -101,6 +104,14 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-subscript', icon: 'subscript', tooltip: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', tooltip: 'Superscript' },
         { command: 'create-link', icon: 'link', tooltip: 'Link' },
+        {
+          type: 'menu',
+          label: 'Document',
+          hideWhenDisabled: false,
+          items: [
+            { command: 'add-author', label: 'Add Author' }
+          ]
+        },
         {
           type: 'menu',
           label: 'Figure',

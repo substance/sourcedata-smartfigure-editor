@@ -1,6 +1,7 @@
 import { Component, $$, renderProperty } from 'substance'
 import Section from './Section'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
+import AuthorsListComponent from './AuthorsListComponent'
 
 export default class SmartFigureComponent extends Component {
   render () {
@@ -14,6 +15,10 @@ export default class SmartFigureComponent extends Component {
         // HACK: using style of sc-heading level 1
         renderProperty(this, doc, [node.id, 'title'], { placeholder: 'Untitled' }).addClass('sc-heading sm-level-1')
       )
+    )
+
+    el.append(
+      $$(AuthorsListComponent, { node })
     )
 
     el.append(

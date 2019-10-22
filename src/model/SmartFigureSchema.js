@@ -11,6 +11,11 @@ export default function SmartFigureSchema () {
         type: 'text',
         childTypes: ['italic', 'superscript', 'subscript']
       },
+      authors: {
+        type: 'children',
+        childTypes: ['author'],
+        optional: true
+      },
       panels: {
         type: 'children',
         childTypes: ['panel']
@@ -20,6 +25,11 @@ export default function SmartFigureSchema () {
         childTypes: ['paragraph'],
         defaultTextType: 'paragraph'
       }
+    })
+    // author
+    v.addNode('author', '@node', {
+      firstName: { type: 'string' },
+      lastName: { type: 'string' }
     })
     // panel
     v.addNode('panel', '@node', {

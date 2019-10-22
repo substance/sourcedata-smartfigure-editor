@@ -1,6 +1,19 @@
 import { BasicEditorApi, documentHelpers } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
+  addAuthor (data) {
+    this.editorSession.transaction(tx => {
+      const root = tx.getDocument().root
+      const author = tx.create({
+        type: 'author',
+        firstName: data.firstName,
+        lastName: data.lastName
+      })
+      documentHelpers.append(tx, [root.id, 'authors'], author.id)
+      // TODO: set selection
+    })
+  }
+
   insertPanelAfter (currentPanelId, file) {
     const doc = this.getDocument()
     const currentPanel = doc.get(currentPanelId)
