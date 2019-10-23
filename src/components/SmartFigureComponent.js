@@ -1,7 +1,6 @@
-import { Component, $$, renderProperty } from 'substance'
+import { Component, $$, renderProperty, AuthorsListComponent } from 'substance'
 import Section from './Section'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
-import AuthorsListComponent from './AuthorsListComponent'
 
 export default class SmartFigureComponent extends Component {
   render () {
