@@ -1,0 +1,29 @@
+.sc-authors-list > .sc-author {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  // border-radius: 3px;
+  //
+}
+
+.sc-authors-list > * + * {
+  margin-left: var(--default-spacing);
+}
+
+.sc-authors-list > .sc-author.sm-selected {
+  // TODO: find a good style
+
+  // This is the same box-shadow as used for panels,
+  // which would be very consistent because both selections are item selections.
+  // But IMO it does not look nice.
+  // box-shadow: var(--custom-selection-box-shadow);
+
+  // This is the box we use for focused inputs and surfaces, and pretty much what we did in Texture
+  // for these kind of selections.
+  // Semantically it is very inconsistent, neither I like the look.
+  // box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
+
+  // maybe make it look like a selected text?
+  // it at kind of makes sense semantically
+  background: rgba(176, 210, 251, 0.8);
+}

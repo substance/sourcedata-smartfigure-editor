@@ -2,6 +2,10 @@
 <!DOCTYPE smart-figure PUBLIC "-//SOURCEDATA//DTD SmartFigure v1.0//EN"  "SourceData-SmartFigure-1.0.dtd">
 <smart-figure>
   <title>Depletion of hepatic ASK1 increases lipid storage</title>
+  <authors>
+    <author firstName="Oliver" lastName="Buchtala" />
+    <author firstName="Michael" lastName="Aufreiter" />
+  </authors>
   <panels>
     <panel id="panel-a" label="A">
       <legend>

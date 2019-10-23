@@ -29,8 +29,12 @@ export default function SmartFigureSchema () {
     // author
     v.addNode('author', '@node', {
       firstName: { type: 'string' },
-      lastName: { type: 'string' }
+      middleNames: { type: 'string-array', optional: true },
+      lastName: { type: 'string' },
+      prefix: { type: 'string', optional: true },
+      suffix: { type: 'string', optional: true }
     })
+
     // panel
     v.addNode('panel', '@node', {
       label: { type: 'string' },

@@ -28,7 +28,7 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.editorSession.transaction(tx => {
       const newPanel = documentHelpers.createNodeFromJson(tx, template)
       documentHelpers.insertAt(tx, [figure.id, 'panels'], insertPos, newPanel.id)
-      this._selectPanel(tx, newPanel)
+      this._selectItem(tx, newPanel)
     })
   }
 
@@ -69,15 +69,15 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  selectPanel (panel) {
-    this._selectPanel(this.editorSession, panel)
+  selectItem (item) {
+    this._selectItem(this.editorSession, item)
   }
 
-  _selectPanel (tx, panel) {
+  _selectItem (tx, node) {
     tx.setSelection({
       type: 'custom',
-      nodeId: panel.id,
-      customType: 'panel'
+      nodeId: node.id,
+      customType: node.type
     })
   }
 }

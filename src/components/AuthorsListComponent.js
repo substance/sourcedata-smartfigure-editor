@@ -1,4 +1,4 @@
-import { Component, $$ } from 'substance'
+import { Component, $$, SelectableNodeComponent, domHelpers, Blocker } from 'substance'
 
 export default class AuthorsListComponent extends Component {
   didMount () {
@@ -25,7 +25,7 @@ export default class AuthorsListComponent extends Component {
       // do not dictate if authors are ordered
       for (const author of authors) {
         el.append(
-          $$(AuthorComponent, { node: author })
+          $$(_AuthorComponent, { node: author })
         )
       }
     } else {
@@ -36,16 +36,27 @@ export default class AuthorsListComponent extends Component {
   }
 }
 
-class AuthorComponent extends Component {
+class _AuthorComponent extends SelectableNodeComponent {
   render () {
     const node = this.props.node
     const el = $$('div', { class: 'sc-author' })
-    // Note: abbreviating the first name
+
+    if (this.state.selected) el.addClass('sm-selected')
     el.append(
       $$('span', { class: 'se-first-name' }, _abbreviated(node.firstName)),
       $$('span', { class: 'se-last-name' }, node.lastName)
     )
+
+    // add a blocker so that browser can not interact with the rendered content
+    el.append($$(Blocker))
+
+    el.on('click', this._onClick)
     return el
+  }
+
+  _onClick (e) {
+    domHelpers.stopAndPrevent(e)
+    this.send('selectItem', this.props.node)
   }
 }
 

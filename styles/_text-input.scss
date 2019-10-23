@@ -1,0 +1,10 @@
+.sc-text-input {
+  outline: 0;
+  padding: 5px;
+}
+
+.sc-text-input:focus {
+  border-color: transparent;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
+}

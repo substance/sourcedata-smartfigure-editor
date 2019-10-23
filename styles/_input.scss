@@ -1,0 +1,19 @@
+.sc-input {
+  height: 36px;
+  width: 100%;
+  border: none;
+  border: 1px solid var(--light-border-color);
+  @include ts-content;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.sc-input:focus {
+  outline: 0;
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
+}
+
+.sc-input:disabled {
+  opacity: 0.3;
+}

@@ -5,13 +5,14 @@ import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
 import SmartFigureComponent from './SmartFigureComponent'
 import SmartFigureTOC from './SmartFigureTOC'
+import _getContext from './_getContext'
 
 export default class SmartFigureEditor extends AbstractEditor {
   constructor (...args) {
     super(...args)
 
     this.handleActions({
-      selectPanel: this._selectPanel,
+      selectItem: this._selectItem,
       scrollTo: this._scrollTo,
       requestModal: this._openModal,
       requestPopover: this._openPopover,
@@ -42,7 +43,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     // ATTENTION: hopefully this does not prevent any other default behavior
     // important not to preventDefault here, as otherwise native mouse stuff, like focussing is not working anymore
     el.on('mousedown', domHelpers.stop)
-    // el.on('contextmenu', this._onContextMenu)
+    el.on('contextmenu', this._onContextMenu)
 
     return el
   }
@@ -74,8 +75,8 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
   }
 
-  _selectPanel (panel) {
-    this.api.selectPanel(panel)
+  _selectItem (panel) {
+    this.api.selectItem(panel)
   }
 
   _openModal (renderModal) {
@@ -95,5 +96,22 @@ export default class SmartFigureEditor extends AbstractEditor {
     const fileSelect = this.refs.fileSelect
     fileSelect.setProps(props)
     return fileSelect.selectFiles()
+  }
+
+  _onContextMenu (event) {
+    domHelpers.stopAndPrevent(event)
+    const selectionState = this.editorState.selectionState
+    const context = _getContext(selectionState)
+    if (context) {
+      const menuSpec = this.context.config.getToolPanel(`context-menu:${context}`)
+      if (menuSpec) {
+        const desiredPos = { x: event.clientX, y: event.clientY + 10 }
+        this.send('requestPopover', {
+          requester: this,
+          desiredPos,
+          content: menuSpec
+        })
+      }
+    }
   }
 }

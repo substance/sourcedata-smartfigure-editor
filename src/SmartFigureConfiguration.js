@@ -106,17 +106,11 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'create-link', icon: 'link', tooltip: 'Link' },
         {
           type: 'menu',
-          label: 'Document',
+          label: 'Smart Figure',
           hideWhenDisabled: false,
+          noIcons: true,
           items: [
-            { command: 'add-author', label: 'Add Author' }
-          ]
-        },
-        {
-          type: 'menu',
-          label: 'Figure',
-          hideWhenDisabled: false,
-          items: [
+            { command: 'add-author', label: 'Add Author' },
             { command: 'insert-figure-panel', label: 'Insert Panel' },
             { command: 'remove-figure-panel', label: 'Remove Panel' },
             { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
@@ -129,6 +123,38 @@ export default class SmartFigureConfiguration extends Configurator {
     }
 
     config.addToolPanel('editor-toolbar', editorToolbar)
+
+    // context menus
+    config.addToolPanel('context-menu:text', {
+      type: 'menu',
+      items: [
+        { command: 'toggle-bold', icon: 'bold', label: 'Bold' },
+        { command: 'toggle-italic', icon: 'italic', label: 'Italic' },
+        { command: 'toggle-strike', icon: 'strikethrough', label: 'Strike Through' },
+        { command: 'toggle-subscript', icon: 'subscript', label: 'Subscript' },
+        { command: 'toggle-superscript', icon: 'superscript', label: 'Superscript' },
+        { command: 'create-link', icon: 'link', label: 'Link' }
+      ]
+    })
+    config.addToolPanel('context-menu:panel', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'insert-figure-panel', label: 'Insert Panel' },
+        { command: 'remove-figure-panel', label: 'Remove Panel' },
+        { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
+        { command: 'move-figure-panel-up', label: 'Move Panel Up' },
+        { command: 'move-figure-panel-down', label: 'Move Panel Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:author', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'edit-author', label: 'Edit Author' }
+      ]
+    })
 
     // labels
     config.addLabel('paragraph', 'Paragraph')
