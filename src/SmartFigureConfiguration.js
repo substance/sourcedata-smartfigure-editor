@@ -13,6 +13,9 @@ import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
 import ReplaceFigurePanelImageCommand from './commands/ReplaceFigurePanelImageCommand'
 import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
 import AddAuthorCommand from './commands/AddAuthorCommand'
+import EditAuthorCommand from './commands/EditAuthorCommand'
+import RemoveAuthorCommand from './commands/RemoveAuthorCommand'
+import MoveAuthorCommand from './commands/MoveAuthorCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -88,6 +91,10 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
 
     config.addCommand('add-author', AddAuthorCommand)
+    config.addCommand('edit-author', EditAuthorCommand)
+    config.addCommand('remove-author', RemoveAuthorCommand)
+    config.addCommand('move-author-forward', MoveAuthorCommand, { direction: 'forward' })
+    config.addCommand('move-author-back', MoveAuthorCommand, { direction: 'back' })
 
     // Menus
     const editorToolbar = {
@@ -152,7 +159,10 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'edit-author', label: 'Edit Author' }
+        { command: 'edit-author', label: 'Edit Author' },
+        { command: 'remove-author', label: 'Remove Author' },
+        { command: 'move-author-forward', label: 'Move Author Forward' },
+        { command: 'move-author-back', label: 'Move Author Back' }
       ]
     })
 

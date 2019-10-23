@@ -10,7 +10,7 @@ export default class SmartFigureApi extends BasicEditorApi {
         lastName: data.lastName
       })
       documentHelpers.append(tx, [root.id, 'authors'], author.id)
-      // TODO: set selection
+      this._selectItem(tx, author)
     })
   }
 
@@ -33,29 +33,11 @@ export default class SmartFigureApi extends BasicEditorApi {
   }
 
   removePanel (panelId) {
-    const doc = this.getDocument()
-    const panel = doc.get(panelId)
-    const figure = panel.getParent()
-    if (!figure) throw new Error('Figure does not exist')
-    const pos = panel.getPosition()
-    this.editorSession.transaction(tx => {
-      documentHelpers.removeAt(tx, [figure.id, 'panels'], pos)
-      documentHelpers.deepDeleteNode(tx, panel.id)
-      tx.setSelection(null)
-    })
+    super.removeAndDeleteNode(panelId)
   }
 
   movePanel (panelId, direction) {
-    const doc = this.getDocument()
-    const panel = doc.get(panelId)
-    const figure = panel.getParent()
-    if (!figure) throw new Error('Figure does not exist')
-    const pos = panel.getPosition()
-    const diff = direction === 'up' ? -1 : +1
-    this.editorSession.transaction(tx => {
-      documentHelpers.removeAt(tx, [figure.id, 'panels'], pos)
-      documentHelpers.insertAt(tx, [figure.id, 'panels'], pos + diff, panelId)
-    })
+    super.moveNode(panelId, direction)
   }
 
   replacePanelImage (panelId, file) {

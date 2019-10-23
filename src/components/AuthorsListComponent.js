@@ -25,7 +25,7 @@ export default class AuthorsListComponent extends Component {
       // do not dictate if authors are ordered
       for (const author of authors) {
         el.append(
-          $$(_AuthorComponent, { node: author })
+          $$(_AuthorComponent, { node: author }).ref(author.id)
         )
       }
     } else {
@@ -39,7 +39,8 @@ export default class AuthorsListComponent extends Component {
 class _AuthorComponent extends SelectableNodeComponent {
   render () {
     const node = this.props.node
-    const el = $$('div', { class: 'sc-author' })
+    // Note: using a button so that the browser treats it as UI element, not content (e.g. re selections)
+    const el = $$('button', { class: 'sc-author' })
 
     if (this.state.selected) el.addClass('sm-selected')
     el.append(
@@ -50,11 +51,11 @@ class _AuthorComponent extends SelectableNodeComponent {
     // add a blocker so that browser can not interact with the rendered content
     el.append($$(Blocker))
 
-    el.on('click', this._onClick)
+    el.on('mousedown', this._onMousedown)
     return el
   }
 
-  _onClick (e) {
+  _onMousedown (e) {
     domHelpers.stopAndPrevent(e)
     this.send('selectItem', this.props.node)
   }
