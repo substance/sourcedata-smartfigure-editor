@@ -38,6 +38,7 @@
 @import './_two-column-layout.scss';
 @import './_layouted-figure-panels.scss';
 @import './_sourcedata-logo.css';
+@import './_structured-keyword.scss';
 @import './_title.scss';
 
 html {

@@ -123,11 +123,7 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'insert-figure-panel', label: 'Insert Panel' },
-            { command: 'remove-figure-panel', label: 'Remove Panel' },
-            { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
-            { command: 'move-figure-panel-up', label: 'Move Panel Up' },
-            { command: 'move-figure-panel-down', label: 'Move Panel Down' }
+            { command: 'insert-figure-panel', label: 'Add Panel' }
           ]
         },
         { type: 'fill' }
@@ -156,7 +152,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-figure-panel', label: 'Remove Panel' },
         { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
-        { command: 'move-figure-panel-down', label: 'Move Panel Down' }
+        { command: 'move-figure-panel-down', label: 'Move Panel Down' },
+        { command: 'add-keyword-group', label: 'Add Keyword Group' }
       ]
     })
 
@@ -179,6 +176,17 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
         { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
         { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:keyword-group', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'edit-keyword-group', label: 'Edit Keword Group' },
+        { command: 'remove-keyword-group', label: 'Remove Keword Group' },
+        { command: 'move-keyword-group-up', label: 'Move Keword Group Up' },
+        { command: 'move-keyword-group-down', label: 'Move Keword Group Down' }
       ]
     })
 

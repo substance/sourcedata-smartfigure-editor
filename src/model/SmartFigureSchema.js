@@ -38,7 +38,7 @@ export default function SmartFigureSchema () {
       lastName: { type: 'string' },
       prefix: { type: 'string', optional: true },
       suffix: { type: 'string', optional: true },
-      affiliations: { type: 'many', targetTypes: ['affiliation'], optional: true },
+      affiliations: { type: 'many', targetTypes: ['affiliation'], optional: true }
     })
     v.addNode('affiliation', '@node', {
       name: { type: 'string' },
@@ -56,7 +56,7 @@ export default function SmartFigureSchema () {
       },
       keywords: {
         type: 'children',
-        childTypes: ['structured-keyword'],
+        childTypes: ['keyword-group'],
         optional: true
       }
     }, { Mixin: PanelMixin })
@@ -66,10 +66,10 @@ export default function SmartFigureSchema () {
       src: { type: 'string' }
     })
     // structured-keyword
-    v.addNode('structured-keyword', '@node', {
+    v.addNode('keyword-group', '@node', {
       name: { type: 'string' },
-      value: { type: 'children', childTypes: ['keyword'] }
-    })
+      keywords: { type: 'children', childTypes: ['keyword'] }
+    }, { omitPropertyElement: true })
     v.addNode('keyword', '@text', {
       content: { type: 'string' }
     })

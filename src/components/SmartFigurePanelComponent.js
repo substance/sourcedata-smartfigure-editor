@@ -1,6 +1,7 @@
 import { SelectableNodeComponent, $$, domHelpers, renderProperty } from 'substance'
 import Section from './Section'
 import getLabel from './_getLabel'
+import StructuredKeywordComponent from './StructuredKeywordComponent'
 
 export default class FigurePanelComponent extends SelectableNodeComponent {
   render () {
@@ -24,6 +25,17 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
       $$(Section, { label: 'Legend' }),
       renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
     )
+
+    if (node.keywords && node.keywords.length > 0) {
+      const keywords = node.resolve('keywords')
+      const keywordSection = $$(Section, { label: 'Keywords' })
+      for (const keywordGroup of keywords) {
+        keywordSection.append(
+          $$(StructuredKeywordComponent, { node: keywordGroup }).ref(keywordGroup.id)
+        )
+      }
+      el.append(keywordSection)
+    }
 
     el.on('mousedown', this._onMousedown)
 

@@ -26,6 +26,16 @@
         <paragraph id="panel-a-legend-p1">Hepatocytes were treated with BSA, Palm, or Palm + Rap for 24 h. Cells were stained for lipid droplet accumulation (BODIPY 493/503, green) and nuclei (Hoechst, blue). Lipid accumulation was quantified using automated image‐based analysis (n = 4 biological replicates). Scale bar represents 100 μm.</paragraph>
       </legend>
       <image id="panel-a-image" mimetype="image/jpeg" src="panel-a.jpg" />
+      <keywords>
+        <keyword-group name="Exp. System">
+          <keyword>immunostaining</keyword>
+          <keyword>confocal microscopy</keyword>
+        </keyword-group>
+        <keyword-group name="Measured Variables">
+          <keyword>A</keyword>
+          <keyword>B</keyword>
+        </keyword-group>
+      </keywords>
     </panel>
     <panel id="panel-b" label="B">
       <legend>
