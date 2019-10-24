@@ -25,12 +25,12 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
       renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
     )
 
-    el.on('click', this._onClick)
+    el.on('mousedown', this._onMousedown)
 
     return el
   }
 
-  _onClick (e) {
+  _onMousedown (e) {
     domHelpers.stopAndPrevent(e)
     this.send('selectItem', this.props.node)
   }
