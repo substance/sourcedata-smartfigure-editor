@@ -6,6 +6,7 @@ import TwoColumnLayout from './TwoColumnLayout'
 import SmartFigureComponent from './SmartFigureComponent'
 import SmartFigureTOC from './SmartFigureTOC'
 import _getContext from './_getContext'
+import PanelLabelManager from './_PanelLabelManager'
 
 export default class SmartFigureEditor extends AbstractEditor {
   constructor (...args) {
@@ -19,6 +20,18 @@ export default class SmartFigureEditor extends AbstractEditor {
       releasePopover: this._releasePopover,
       requestFileSelect: this._openFileSelect
     })
+  }
+
+  didMount () {
+    super.didMount()
+
+    this._panelLabelManager = new PanelLabelManager(this.editorSession)
+  }
+
+  dispose () {
+    super.dispose()
+
+    this._panelLabelManager.dispose()
   }
 
   render () {
