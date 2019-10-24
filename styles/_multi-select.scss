@@ -1,10 +1,12 @@
 .sc-multi-select {
   @include ts-interface;
   width: 100%;
+  padding: 0 5px;
 }
 
 .sc-multi-select.sm-active {
   box-shadow: var(--custom-selection-box-shadow);
+  // background: rgba(176, 210, 251, 0.8);
 }
 
 .sc-multi-select > .se-placeholder {
@@ -16,7 +18,6 @@
 .sc-multi-select > .se-preview > .se-value::before {
   content: '• '
 }
-
 
 // ATTENTION: styles below are rendered in the popover canvas
 // i.e. at a different place in the DOM
