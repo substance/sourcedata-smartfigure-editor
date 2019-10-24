@@ -11,6 +11,16 @@ export default function SmartFigureSchema () {
         type: 'text',
         childTypes: ['italic', 'superscript', 'subscript']
       },
+      authors: {
+        type: 'children',
+        childTypes: ['author'],
+        optional: true
+      },
+      affiliations: {
+        type: 'children',
+        childTypes: ['affiliation'],
+        optional: true
+      },
       panels: {
         type: 'children',
         childTypes: ['panel']
@@ -21,6 +31,20 @@ export default function SmartFigureSchema () {
         defaultTextType: 'paragraph'
       }
     })
+    // author
+    v.addNode('author', '@node', {
+      firstName: { type: 'string' },
+      middleNames: { type: 'string-array', optional: true },
+      lastName: { type: 'string' },
+      prefix: { type: 'string', optional: true },
+      suffix: { type: 'string', optional: true },
+      affiliations: { type: 'many', targetTypes: ['affiliation'], optional: true },
+    })
+    v.addNode('affiliation', '@node', {
+      name: { type: 'string' },
+      label: { type: 'string', optional: true }
+    })
+
     // panel
     v.addNode('panel', '@node', {
       label: { type: 'string' },

@@ -5,7 +5,7 @@
 }
 
 .sc-smart-figure-panel.sm-selected {
-  box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #2E72EA;
+  box-shadow: var(--custom-selection-box-shadow);
 }
 
 .sc-smart-figure-panel > .sc-section-label:first-child {

@@ -15,7 +15,7 @@ export default class FigurePanelThumbnail extends Component {
   _onClick (event) {
     const panel = this.props.node
     domHelpers.stopAndPrevent(event)
-    this.send('selectPanel', panel)
+    this.send('selectItem', panel)
     // TODO: this should not be necessary
     this.send('scrollTo', { nodeId: panel.id })
   }

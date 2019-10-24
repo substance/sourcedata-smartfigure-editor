@@ -43,4 +43,8 @@
   --popover-border-radius: 4px;
   --popover-shadow: rgb(209, 209, 209) 0px 0px 0px 1px, rgb(204, 204, 204) 0px 0px 4px 1px;
   --card-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.50);
+  --custom-selection-box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #2E72EA;
+  // --custom-selection-box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
+  --modal-medium-size: 520px;
+  --popover-medium-size: 450px;
 }

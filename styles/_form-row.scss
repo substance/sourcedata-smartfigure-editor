@@ -1,0 +1,24 @@
+.sc-form-row > .se-description {
+  overflow: hidden;
+  padding-bottom: var(--half-spacing);
+}
+
+.sc-form-row > .se-description > .se-label {
+  float: left;
+  @include ts-interface;
+}
+
+.sc-form-row > .se-description > .se-error {
+  float: right;
+  @include ts-small-interface;
+  color: rgb(var(--error-color));
+}
+
+.sc-form-row.sm-error > .se-content > .sc-input {
+  background: rgba(var(--error-color), .1);
+  border-color: rgba(var(--error-color), .5);
+}
+
+.sc-form-row.sm-error > .se-content > .sc-input:focus {
+  box-shadow: 0 0 0 2px rgba(var(--error-color), .5);
+}

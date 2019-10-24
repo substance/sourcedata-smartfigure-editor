@@ -61,9 +61,10 @@
 }
 
 .sc-modal.sm-size-small .se-modal-dialog {
-  width: 520px;
+  width: var(--modal-medium-size);
 }
 
 .sc-modal.sm-size-small .se-modal-dialog > * {
   padding: var(--half-spacing) var(--default-spacing);
 }
+

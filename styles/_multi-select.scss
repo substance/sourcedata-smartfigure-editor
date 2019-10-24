@@ -1,0 +1,51 @@
+.sc-multi-select {
+  @include ts-interface;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.sc-multi-select.sm-active {
+  box-shadow: var(--custom-selection-box-shadow);
+  // background: rgba(176, 210, 251, 0.8);
+}
+
+.sc-multi-select > .se-placeholder {
+  @include ts-interface;
+  @include ts-quiet;
+  font-weight: 400;
+}
+
+.sc-multi-select > .se-preview > .se-value::before {
+  content: '• '
+}
+
+// ATTENTION: styles below are rendered in the popover canvas
+// i.e. at a different place in the DOM
+
+.sc-multi-select-options {
+  max-width: var(--popover-medium-size);
+  font-size: smaller;
+  overflow: auto;
+}
+
+.sc-multi-select-options > .se-option {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  justify-content: space-between;
+  align-content: center;
+  height: 100%;
+}
+
+.sc-multi-select-options > .se-option > * {
+  align-self: center;
+  margin: 0 var(--default-spacing);
+}
+
+.sc-multi-select-options > .se-option.sm-selected > i {
+  flex-grow: 0;
+}
+
+// .sc-multi-select-options > .se-option > * + * {
+//   margin-left: var(--default-spacing);
+// }

@@ -1,0 +1,20 @@
+.sc-affiliations-list > .sc-affiliation {
+  position: relative;
+  cursor: pointer;
+  margin-right: var(--default-spacing);
+  @include ts-small-interface;
+  font-weight: normal;
+}
+
+.sc-affiliations-list > .sc-affiliation > .se-label {
+  vertical-align: super;
+  font-size: x-small;
+}
+
+.sc-affiliations-list > .sc-affiliation > .se-name {
+  margin-left: 3px;
+}
+
+.sc-affiliations-list > .sc-affiliation.sm-selected {
+  background: rgba(176, 210, 251, 0.8);
+}

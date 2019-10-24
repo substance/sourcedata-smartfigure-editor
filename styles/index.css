@@ -1,5 +1,5 @@
 @import './_reset.css';
-@import './_variables.css';
+@import './_variables.scss';
 @import './_text-styles.scss';
 @import './_typography.scss';
 
@@ -7,19 +7,26 @@
 @import '../node_modules/substance/styles/index.css';
 
 @import './_annotations.scss';
+@import './_affiliations-list.scss';
+@import './_authors-list.scss';
 @import './_button.scss';
 @import './_divider.scss';
 @import './_editor-toolbar.scss';
+@import './_form.scss';
+@import './_form-row.scss';
 @import './_heading.scss';
 @import './_horizontal-stack.scss';
+@import './_input.scss';
 @import './_isolated-node.scss';
 @import './_limiter.scss';
 @import './_link-popover.scss';
-@import './_menu-item.scss';
 @import './_menu.scss';
+@import './_menu-item.scss';
 @import './_modal-canvas.scss';
 @import './_modal.scss';
+@import './_multi-select.scss';
 @import './_placeholder.scss';
+@import './_popover.scss';
 @import './_section.scss';
 @import './_smart-figure-editor.scss';
 @import './_smart-figure-page.scss';
@@ -27,6 +34,7 @@
 @import './_smart-figure-panel-thumbnail.scss';
 @import './_smart-figure-toc.scss';
 @import './_smart-figure.scss';
+@import './_text-input.scss';
 @import './_two-column-layout.scss';
 @import './_layouted-figure-panels.scss';
 @import './_sourcedata-logo.css';
