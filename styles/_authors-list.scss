@@ -2,12 +2,16 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+  margin-right: 3px;
   // border-radius: 3px;
-  //
 }
 
-.sc-authors-list > * + * {
-  margin-left: var(--default-spacing);
+.sc-authors-list > .sc-author:not(:last-of-type)::after {
+  content: ', '
+}
+
+.sc-authors-list > .sc-author > .se-first-name::after {
+  content: ' '
 }
 
 .sc-authors-list > .sc-author.sm-selected {

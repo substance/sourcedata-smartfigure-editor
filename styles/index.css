@@ -7,6 +7,7 @@
 @import '../node_modules/substance/styles/index.css';
 
 @import './_annotations.scss';
+@import './_affiliations-list.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
 @import './_divider.scss';

@@ -1,4 +1,4 @@
-import { Component, $$, renderProperty, AuthorsListComponent } from 'substance'
+import { Component, $$, renderProperty, AuthorsListComponent, AffiliationsListComponent } from 'substance'
 import Section from './Section'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
 
@@ -16,16 +16,22 @@ export default class SmartFigureComponent extends Component {
       )
     )
 
+    // Authors & Affiliations
     el.append(
-      $$(AuthorsListComponent, { node })
+      $$('div', { class: 'se-authors-and-affiliations', title: 'Authors and Affiliations' },
+        $$(AuthorsListComponent, { node }),
+        $$(AffiliationsListComponent, { node })
+      )
     )
 
+    // Panels
     el.append(
       $$(Section, { name: 'panels', label: 'Panels' },
         $$(FigurePanelsComponent, { node })
       )
     )
 
+    // Additional Information
     el.append(
       $$(Section, { name: 'additionalInformation', label: 'Additional Information' },
         // HACK: using style of sc-heading level 1

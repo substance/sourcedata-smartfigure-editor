@@ -3,9 +3,22 @@
 <smart-figure>
   <title>Depletion of hepatic ASK1 increases lipid storage</title>
   <authors>
-    <author firstName="Oliver" lastName="Buchtala" />
-    <author firstName="Michael" lastName="Aufreiter" />
+    <author firstName="Tenagne D" lastName="Challa" />
+    <author firstName="Fabrizio C" lastName="Lucchini" />
+    <author firstName="Mara" lastName="Dedual" />
+    <author firstName="Salvatore" lastName="Modica" />
+    <author firstName="Marcela" lastName="Borsigova" />
+    <author firstName="Christian" lastName="Wolfrum" />
+    <author firstName="Matthias" lastName="Blüher" />
+    <author firstName="Daniel" lastName="Konrad" />
   </authors>
+  <affiliations>
+    <affiliation name="Division of Pediatric Endocrinology and Diabetology, University Children's Hospital, Zurich, Switzerland" />
+    <affiliation name="Children's Research Center, University Children's Hospital, Zurich, Switzerland" />
+    <affiliation name="Zurich Center for Integrative Human Physiology, University of Zurich, Zurich, Switzerland" />
+    <affiliation name="Institute of Food, Nutrition and Health, ETH Zurich, Schwerzenbach, Switzerland" />
+    <affiliation name="Department of Medicine, University of Leipzig, Leipzig, Germany" />
+  </affiliations>
   <panels>
     <panel id="panel-a" label="A">
       <legend>

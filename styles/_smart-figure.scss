@@ -7,6 +7,10 @@
   margin: var(--double-spacing) 0;
 }
 
+.sc-smart-figure > .se-authors-and-affiliations > * + * {
+  margin-top: var(--default-spacing);
+}
+
 .sc-smart-figure-panels > * + * {
   margin-top: 10px;
 }

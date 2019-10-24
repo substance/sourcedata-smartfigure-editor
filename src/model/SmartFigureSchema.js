@@ -16,6 +16,11 @@ export default function SmartFigureSchema () {
         childTypes: ['author'],
         optional: true
       },
+      affiliations: {
+        type: 'children',
+        childTypes: ['affiliation'],
+        optional: true
+      },
       panels: {
         type: 'children',
         childTypes: ['panel']
@@ -33,6 +38,9 @@ export default function SmartFigureSchema () {
       lastName: { type: 'string' },
       prefix: { type: 'string', optional: true },
       suffix: { type: 'string', optional: true }
+    })
+    v.addNode('affiliation', '@node', {
+      name: { type: 'string' }
     })
 
     // panel

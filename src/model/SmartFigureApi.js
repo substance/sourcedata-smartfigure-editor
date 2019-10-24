@@ -1,19 +1,6 @@
 import { BasicEditorApi, documentHelpers } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
-  addAuthor (data) {
-    this.editorSession.transaction(tx => {
-      const root = tx.getDocument().root
-      const author = tx.create({
-        type: 'author',
-        firstName: data.firstName,
-        lastName: data.lastName
-      })
-      documentHelpers.append(tx, [root.id, 'authors'], author.id)
-      this._selectItem(tx, author)
-    })
-  }
-
   insertPanelAfter (currentPanelId, file) {
     const doc = this.getDocument()
     const currentPanel = doc.get(currentPanelId)
@@ -48,18 +35,6 @@ export default class SmartFigureApi extends BasicEditorApi {
     const newPath = this.archive.replaceAsset(image.src, file)
     articleSession.transaction(tx => {
       tx.set([image.id, 'src'], newPath)
-    })
-  }
-
-  selectItem (item) {
-    this._selectItem(this.editorSession, item)
-  }
-
-  _selectItem (tx, node) {
-    tx.setSelection({
-      type: 'custom',
-      nodeId: node.id,
-      customType: node.type
     })
   }
 }

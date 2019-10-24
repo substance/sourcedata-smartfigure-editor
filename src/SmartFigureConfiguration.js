@@ -4,7 +4,8 @@ import {
   AnnotationCommand, BasePackage, HtmlConverters,
   ParagraphComponent, HeadingComponent, OpenIsolatedNodeComponent,
   ImageComponent, LinkComponent, CreateLinkCommand,
-  AddAuthorCommand, EditAuthorCommand, RemoveAuthorCommand, MoveAuthorCommand
+  AddAuthorCommand, EditAuthorCommand, RemoveAuthorCommand, MoveAuthorCommand,
+  AddAffiliationCommand, EditAffiliationCommand, RemoveAffiliationCommand, MoveAffiliationCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -93,6 +94,12 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-author-forward', MoveAuthorCommand, { direction: 'up' })
     config.addCommand('move-author-back', MoveAuthorCommand, { direction: 'down' })
 
+    config.addCommand('add-affiliation', AddAffiliationCommand)
+    config.addCommand('edit-affiliation', EditAffiliationCommand)
+    config.addCommand('remove-affiliation', RemoveAffiliationCommand)
+    config.addCommand('move-affiliation-forward', MoveAffiliationCommand, { direction: 'up' })
+    config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
+
     // Menus
     const editorToolbar = {
       type: 'toolbar',
@@ -115,6 +122,7 @@ export default class SmartFigureConfiguration extends Configurator {
           noIcons: true,
           items: [
             { command: 'add-author', label: 'Add Author' },
+            { command: 'add-affiliation', label: 'Add Affiliation' },
             { command: 'insert-figure-panel', label: 'Insert Panel' },
             { command: 'remove-figure-panel', label: 'Remove Panel' },
             { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
@@ -160,6 +168,17 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-author', label: 'Remove Author' },
         { command: 'move-author-forward', label: 'Move Author Forward' },
         { command: 'move-author-back', label: 'Move Author Back' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:affiliation', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'edit-affiliation', label: 'Edit Affiliation' },
+        { command: 'remove-affiliation', label: 'Remove Affiliation' },
+        { command: 'move-affiliation-forward', label: 'Move Affiliation Forward' },
+        { command: 'move-affiliation-back', label: 'Move Affiliation Back' }
       ]
     })
 
