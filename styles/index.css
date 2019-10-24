@@ -24,6 +24,7 @@
 @import './_menu-item.scss';
 @import './_modal-canvas.scss';
 @import './_modal.scss';
+@import './_multi-select.scss';
 @import './_placeholder.scss';
 @import './_popover.scss';
 @import './_section.scss';

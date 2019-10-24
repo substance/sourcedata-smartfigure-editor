@@ -6,8 +6,13 @@
   font-weight: normal;
 }
 
-.sc-affiliations-list > .sc-affiliation > * + * {
-  margin-left: 5px;
+.sc-affiliations-list > .sc-affiliation > .se-label {
+  vertical-align: super;
+  font-size: x-small;
+}
+
+.sc-affiliations-list > .sc-affiliation > .se-name {
+  margin-left: 3px;
 }
 
 .sc-affiliations-list > .sc-affiliation.sm-selected {

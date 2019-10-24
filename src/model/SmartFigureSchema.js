@@ -37,10 +37,12 @@ export default function SmartFigureSchema () {
       middleNames: { type: 'string-array', optional: true },
       lastName: { type: 'string' },
       prefix: { type: 'string', optional: true },
-      suffix: { type: 'string', optional: true }
+      suffix: { type: 'string', optional: true },
+      affiliations: { type: 'many', targetTypes: ['affiliation'], optional: true },
     })
     v.addNode('affiliation', '@node', {
-      name: { type: 'string' }
+      name: { type: 'string' },
+      label: { type: 'string', optional: true }
     })
 
     // panel

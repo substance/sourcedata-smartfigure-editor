@@ -177,8 +177,8 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-affiliation', label: 'Edit Affiliation' },
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
-        { command: 'move-affiliation-forward', label: 'Move Affiliation Forward' },
-        { command: 'move-affiliation-back', label: 'Move Affiliation Back' }
+        { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
+        { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
       ]
     })
 
