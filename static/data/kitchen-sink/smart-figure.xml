@@ -3,15 +3,15 @@
 <smart-figure>
   <title>Depletion of hepatic ASK1 increases lipid storage</title>
   <authors>
-    <author firstName="Tenagne D" lastName="Challa" affiliations="aff1,aff2" />
-    <author firstName="Stephan" lastName="Wueest" affiliations="aff1,aff2" />
-    <author firstName="Fabrizio C" lastName="Lucchini" affiliations="aff1,aff2,aff3" />
-    <author firstName="Mara" lastName="Dedual" affiliations="aff1,aff2,aff3" />
+    <author firstName="Tenagne D" lastName="Challa" affiliations="aff1 aff2" />
+    <author firstName="Stephan" lastName="Wueest" affiliations="aff1 aff2" />
+    <author firstName="Fabrizio C" lastName="Lucchini" affiliations="aff1 aff2 aff3" />
+    <author firstName="Mara" lastName="Dedual" affiliations="aff1 aff2 aff3" />
     <author firstName="Salvatore" lastName="Modica" affiliations="aff4" />
-    <author firstName="Marcela" lastName="Borsigova" affiliations="aff1,aff2" />
+    <author firstName="Marcela" lastName="Borsigova" affiliations="aff1 aff2" />
     <author firstName="Christian" lastName="Wolfrum" affiliations="aff4" />
     <author firstName="Matthias" lastName="Blüher" affiliations="aff5" />
-    <author firstName="Daniel" lastName="Konrad" affiliations="aff1,aff2,aff3" />
+    <author firstName="Daniel" lastName="Konrad" affiliations="aff1 aff2 aff3" />
   </authors>
   <affiliations>
     <affiliation id="aff1" label="1" name="Division of Pediatric Endocrinology and Diabetology, University Children's Hospital, Zurich, Switzerland" />
@@ -43,7 +43,7 @@
       </legend>
       <image id="panel-b-image" mimetype="image/jpeg" src="panel-b.jpg" />
     </panel>
-    <panel id="panel-c" label="C">
+    <panel id="panel-c" label="C" files="file-1" resources="resource-1">
       <legend>
         <paragraph id="panel-c-legend-p1">Lipid accumulation was quantified using automated image‐based analysis in ASK1‐knockdown (siASK1; gray bars) or control (siCtrl; black bars) cells treated with BSA, Palm, and Palm + Rap and stained as mentioned above (n = 4 biological replicates).</paragraph>
       </legend>
@@ -78,4 +78,20 @@
     <paragraph id="additional-information-p1">Data information: Values are expressed as mean ± SEM. *P &lt; 0.05; **P &lt; 0.01; ***P &lt; 0.001. Statistical tests used are as follows: ANOVA for (A, C, F, and G); and t‐test for (D).</paragraph>
     <paragraph id="additional-information-p2">Source data are available online for this figure.</paragraph>
   </additionalInformation>
+  <files>
+    <file id="file-1" mimetype="text/plain" src="tsne-af4d.R">
+      <title>PCA analysis as a 2D scatter plot</title>
+      <legend>
+        <paragraph>R sources used to generate tthe 2D scatter plot of PCA analysis.</paragraph>
+      </legend>
+    </file>
+  </files>
+  <resources>
+    <resource id="resource-1" href="http://github.com/source-data/pca-data-files">
+      <title>Source data for PCA analysis</title>
+      <legend>
+        <paragraph>All source data files, hosted on Github.</paragraph>
+      </legend>
+    </resource>
+  </resources>
 </smart-figure>
