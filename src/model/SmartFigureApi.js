@@ -37,4 +37,56 @@ export default class SmartFigureApi extends BasicEditorApi {
       tx.set([image.id, 'src'], newPath)
     })
   }
+
+  insertFile (fileName, file) {
+    return this.insertFileAfter(fileName, file)
+  }
+
+  insertFileAfter (fileName, file, currentFileId) {
+    const doc = this.getDocument()
+    const root = doc.root
+    let insertPos = root.files.length
+    if (currentFileId) {
+      const currentFileNode = doc.get(currentFileId)
+      insertPos = currentFileNode.getPosition() + 1
+    }
+    const fileData = {
+      name: fileName,
+      type: file.type
+    }
+    const src = this.archive.addAsset(fileData, file)
+    this.editorSession.transaction(tx => {
+      const newFileNode = documentHelpers.createNodeFromJson(tx, {
+        type: 'file',
+        src,
+        legend: [{ type: 'paragraph' }]
+      })
+      documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
+      this._selectItem(tx, newFileNode)
+    })
+  }
+
+  insertResource (url) {
+    return this.insertResourceAfter(url)
+  }
+
+  insertResourceAfter (url, currentFileId) {
+    const doc = this.getDocument()
+    const root = doc.root
+    let insertPos = root.files.length
+    if (currentFileId) {
+      const currentFileNode = doc.get(currentFileId)
+      insertPos = currentFileNode.getPosition() + 1
+    }
+    this.editorSession.transaction(tx => {
+      const newFileNode = documentHelpers.createNodeFromJson(tx, {
+        type: 'file',
+        url,
+        remote: true,
+        legend: [{ type: 'paragraph' }]
+      })
+      documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
+      this._selectItem(tx, newFileNode)
+    })
+  }
 }

@@ -19,9 +19,15 @@
 
 /*
   TODO SectionLabel does set the cursor which is kind of too opinionated for
-  that general purpose. Instead we should the parent context define the 'default'
+  that general purpose. Instead we should define the 'default' in the parent context
   and override for other content, such as surfaces.
 */
 .sc-smart-figure-panel .sc-section-label {
   cursor: pointer;
+}
+
+.sc-smart-figure-panel .sc-container-editor.se-legend:focus {
+  border-color: transparent;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
 }

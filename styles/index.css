@@ -12,6 +12,9 @@
 @import './_button.scss';
 @import './_divider.scss';
 @import './_editor-toolbar.scss';
+@import './_file-modal.scss';
+@import './_file-list.scss';
+@import './_file.scss';
 @import './_form.scss';
 @import './_form-row.scss';
 @import './_heading.scss';
@@ -56,6 +59,6 @@ html {
   box-sizing: inherit;
 }
 
-body > .sc-file-select {
+.sc-file-select {
   display: none;
 }

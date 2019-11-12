@@ -14,6 +14,9 @@ import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
 import ReplaceFigurePanelImageCommand from './commands/ReplaceFigurePanelImageCommand'
 import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
+import AddFileCommand from './commands/AddFileCommand'
+import MoveFileCommand from './commands/MoveFileCommand'
+import AddResourceCommand from './commands/AddResourceCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -100,6 +103,12 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-affiliation-forward', MoveAffiliationCommand, { direction: 'up' })
     config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
 
+    config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
+    config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
+
+    config.addCommand('add-file', AddFileCommand)
+    config.addCommand('add-resource', AddResourceCommand)
+
     // Menus
     const editorToolbar = {
       type: 'toolbar',
@@ -123,7 +132,9 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'insert-figure-panel', label: 'Add Panel' }
+            { command: 'insert-figure-panel', label: 'Add Panel' },
+            { command: 'add-file', label: 'Add File' },
+            { command: 'add-resource', label: 'Add Resource' }
           ]
         },
         { type: 'fill' }
@@ -187,6 +198,17 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-keyword-group', label: 'Remove Keword Group' },
         { command: 'move-keyword-group-up', label: 'Move Keword Group Up' },
         { command: 'move-keyword-group-down', label: 'Move Keword Group Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:file', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'edit-file', label: 'Edit File' },
+        { command: 'remove-file', label: 'Remove File' },
+        { command: 'move-file-up', label: 'Move File Up' },
+        { command: 'move-file-down', label: 'Move File Down' }
       ]
     })
 
