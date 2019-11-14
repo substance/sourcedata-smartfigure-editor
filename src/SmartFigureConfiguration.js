@@ -17,6 +17,7 @@ import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import MoveFileCommand from './commands/MoveFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
+import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -90,6 +91,8 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('replace-figure-panel-image', ReplaceFigurePanelImageCommand)
     config.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
     config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
+    config.addCommand('add-keyword-group', AddKeywordGroupCommand)
+
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)

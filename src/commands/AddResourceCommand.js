@@ -14,7 +14,7 @@ export default class AddResourceCommand extends Command {
     }).then(modal => {
       if (!modal) return
       const url = modal.refs.url.val()
-      api.insertResource(url)
+      api.addResource(url)
     })
   }
 }

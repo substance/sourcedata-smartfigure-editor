@@ -66,7 +66,34 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  insertResource (url) {
+  addPanelKeywordGroup (panelId, keywordGroupData) {
+    return this.insertPanelKeywordGroupAfter(panelId, keywordGroupData)
+  }
+
+  insertPanelKeywordGroupAfter (panelId, keywordGroupData, currentKeywordGroupId) {
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    let insertPos = panel.keywords.length
+    if (currentKeywordGroupId) {
+      const currentKeywordGroup = doc.get(currentKeywordGroupId)
+      insertPos = currentKeywordGroup.getPosition() + 1
+    }
+    this.editorSession.transaction(tx => {
+      const newKwdGroup = documentHelpers.createNodeFromJson(tx, keywordGroupData)
+      documentHelpers.insertAt(tx, [panel.id, 'keywords'], insertPos, newKwdGroup.id)
+      this._selectItem(tx, newKwdGroup)
+    })
+  }
+
+  removeKeywordGroup (keywordGroupId) {
+    super.removeAndDeleteNode(keywordGroupId)
+  }
+
+  moveKeywordGroup (kwdGroupId, direction) {
+    super.moveNode(kwdGroupId, direction)
+  }
+
+  addResource (url) {
     return this.insertResourceAfter(url)
   }
 
