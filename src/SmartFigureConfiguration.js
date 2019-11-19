@@ -18,6 +18,9 @@ import AddFileCommand from './commands/AddFileCommand'
 import MoveFileCommand from './commands/MoveFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
+import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
+import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
+import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -91,8 +94,12 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('replace-figure-panel-image', ReplaceFigurePanelImageCommand)
     config.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
     config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
-    config.addCommand('add-keyword-group', AddKeywordGroupCommand)
 
+    config.addCommand('add-keyword-group', AddKeywordGroupCommand)
+    config.addCommand('edit-keyword-group', EditKeywordGroupCommand)
+    config.addCommand('remove-keyword-group', RemoveKeywordGroupCommand)
+    config.addCommand('move-keyword-group-up', MoveKeywordGroupCommand, { direction: 'up' })
+    config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)

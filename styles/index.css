@@ -21,6 +21,7 @@
 @import './_horizontal-stack.scss';
 @import './_input.scss';
 @import './_isolated-node.scss';
+@import './_keyword-group-modal.scss';
 @import './_limiter.scss';
 @import './_link-popover.scss';
 @import './_menu.scss';

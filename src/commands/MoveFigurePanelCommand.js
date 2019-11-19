@@ -6,7 +6,7 @@ export default class MoveFigurePanelCommand extends BasicFigurePanelCommand {
     const commandState = super.getCommandState(params, context)
     if (!commandState.disabled) {
       const doc = context.editorSession.getDocument()
-      const panel = doc.get(commandState.currentPanelId)
+      const panel = doc.get(commandState.currentItemId)
       const pos = panel.getPosition()
       if (direction === 'up' && pos === 0) {
         commandState.disabled = true
@@ -23,6 +23,6 @@ export default class MoveFigurePanelCommand extends BasicFigurePanelCommand {
   execute (params, context) {
     const direction = this.config.direction
     const commandState = params.commandState
-    context.api.movePanel(commandState.currentPanelId, direction)
+    context.api.moveNode(commandState.currentItemId, direction)
   }
 }

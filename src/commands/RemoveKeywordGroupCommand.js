@@ -1,6 +1,6 @@
-import BasicFigurePanelCommand from './_BasicFigurePanelCommand'
+import BasicKeywordGroupCommand from './_BasicKeywordGroupCommand'
 
-export default class RemoveFigurePanelCommand extends BasicFigurePanelCommand {
+export default class RemoveKeywordGroupCommand extends BasicKeywordGroupCommand {
   execute (params, context) {
     const { currentItemId } = params.commandState
     const editor = context.editorSession.getRootComponent()

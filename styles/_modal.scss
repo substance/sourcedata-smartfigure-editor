@@ -61,7 +61,15 @@
 }
 
 .sc-modal.sm-size-small .se-modal-dialog {
+  width: var(--modal-small-size);
+}
+
+.sc-modal.sm-size-medium .se-modal-dialog {
   width: var(--modal-medium-size);
+}
+
+.sc-modal.sm-size-large .se-modal-dialog {
+  width: var(--modal-large-size);
 }
 
 .sc-modal.sm-size-small .se-modal-dialog > * {

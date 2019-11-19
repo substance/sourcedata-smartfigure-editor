@@ -19,14 +19,6 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  removePanel (panelId) {
-    super.removeAndDeleteNode(panelId)
-  }
-
-  movePanel (panelId, direction) {
-    super.moveNode(panelId, direction)
-  }
-
   replacePanelImage (panelId, file) {
     const doc = this.getDocument()
     const panel = doc.get(panelId)
@@ -66,11 +58,57 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  addPanelKeywordGroup (panelId, keywordGroupData) {
-    return this.insertPanelKeywordGroupAfter(panelId, keywordGroupData)
+  addKeywordGroup (panelId, keywordGroupData) {
+    return this.insertKeywordGroupAfter(panelId, keywordGroupData)
   }
 
-  insertPanelKeywordGroupAfter (panelId, keywordGroupData, currentKeywordGroupId) {
+  updateKeywordGroup (keywordGroupId, data) {
+    this.editorSession.transaction(tx => {
+      const keywordGroup = tx.get(keywordGroupId)
+      const oldKeywords = keywordGroup.resolve('keywords')
+      const newKeywords = data.keywords
+      const L = oldKeywords.length
+      const M = newKeywords.length
+      let idx = 0
+      let idx1 = 0
+      let idx2 = 0
+      // assuming, that new keywords are given in the same order as the old ones
+      // only with some items added, removed or updated
+      while (idx1 < L || idx2 < M) {
+        const kwd1 = oldKeywords[idx1]
+        const kwd2 = newKeywords[idx2]
+        if (idx1 >= L) {
+          // append remaining new keywords
+          const kwd = tx.create(kwd2)
+          documentHelpers.append(tx, [keywordGroup.id, 'keywords'], kwd.id)
+          idx++
+          idx2++
+        } else if (idx2 >= M) {
+          // remove remaining old keywords
+          documentHelpers.removeAt(tx, [keywordGroup.id, 'keywords'], idx)
+          documentHelpers.deepDeleteNode(tx, kwd1.id)
+          idx1++
+        } else {
+          // update an existing keyword if needed
+          if (kwd1.id === kwd2.id) {
+            if (kwd1.content !== kwd2.content) {
+              kwd1.set('content', kwd2.content)
+            }
+            idx++
+            idx1++
+            idx2++
+          } else {
+            const kwd = tx.create(kwd2)
+            documentHelpers.insertAt(tx, [keywordGroup.id, 'keywords'], idx, kwd.id)
+            idx++
+            idx2++
+          }
+        }
+      }
+    })
+  }
+
+  insertKeywordGroupAfter (panelId, keywordGroupData, currentKeywordGroupId) {
     const doc = this.getDocument()
     const panel = doc.get(panelId)
     let insertPos = panel.keywords.length
@@ -83,14 +121,6 @@ export default class SmartFigureApi extends BasicEditorApi {
       documentHelpers.insertAt(tx, [panel.id, 'keywords'], insertPos, newKwdGroup.id)
       this._selectItem(tx, newKwdGroup)
     })
-  }
-
-  removeKeywordGroup (keywordGroupId) {
-    super.removeAndDeleteNode(keywordGroupId)
-  }
-
-  moveKeywordGroup (kwdGroupId, direction) {
-    super.moveNode(kwdGroupId, direction)
   }
 
   addResource (url) {

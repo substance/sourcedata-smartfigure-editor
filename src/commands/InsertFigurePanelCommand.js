@@ -7,7 +7,7 @@ export default class InsertFigurePanelCommand extends BasicFigurePanelCommand {
     if (editor) {
       editor.send('requestFileSelect', { fileType: 'image/*', multiple: false }).then(files => {
         if (files.length > 0) {
-          context.api.insertPanelAfter(commandState.currentPanelId, files[0])
+          context.api.insertPanelAfter(commandState.currentItemId, files[0])
         }
       })
     }

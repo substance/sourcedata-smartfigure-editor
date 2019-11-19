@@ -1,15 +1,18 @@
 import { $$ } from 'substance'
-import BasicFigurePanelCommand from './_BasicFigurePanelCommand'
 import KeywordGroupModal from '../components/KeywordGroupModal'
+import BasicKeywordGroupCommand from './_BasicKeywordGroupCommand'
 
-// NOTE: in the context of SourceData SmartFigures keyword groups are part of panels.
-export default class AddKeywordGroupCommand extends BasicFigurePanelCommand {
+export default class EditKeywordGroupCommand extends BasicKeywordGroupCommand {
   execute (params, context) {
-    const commandState = params.commandState
+    const { currentItemId } = params.commandState
     const editorSession = context.editorSession
     const api = context.api
+    const keywordGroup = editorSession.getDocument().get(currentItemId)
     return editorSession.getRootComponent().send('requestModal', () => {
-      return $$(KeywordGroupModal, {})
+      return $$(KeywordGroupModal, {
+        mode: 'edit',
+        node: keywordGroup
+      })
     }).then(modal => {
       if (!modal) return
       const data = modal.getData()
@@ -17,11 +20,9 @@ export default class AddKeywordGroupCommand extends BasicFigurePanelCommand {
       const keywordGroupData = {
         type: 'keyword-group',
         name: data.name,
-        keywords: data.keywords.map(kwd => {
-          return { type: 'keyword', id: kwd.id, content: kwd.content }
-        })
+        keywords: data.keywords
       }
-      api.addKeywordGroup(commandState.currentItemId, keywordGroupData)
+      api.updateKeywordGroup(keywordGroup.id, keywordGroupData)
     })
   }
 }

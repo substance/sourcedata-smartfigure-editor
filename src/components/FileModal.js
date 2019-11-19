@@ -3,7 +3,7 @@ import { Component, $$, Form, FormRow, Modal, Input, HorizontalStack } from 'sub
 export default class FileModal extends Component {
   render () {
     const { file } = this.props
-    return $$(Modal, { title: 'Add Local File', size: 'small', confirmLabel: 'Create Local File' },
+    return $$(Modal, { title: 'Add Local File', size: 'medium', confirmLabel: 'Create Local File' },
       $$(Form, {},
         $$(FormRow, { label: 'Filename:' },
           $$(Input, { value: file.src, autofocus: true }).ref('src')
