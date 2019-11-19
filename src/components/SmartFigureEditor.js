@@ -1,6 +1,6 @@
 import {
   AbstractEditor, $$, EditorToolbar, Managed, domHelpers, ModalCanvas, Popover,
-  FileSelect, AffiliationLabelManager
+  FileSelect, AffiliationLabelManager, parseKeyEvent, keys
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
@@ -28,12 +28,22 @@ export default class SmartFigureEditor extends AbstractEditor {
 
     this._affiliationLabelManager = new AffiliationLabelManager(this.editorSession)
     this._panelLabelManager = new PanelLabelManager(this.editorSession)
+
+    const globalEventHandler = this.context.globalEventHandler
+    if (globalEventHandler) {
+      globalEventHandler.addEventListener('keydown', this._onKeydown, this)
+    }
   }
 
   dispose () {
     super.dispose()
 
     this._panelLabelManager.dispose()
+
+    const globalEventHandler = this.context.globalEventHandler
+    if (globalEventHandler) {
+      globalEventHandler.removeEventListener(this)
+    }
   }
 
   render () {
@@ -128,5 +138,68 @@ export default class SmartFigureEditor extends AbstractEditor {
         })
       }
     }
+  }
+
+  _onKeydown (event) {
+    if (super.handleKeydown(event)) return
+
+    let handled = false
+    const combo = parseKeyEvent(event)
+    switch (combo) {
+      case String(keys.ENTER): {
+        handled = this._handleEnter()
+        break
+      }
+      case String(keys.UP): {
+        handled = this._handleUp()
+        break
+      }
+      case String(keys.DOWN): {
+        handled = this._handleDown()
+        break
+      }
+      case String(keys.LEFT): {
+        handled = this._handleLeft()
+        break
+      }
+      case String(keys.RIGHT): {
+        handled = this._handleRight()
+        break
+      }
+    }
+    if (handled) {
+      event.stopPropagation()
+    }
+  }
+
+  _handleEnter () {
+    const sel = this.editorState.selection
+    if (sel && sel.type === 'custom') {
+      switch (sel.customType) {
+        case 'author':
+        case 'affiliation':
+        case 'keyword-group': {
+          return this.editorSession.executeCommand(`edit-${sel.customType}`)
+        }
+        default:
+          // nothing
+      }
+    }
+  }
+
+  _handleUp () {
+
+  }
+
+  _handleDown () {
+
+  }
+
+  _handleLeft () {
+
+  }
+
+  _handleRight () {
+
   }
 }
