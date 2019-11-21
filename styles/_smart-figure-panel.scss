@@ -1,33 +1,7 @@
 .sc-smart-figure-panel {
-  padding: 20px;
-  box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #ccc;
-  cursor: pointer;
+  @include card-style;
 }
-
-.sc-smart-figure-panel.sm-selected {
-  box-shadow: var(--custom-selection-box-shadow);
-}
-
-.sc-smart-figure-panel > .sc-section-label:first-child {
-  margin-top: 0px;
-}
-
 
 .sc-smart-figure-panel .sc-image {
   max-width: 90%;
-}
-
-/*
-  TODO SectionLabel does set the cursor which is kind of too opinionated for
-  that general purpose. Instead we should define the 'default' in the parent context
-  and override for other content, such as surfaces.
-*/
-.sc-smart-figure-panel .sc-section-label {
-  cursor: pointer;
-}
-
-.sc-smart-figure-panel .sc-container-editor.se-legend:focus {
-  border-color: transparent;
-  border-radius: 3px;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
 }

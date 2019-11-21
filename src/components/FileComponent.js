@@ -11,16 +11,19 @@ export default class FileComponent extends SelectableNodeComponent {
       el.addClass('sm-selected')
     }
     el.append(
-      $$(Section, { label: getLabel(node) || 'File' }),
-      renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
+      $$(Section, { label: getLabel(node) || 'File' },
+        renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
+      )
     )
     el.append(
-      $$(Section, { label: 'Title' }),
-      renderProperty(this, document, [node.id, 'title'], { placeholder: 'Enter title' }).addClass('se-title')
+      $$(Section, { label: 'Title' },
+        renderProperty(this, document, [node.id, 'title'], { placeholder: 'Enter title' }).addClass('se-title')
+      )
     )
     el.append(
-      $$(Section, { label: 'Legend' }),
-      renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
+      $$(Section, { label: 'Legend' },
+        renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
+      )
     )
 
     el.on('mousedown', this._onMousedown)

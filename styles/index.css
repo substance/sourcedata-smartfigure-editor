@@ -2,12 +2,14 @@
 @import './_variables.scss';
 @import './_text-styles.scss';
 @import './_typography.scss';
+@import './_card-style.scss';
 
 /* some core, but only functional styles */
 @import '../node_modules/substance/styles/index.css';
 
 @import './_annotations.scss';
 @import './_affiliations-list.scss';
+@import './_attached-file.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
 @import './_divider.scss';
@@ -31,6 +33,7 @@
 @import './_multi-select.scss';
 @import './_placeholder.scss';
 @import './_popover.scss';
+@import './_resource.scss';
 @import './_section.scss';
 @import './_smart-figure-editor.scss';
 @import './_smart-figure-page.scss';
