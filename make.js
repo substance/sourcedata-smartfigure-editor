@@ -5,6 +5,7 @@ const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const postcss = require('substance-bundler/extensions/postcss')
 const scssMixins = require('substance-bundler/extensions/postcss/postcss-scss-mixins')
+const nestedCss = require('postcss-nested')
 const path = require('path')
 
 const DIST = 'dist/'
@@ -12,6 +13,7 @@ const TMP = 'dist/'
 const POSTCSS_PLUGINS = [
   require('postcss-import'),
   scssMixins,
+  nestedCss,
   require('postcss-reporter')
 ]
 
