@@ -1,18 +1,8 @@
-import { Component, $$, NodeComponent, renderProperty } from 'substance'
+import { $$, PropertyComponent, NodeComponent, renderProperty } from 'substance'
 
-export default class AttachedFilesComponent extends Component {
-  didMount () {
-    const node = this.props.node
-    this.context.editorState.addObserver(['document'], this.rerender, this, {
-      document: {
-        path: [node.id, 'files']
-      },
-      stage: 'render'
-    })
-  }
-
-  dispose () {
-    this.context.editorState.off(this)
+export default class AttachedFilesComponent extends PropertyComponent {
+  getPath () {
+    return [this.props.node.id, 'files']
   }
 
   render () {
@@ -33,7 +23,7 @@ export default class AttachedFilesComponent extends Component {
 class AttachedFileComponent extends NodeComponent {
   render () {
     const { node } = this.props
-    return $$('li', { class: 'sc-attached-file' },
+    return $$('div', { class: 'sc-attached-file' },
       $$('span', { class: 'se-src' }, node.src),
       ': ',
       renderProperty(this, node.getDocument(), [node.id, 'title'], { disabled: true, readOnly: true, tagName: 'span' })

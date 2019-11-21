@@ -1,4 +1,4 @@
-import { SelectableNodeComponent, $$, Blocker, domHelpers } from 'substance'
+import { SelectableNodeComponent, $$, domHelpers } from 'substance'
 
 export default class StructuredKeywordComponent extends SelectableNodeComponent {
   render () {

@@ -1,21 +1,10 @@
-import { Component, $$ } from 'substance'
+import { $$, PropertyComponent } from 'substance'
 import FileComponent from './FileComponent'
 import Section from './Section'
 
-export default class FileListComponent extends Component {
-  didMount () {
-    const doc = this.props.document
-    const root = doc.root
-    this.context.editorState.addObserver(['document'], this.rerender, this, {
-      document: {
-        path: [root.id, 'files']
-      },
-      stage: 'render'
-    })
-  }
-
-  dispose () {
-    this.context.editorState.off(this)
+export default class FileListComponent extends PropertyComponent {
+  getPath () {
+    return [this.props.document.root.id, 'files']
   }
 
   render () {

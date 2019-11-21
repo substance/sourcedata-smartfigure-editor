@@ -1,21 +1,10 @@
-import { Component, $$ } from 'substance'
+import { PropertyComponent, $$ } from 'substance'
 import ResourceComponent from './ResourceComponent'
 import Section from './Section'
 
-export default class ResourceListComponent extends Component {
-  didMount () {
-    const doc = this.props.document
-    const root = doc.root
-    this.context.editorState.addObserver(['document'], this.rerender, this, {
-      document: {
-        path: [root.id, 'resources']
-      },
-      stage: 'render'
-    })
-  }
-
-  dispose () {
-    this.context.editorState.off(this)
+export default class ResourceListComponent extends PropertyComponent {
+  getPath () {
+    return [this.props.document.root.id, 'resources']
   }
 
   render () {
