@@ -2,6 +2,7 @@ import { SelectableNodeComponent, $$, domHelpers, renderProperty } from 'substan
 import Section from './Section'
 import getLabel from './_getLabel'
 import StructuredKeywordComponent from './StructuredKeywordComponent'
+import AttachedFilesComponent from './AttachedFilesComponent'
 
 export default class FigurePanelComponent extends SelectableNodeComponent {
   render () {
@@ -22,8 +23,9 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     )
 
     el.append(
-      $$(Section, { label: 'Legend' }),
-      renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
+      $$(Section, { label: 'Legend' },
+        renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
+      )
     )
 
     if (node.keywords && node.keywords.length > 0) {
@@ -35,6 +37,14 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
         )
       }
       el.append(keywordSection)
+    }
+
+    if (node.files && node.files.length > 0) {
+      el.append(
+        $$(Section, { label: 'Files' },
+          $$(AttachedFilesComponent, { node })
+        )
+      )
     }
 
     el.on('mousedown', this._onMousedown)

@@ -1,5 +1,7 @@
 import { Command } from 'substance'
 
+// TODO: move this into substance/commons
+// however, there is already an ItemCommand which is similar a little but more general
 export default class BasicItemCommand extends Command {
   getCommandState (params, context) {
     const type = this.getType()
