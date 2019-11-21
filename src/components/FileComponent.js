@@ -1,5 +1,6 @@
 import { SelectableNodeComponent, $$, renderProperty, domHelpers } from 'substance'
 import Section from './Section'
+import getLabel from './_getLabel'
 
 export default class FileComponent extends SelectableNodeComponent {
   render () {
@@ -10,7 +11,7 @@ export default class FileComponent extends SelectableNodeComponent {
       el.addClass('sm-selected')
     }
     el.append(
-      $$(Section, { label: 'File' }),
+      $$(Section, { label: getLabel(node) || 'File' }),
       renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
     )
     el.append(

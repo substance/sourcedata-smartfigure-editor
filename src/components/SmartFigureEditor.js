@@ -1,13 +1,16 @@
 import {
-  AbstractEditor, $$, EditorToolbar, Managed, domHelpers, ModalCanvas, Popover,
-  FileSelect, AffiliationLabelManager, parseKeyEvent, keys
+  AbstractEditor, $$, domHelpers, parseKeyEvent, keys,
+  EditorToolbar, Managed, ModalCanvas, Popover, FileSelect,
+  AffiliationLabelManager
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
 import SmartFigureComponent from './SmartFigureComponent'
 import SmartFigureTOC from './SmartFigureTOC'
 import _getContext from './_getContext'
-import PanelLabelManager from './_PanelLabelManager'
+import PanelLabelManager from './PanelLabelManager'
+import FilesLabelManager from './FilesLabelManager'
+import ResourcesLabelManager from './ResourcesLabelManager'
 
 export default class SmartFigureEditor extends AbstractEditor {
   constructor (...args) {
@@ -26,19 +29,27 @@ export default class SmartFigureEditor extends AbstractEditor {
   didMount () {
     super.didMount()
 
-    this._affiliationLabelManager = new AffiliationLabelManager(this.editorSession)
-    this._panelLabelManager = new PanelLabelManager(this.editorSession)
+    this._labelManagers = [
+      new AffiliationLabelManager(this.editorSession),
+      new FilesLabelManager(this.editorSession),
+      new PanelLabelManager(this.editorSession),
+      new ResourcesLabelManager(this.editorSession)
+    ]
 
     const globalEventHandler = this.context.globalEventHandler
     if (globalEventHandler) {
       globalEventHandler.addEventListener('keydown', this._onKeydown, this)
     }
+
+    this._updateLabels()
   }
 
   dispose () {
     super.dispose()
 
-    this._panelLabelManager.dispose()
+    for (const labelManager of this._labelManagers) {
+      labelManager.dispose()
+    }
 
     const globalEventHandler = this.context.globalEventHandler
     if (globalEventHandler) {
@@ -79,6 +90,13 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _createAPI (archive, editorSession) {
     return new SmartFigureApi(archive, editorSession)
+  }
+
+  _updateLabels () {
+    for (const labelManager of this._labelManagers) {
+      labelManager.update()
+    }
+    this.editorState.propagateUpdates()
   }
 
   _getScrollableElement () {

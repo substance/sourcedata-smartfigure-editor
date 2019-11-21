@@ -1,5 +1,6 @@
 import { SelectableNodeComponent, $$, renderProperty, domHelpers } from 'substance'
 import Section from './Section'
+import getLabel from './_getLabel'
 
 export default class FileComponent extends SelectableNodeComponent {
   render () {
@@ -10,7 +11,7 @@ export default class FileComponent extends SelectableNodeComponent {
       el.addClass('sm-selected')
     }
     el.append(
-      $$(Section, { label: 'Resource' }),
+      $$(Section, { label: getLabel(node) || 'Resource' }),
       renderProperty(this, document, [node.id, 'href'], { placeholder: 'Enter URL', readOnly: true }).addClass('se-href')
     )
     el.append(
