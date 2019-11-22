@@ -12,7 +12,7 @@ export default class ResourceComponent extends SelectableNodeComponent {
     }
     el.append(
       $$(Section, { label: getLabel(node) || 'Resource' },
-        renderProperty(this, document, [node.id, 'href'], { placeholder: 'Enter URL', readOnly: true }).addClass('se-href')
+        renderProperty(this, document, [node.id, 'href'], { placeholder: 'Enter URL' }).addClass('se-href')
       )
     )
     el.append(
