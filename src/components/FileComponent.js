@@ -12,7 +12,10 @@ export default class FileComponent extends SelectableNodeComponent {
     }
     el.append(
       $$(Section, { label: getLabel(node) || 'File' },
-        renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
+        // wrapping the filename into a button so that it does not react on native browser selection
+        $$('button', {},
+          renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
+        )
       )
     )
     el.append(
