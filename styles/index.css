@@ -10,6 +10,7 @@
 @import './_annotations.scss';
 @import './_affiliations-list.scss';
 @import './_attached-file.scss';
+@import './_attached-resource.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
 @import './_divider.scss';

@@ -26,7 +26,7 @@ class AttachedFileComponent extends NodeComponent {
     return $$('div', { class: 'sc-attached-file' },
       $$('span', { class: 'se-src' }, node.src),
       ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { disabled: true, readOnly: true, tagName: 'span' })
+      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true })
     )
   }
 }

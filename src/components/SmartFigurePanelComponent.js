@@ -3,6 +3,7 @@ import Section from './Section'
 import getLabel from './_getLabel'
 import StructuredKeywordComponent from './StructuredKeywordComponent'
 import AttachedFilesComponent from './AttachedFilesComponent'
+import AttachedResourcesComponent from './AttachedResourcesComponent'
 
 export default class FigurePanelComponent extends SelectableNodeComponent {
   render () {
@@ -43,6 +44,14 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
       el.append(
         $$(Section, { label: 'Files' },
           $$(AttachedFilesComponent, { node })
+        )
+      )
+    }
+
+    if (node.resources && node.resources.length > 0) {
+      el.append(
+        $$(Section, { label: 'Resources' },
+          $$(AttachedResourcesComponent, { node })
         )
       )
     }

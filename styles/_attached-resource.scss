@@ -1,0 +1,12 @@
+.sc-attached-resource {
+  @include ts-interface;
+  font-weight: 500
+}
+
+.sc-attached-resource .se-title {
+  font-weight: 600
+}
+
+.sc-attached-resource .se-legend {
+  display: inline-block;
+}
