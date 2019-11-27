@@ -161,14 +161,27 @@ export default class SmartFigureApi extends BasicEditorApi {
     }
   }
 
+  updateAttachedResources (panelId, attachedResourceIds) {
+    const ids = Array.from(attachedResourceIds)
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    if (!isArrayEqual(panel.resources, ids)) {
+      // TODO: let this change be more incremental, i.e. adding, removing and later maybe changing order
+      this.editorSession.transaction(tx => {
+        doc.set([panel.id, 'resources'], ids)
+      })
+    }
+  }
+
   // TODO: I'd like to have a specific selection for 'many' type relationships (e.g. author affiliations, or figure panel files, etc.)
   // maybe this could be applied to 'children' type relationships, too (e.g. author, affiliation, etc.)
-  selectRelationshipValue (nodeId, property, valueId) {
+  selectValue (node, property, valueId) {
     this.editorSession.setSelection({
       type: 'custom',
-      customType: 'relationship-value',
-      nodeId,
+      customType: 'value',
+      nodeId: node.id,
       data: {
+        nodeType: node.type,
         property,
         valueId
       }

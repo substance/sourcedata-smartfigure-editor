@@ -178,7 +178,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
         { command: 'move-figure-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },
-        { command: 'attach-file', label: 'Attach File' }
+        { command: 'attach-file', label: 'Attach File' },
+        { command: 'attach-resource', label: 'Attach Resource' }
       ]
     })
 
@@ -223,6 +224,38 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-file', label: 'Remove File' },
         { command: 'move-file-up', label: 'Move File Up' },
         { command: 'move-file-down', label: 'Move File Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:resource', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'remove-resource', label: 'Remove Resource' },
+        { command: 'move-resource-up', label: 'Move Resource Up' },
+        { command: 'move-resource-down', label: 'Move Resource Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:panel.files', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'attach-file', label: 'Attach File' },
+        { command: 'remove-attached-file', label: 'Remove Attached File' },
+        { command: 'move-attached-file-up', label: 'Move Attached File Up' },
+        { command: 'move-attached-file-down', label: 'Move Attached File Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:panel.resources', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'attach-resource', label: 'Attach Resource' },
+        { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
+        { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
+        { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' }
       ]
     })
 

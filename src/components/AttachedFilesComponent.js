@@ -24,9 +24,8 @@ export default class AttachedFilesComponent extends PropertyComponent {
   }
 
   _onMousedown (panel, fileNode, event) {
-    console.log('YAY')
     domHelpers.stopAndPrevent(event)
-    this.context.api.selectRelationshipValue(panel.id, 'files', fileNode.id)
+    this.context.api.selectValue(panel, 'files', fileNode.id)
   }
 }
 
@@ -49,7 +48,7 @@ class AttachedFileComponent extends SelectableNodeComponent {
     const { panel, node } = this.props
     return (sel &&
       sel.isCustomSelection() &&
-      sel.customType === 'relationship-value' &&
+      sel.customType === 'value' &&
       sel.nodeId === panel.id &&
       sel.data.property === 'files' &&
       sel.data.valueId === node.id

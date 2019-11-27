@@ -3,10 +3,14 @@
   font-weight: 500
 }
 
+.sc-attached-resource.sm-selected {
+  background: rgba(176, 210, 251, 0.8);
+}
+
 .sc-attached-resource .se-title {
   font-weight: 600
 }
 
-.sc-attached-resource .se-legend {
+.sc-attached-resource > * {
   display: inline-block;
 }

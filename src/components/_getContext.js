@@ -6,7 +6,11 @@ export default function _getContext (selectionState) {
   if (sel.isPropertySelection()) {
     return 'text'
   }
-  if (selectionState.node) {
+  if (sel.isNodeSelection() || sel.customType === 'node') {
     return selectionState.node.type
+  }
+  if (sel.customType === 'value') {
+    const { nodeType, property } = sel.data
+    return `${nodeType}.${property}`
   }
 }
