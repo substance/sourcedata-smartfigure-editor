@@ -1,4 +1,4 @@
-import { BasicEditorApi, documentHelpers } from 'substance'
+import { BasicEditorApi, documentHelpers, isArrayEqual } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
   insertPanelAfter (currentPanelId, file) {
@@ -145,5 +145,19 @@ export default class SmartFigureApi extends BasicEditorApi {
       documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
       this._selectItem(tx, newFileNode)
     })
+  }
+
+  updateAttachedFiles (panelId, attachedFileIds) {
+    // TODO: for sake of convenience, it would be nice to allow upload new files from within the AttachFileModal
+    // In this case we would need the blobs as an extra argument and store in the DAR
+    const ids = Array.from(attachedFileIds)
+    const doc = this.getDocument()
+    const panel = doc.get(panelId)
+    if (!isArrayEqual(panel.files, ids)) {
+      // TODO: let this change be more incremental, i.e. adding, removing and later maybe changing order
+      this.editorSession.transaction(tx => {
+        doc.set([panel.id, 'files'], ids)
+      })
+    }
   }
 }

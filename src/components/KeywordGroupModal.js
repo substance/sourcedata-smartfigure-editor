@@ -40,8 +40,6 @@ export default class KeywordGroupModal extends Component {
             $$('div'),
             $$(Button, {}, $$(Icon, { icon: 'plus' })).on('click', this._onClickAddKeyword)
           )
-        // })
-          // $$(Button, {}, $$(Icon, { icon: 'plus' })).on('click', this._onClickAddKeyword)
         ).addClass('se-keywords')
       )
     ).addClass('sc-keyword-group-modal')

@@ -21,6 +21,7 @@ import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
 import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
+import AttachFileCommand from './commands/AttachFileCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -101,6 +102,8 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-keyword-group-up', MoveKeywordGroupCommand, { direction: 'up' })
     config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
 
+    config.addCommand('attach-file', AttachFileCommand)
+
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
     config.addCommand('remove-author', RemoveAuthorCommand)
@@ -174,7 +177,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
         { command: 'move-figure-panel-down', label: 'Move Panel Down' },
-        { command: 'add-keyword-group', label: 'Add Keyword Group' }
+        { command: 'add-keyword-group', label: 'Add Keyword Group' },
+        { command: 'attach-file', label: 'Attach File' }
       ]
     })
 
@@ -215,7 +219,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'edit-file', label: 'Edit File' },
+        { command: 'rename-file', label: 'Rename File' },
         { command: 'remove-file', label: 'Remove File' },
         { command: 'move-file-up', label: 'Move File Up' },
         { command: 'move-file-down', label: 'Move File Down' }

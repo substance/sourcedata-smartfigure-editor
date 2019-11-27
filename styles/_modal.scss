@@ -76,3 +76,6 @@
   padding: var(--half-spacing) var(--default-spacing);
 }
 
+.sc-modal .sc-section > .se-section-label {
+  @include ts-interface;
+}
