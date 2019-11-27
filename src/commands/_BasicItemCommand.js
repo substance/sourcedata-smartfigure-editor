@@ -6,7 +6,7 @@ export default class BasicItemCommand extends Command {
   getCommandState (params, context) {
     const type = this.getType()
     const sel = params.selection
-    if (sel && sel.customType === type) {
+    if (sel && sel.customType === 'node' && sel.data.nodeType === type) {
       return {
         disabled: false,
         currentItemId: sel.nodeId

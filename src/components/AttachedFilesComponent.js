@@ -1,4 +1,4 @@
-import { $$, PropertyComponent, NodeComponent, renderProperty } from 'substance'
+import { $$, PropertyComponent, SelectableNodeComponent, renderProperty, domHelpers } from 'substance'
 
 export default class AttachedFilesComponent extends PropertyComponent {
   getPath () {
@@ -12,21 +12,47 @@ export default class AttachedFilesComponent extends PropertyComponent {
       const files = node.resolve('files')
       el.append(
         ...files.map(fileNode => {
-          return $$(AttachedFileComponent, { node: fileNode }).ref(fileNode.id)
+          return $$(AttachedFileComponent, {
+            node: fileNode,
+            panel: node,
+            onmousedown: this._onMousedown.bind(this, node, fileNode)
+          }).ref(fileNode.id)
         })
       )
     }
     return el
   }
+
+  _onMousedown (panel, fileNode, event) {
+    console.log('YAY')
+    domHelpers.stopAndPrevent(event)
+    this.context.api.selectRelationshipValue(panel.id, 'files', fileNode.id)
+  }
 }
 
-class AttachedFileComponent extends NodeComponent {
+class AttachedFileComponent extends SelectableNodeComponent {
   render () {
     const { node } = this.props
-    return $$('div', { class: 'sc-attached-file' },
+    const { selected } = this.state
+    const el = $$('button', { class: 'sc-attached-file' })
+    if (selected) el.addClass('sm-selected')
+    el.append(
       $$('span', { class: 'se-src' }, node.src),
       ': ',
       renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true })
+    )
+    return el
+  }
+
+  _isSelected (selectionState) {
+    const sel = selectionState.selection
+    const { panel, node } = this.props
+    return (sel &&
+      sel.isCustomSelection() &&
+      sel.customType === 'relationship-value' &&
+      sel.nodeId === panel.id &&
+      sel.data.property === 'files' &&
+      sel.data.valueId === node.id
     )
   }
 }

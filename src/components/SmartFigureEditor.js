@@ -192,15 +192,19 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _handleEnter () {
     const sel = this.editorState.selection
-    if (sel && sel.type === 'custom') {
-      switch (sel.customType) {
-        case 'author':
-        case 'affiliation':
-        case 'keyword-group': {
-          return this.editorSession.executeCommand(`edit-${sel.customType}`)
+    const selectionState = this.editorState.selectionState
+    if (sel) {
+      if (sel.customType === 'node') {
+        const node = selectionState.node
+        switch (node.type) {
+          case 'author':
+          case 'affiliation':
+          case 'keyword-group': {
+            return this.editorSession.executeCommand(`edit-${sel.customType}`)
+          }
+          default:
+            // nothing
         }
-        default:
-          // nothing
       }
     }
   }

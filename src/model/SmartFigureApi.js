@@ -160,4 +160,18 @@ export default class SmartFigureApi extends BasicEditorApi {
       })
     }
   }
+
+  // TODO: I'd like to have a specific selection for 'many' type relationships (e.g. author affiliations, or figure panel files, etc.)
+  // maybe this could be applied to 'children' type relationships, too (e.g. author, affiliation, etc.)
+  selectRelationshipValue (nodeId, property, valueId) {
+    this.editorSession.setSelection({
+      type: 'custom',
+      customType: 'relationship-value',
+      nodeId,
+      data: {
+        property,
+        valueId
+      }
+    })
+  }
 }
