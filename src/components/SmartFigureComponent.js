@@ -20,7 +20,7 @@ export default class SmartFigureComponent extends Component {
 
     // Authors & Affiliations
     el.append(
-      $$('div', { class: 'se-authors-and-affiliations', title: 'Authors and Affiliations' },
+      $$('div', { class: 'se-authors-and-affiliations' },
         $$(AuthorsListComponent, { node }),
         $$(AffiliationsListComponent, { node })
       )

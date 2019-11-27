@@ -1,4 +1,5 @@
 import { Component, $$, Form, FormRow, Modal, renderProperty } from 'substance'
+import CheckboxItem from './CheckboxItem'
 
 export default class AttachResourceModal extends Component {
   getInitialState () {
@@ -54,26 +55,5 @@ export default class AttachResourceModal extends Component {
     newEntry.attached = !newEntry.attached
     newResources.set(id, newEntry)
     this.extendState({ resources: newResources })
-  }
-}
-
-class CheckboxItem extends Component {
-  render () {
-    const { selected } = this.props
-    const el = $$('div', { class: 'sc-checkbox-item' })
-    const checkbox = $$('input', { class: 'se-checkbox', type: 'checkbox' }).ref('checkbox')
-    if (selected) {
-      checkbox.setAttribute('checked', true)
-    }
-    const value = $$('div', { class: 'se-value' }, ...this.props.children)
-    el.append(
-      checkbox,
-      value
-    )
-    return el
-  }
-
-  isSelected () {
-    return this.refs
   }
 }

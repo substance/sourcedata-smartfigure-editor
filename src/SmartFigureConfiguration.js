@@ -22,6 +22,7 @@ import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
 import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
+import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 
 const {
@@ -104,6 +105,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
 
     config.addCommand('attach-file', AttachFileCommand)
+    config.addCommand('attach-resource', AttachResourceCommand)
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
@@ -180,7 +182,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'insert-figure-panel', label: 'Insert Panel' },
         { command: 'remove-figure-panel', label: 'Remove Panel' },
-        { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
+        { command: 'replace-figure-panel-image', label: 'Replace Image' },
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
         { command: 'move-figure-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },
