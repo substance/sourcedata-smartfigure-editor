@@ -22,6 +22,7 @@ import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
 import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
+import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -150,6 +151,11 @@ export default class SmartFigureConfiguration extends Configurator {
             { command: 'add-resource', label: 'Add Resource' }
           ]
         },
+        {
+          type: 'menu',
+          noIcons: true,
+          ComponentClass: ContextualDropdownMenu
+        },
         { type: 'fill' }
       ]
     }
@@ -262,5 +268,13 @@ export default class SmartFigureConfiguration extends Configurator {
     // labels
     config.addLabel('paragraph', 'Paragraph')
     config.addLabel('heading', 'Heading')
+    config.addLabel('author', 'Author')
+    config.addLabel('affiliation', 'Affiliation')
+    config.addLabel('panel', 'Figure Panel')
+    config.addLabel('panel.files', 'Attached File')
+    config.addLabel('panel.resources', 'Attached Resource')
+    config.addLabel('keyword-group', 'Keyword Group')
+    config.addLabel('file', 'File')
+    config.addLabel('resource', 'Resource')
   }
 }
