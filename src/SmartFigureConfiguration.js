@@ -180,7 +180,6 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'insert-figure-panel', label: 'Insert Panel' },
         { command: 'remove-figure-panel', label: 'Remove Panel' },
         { command: 'replace-figure-panel-image', label: 'Replace Image' },
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
@@ -249,7 +248,6 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'attach-file', label: 'Attach File' },
         { command: 'remove-attached-file', label: 'Remove Attached File' },
         { command: 'move-attached-file-up', label: 'Move Attached File Up' },
         { command: 'move-attached-file-down', label: 'Move Attached File Down' }
@@ -260,7 +258,6 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'attach-resource', label: 'Attach Resource' },
         { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
         { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
         { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' }
