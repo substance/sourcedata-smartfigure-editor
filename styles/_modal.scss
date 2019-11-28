@@ -37,7 +37,7 @@
 }
 
 .sc-modal .se-modal-dialog > .se-modal-header .sc-title {
-  @include ts-heading-4;
+  @include ts-large-interface;
 }
 
 .sc-modal .se-modal-dialog > .se-modal-header .sc-button {
@@ -61,10 +61,21 @@
 }
 
 .sc-modal.sm-size-small .se-modal-dialog {
+  width: var(--modal-small-size);
+}
+
+.sc-modal.sm-size-medium .se-modal-dialog {
   width: var(--modal-medium-size);
+}
+
+.sc-modal.sm-size-large .se-modal-dialog {
+  width: var(--modal-large-size);
 }
 
 .sc-modal.sm-size-small .se-modal-dialog > * {
   padding: var(--half-spacing) var(--default-spacing);
 }
 
+.sc-modal .sc-section > .se-section-label {
+  @include ts-interface;
+}

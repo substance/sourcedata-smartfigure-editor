@@ -1,16 +1,28 @@
 import { SchemaBuilder } from 'substance'
 import PanelMixin from './PanelMixin'
 
+const RICH_TEXT_ANNOS = ['bold', 'italic', 'link', 'subscript', 'superscript', 'strike']
+const TITLE = () => {
+  return {
+    type: 'text',
+    childTypes: ['italic', 'superscript', 'subscript']
+  }
+}
+const LEGEND = () => {
+  return {
+    type: 'container',
+    childTypes: ['paragraph'],
+    defaultTextType: 'paragraph'
+  }
+}
+
 export default function SmartFigureSchema () {
   const builder = new SchemaBuilder('smart-figure', 'SourceData')
 
   builder.nextVersion(v => {
     // smart-figure
     v.addNode('smart-figure', '@node', {
-      title: {
-        type: 'text',
-        childTypes: ['italic', 'superscript', 'subscript']
-      },
+      title: TITLE(),
       authors: {
         type: 'children',
         childTypes: ['author'],
@@ -29,6 +41,16 @@ export default function SmartFigureSchema () {
         type: 'container',
         childTypes: ['paragraph'],
         defaultTextType: 'paragraph'
+      },
+      files: {
+        type: 'children',
+        childTypes: ['file'],
+        optional: true
+      },
+      resources: {
+        type: 'children',
+        childTypes: ['resource'],
+        optional: true
       }
     })
     // author
@@ -44,19 +66,24 @@ export default function SmartFigureSchema () {
       name: { type: 'string' },
       label: { type: 'string', optional: true }
     })
-
     // panel
     v.addNode('panel', '@node', {
       label: { type: 'string' },
       image: { type: 'child', childTypes: ['image'] },
-      legend: {
-        type: 'container',
-        childTypes: ['paragraph'],
-        defaultTextType: 'paragraph'
-      },
+      legend: LEGEND(),
       keywords: {
         type: 'children',
         childTypes: ['keyword-group'],
+        optional: true
+      },
+      files: {
+        type: 'many',
+        childTypes: ['file'],
+        optional: true
+      },
+      resources: {
+        type: 'many',
+        childTypes: ['resource'],
         optional: true
       }
     }, { Mixin: PanelMixin })
@@ -65,7 +92,7 @@ export default function SmartFigureSchema () {
       mimetype: { type: 'string' },
       src: { type: 'string' }
     })
-    // structured-keyword
+    // keyword-group + keyword
     v.addNode('keyword-group', '@node', {
       name: { type: 'string' },
       keywords: { type: 'children', childTypes: ['keyword'] }
@@ -73,9 +100,18 @@ export default function SmartFigureSchema () {
     v.addNode('keyword', '@text', {
       content: { type: 'string' }
     })
-
+    v.addNode('file', '@node', {
+      src: { type: 'string' },
+      mimetype: { type: 'string' },
+      title: TITLE(),
+      legend: LEGEND()
+    })
+    v.addNode('resource', '@node', {
+      href: { type: 'string' },
+      title: TITLE(),
+      legend: LEGEND()
+    })
     // annotations
-    const RICH_TEXT_ANNOS = ['bold', 'italic', 'link', 'subscript', 'superscript', 'strike']
     v.addNode('bold', '@annotation')
     v.addNode('italic', '@annotation')
     v.addNode('link', '@annotation', {

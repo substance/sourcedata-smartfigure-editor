@@ -1,0 +1,16 @@
+.sc-attached-resource {
+  @include ts-interface;
+  font-weight: 500
+}
+
+.sc-attached-resource.sm-selected {
+  background: rgba(176, 210, 251, 0.8);
+}
+
+.sc-attached-resource .se-title {
+  font-weight: 600
+}
+
+.sc-attached-resource > * {
+  display: inline-block;
+}

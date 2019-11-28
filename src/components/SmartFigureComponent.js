@@ -1,6 +1,8 @@
 import { Component, $$, renderProperty, AuthorsListComponent, AffiliationsListComponent } from 'substance'
 import Section from './Section'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
+import FileListComponent from './FileListComponent'
+import ResourceListComponent from './ResourceListComponent'
 
 export default class SmartFigureComponent extends Component {
   render () {
@@ -18,7 +20,7 @@ export default class SmartFigureComponent extends Component {
 
     // Authors & Affiliations
     el.append(
-      $$('div', { class: 'se-authors-and-affiliations', title: 'Authors and Affiliations' },
+      $$('div', { class: 'se-authors-and-affiliations' },
         $$(AuthorsListComponent, { node }),
         $$(AffiliationsListComponent, { node })
       )
@@ -37,6 +39,14 @@ export default class SmartFigureComponent extends Component {
         // HACK: using style of sc-heading level 1
         renderProperty(this, doc, [node.id, 'additionalInformation'], { placeholder: 'Enter additional information' })
       )
+    )
+
+    // Panels
+    el.append(
+      $$(FileListComponent, { document: doc })
+    )
+    el.append(
+      $$(ResourceListComponent, { document: doc })
     )
 
     return el

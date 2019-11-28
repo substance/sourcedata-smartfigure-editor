@@ -1,0 +1,19 @@
+@mixin card-style {
+  padding: 20px;
+  box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #ccc;
+  cursor: pointer;
+
+  &.sm-selected {
+    box-shadow: var(--custom-selection-box-shadow);
+  }
+
+  & .sc-container-editor:focus {
+    border-color: transparent;
+    border-radius: 3px;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
+  }
+
+  & > .sc-section + .sc-section {
+    margin-top: var(--half-spacing);
+  }
+}

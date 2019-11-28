@@ -1,13 +1,16 @@
 import {
-  AbstractEditor, $$, EditorToolbar, Managed, domHelpers, ModalCanvas, Popover,
-  FileSelect, AffiliationLabelManager
+  AbstractEditor, $$, domHelpers, parseKeyEvent, keys,
+  EditorToolbar, Managed, ModalCanvas, Popover, FileSelect,
+  AffiliationLabelManager
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
 import SmartFigureComponent from './SmartFigureComponent'
 import SmartFigureTOC from './SmartFigureTOC'
 import _getContext from './_getContext'
-import PanelLabelManager from './_PanelLabelManager'
+import PanelLabelManager from './PanelLabelManager'
+import FilesLabelManager from './FilesLabelManager'
+import ResourcesLabelManager from './ResourcesLabelManager'
 
 export default class SmartFigureEditor extends AbstractEditor {
   constructor (...args) {
@@ -26,14 +29,32 @@ export default class SmartFigureEditor extends AbstractEditor {
   didMount () {
     super.didMount()
 
-    this._affiliationLabelManager = new AffiliationLabelManager(this.editorSession)
-    this._panelLabelManager = new PanelLabelManager(this.editorSession)
+    this._labelManagers = [
+      new AffiliationLabelManager(this.editorSession),
+      new FilesLabelManager(this.editorSession),
+      new PanelLabelManager(this.editorSession),
+      new ResourcesLabelManager(this.editorSession)
+    ]
+
+    const globalEventHandler = this.context.globalEventHandler
+    if (globalEventHandler) {
+      globalEventHandler.addEventListener('keydown', this._onKeydown, this)
+    }
+
+    this._updateLabels()
   }
 
   dispose () {
     super.dispose()
 
-    this._panelLabelManager.dispose()
+    for (const labelManager of this._labelManagers) {
+      labelManager.dispose()
+    }
+
+    const globalEventHandler = this.context.globalEventHandler
+    if (globalEventHandler) {
+      globalEventHandler.removeEventListener(this)
+    }
   }
 
   render () {
@@ -50,6 +71,9 @@ export default class SmartFigureEditor extends AbstractEditor {
       $$(Popover, {
         getContainer: () => {
           return this.getElement()
+        },
+        getScrollable: () => {
+          return this.refs.scrollable.getElement()
         }
       }).ref('popover'),
       $$(FileSelect, {}).ref('fileSelect'),
@@ -69,6 +93,13 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _createAPI (archive, editorSession) {
     return new SmartFigureApi(archive, editorSession)
+  }
+
+  _updateLabels () {
+    for (const labelManager of this._labelManagers) {
+      labelManager.update()
+    }
+    this.editorState.propagateUpdates()
   }
 
   _getScrollableElement () {
@@ -124,9 +155,77 @@ export default class SmartFigureEditor extends AbstractEditor {
         this.send('requestPopover', {
           requester: this,
           desiredPos,
-          content: menuSpec
+          content: menuSpec,
+          position: 'relative'
         })
       }
     }
+  }
+
+  _onKeydown (event) {
+    if (super.handleKeydown(event)) return
+
+    let handled = false
+    const combo = parseKeyEvent(event)
+    switch (combo) {
+      case String(keys.ENTER): {
+        handled = this._handleEnter()
+        break
+      }
+      case String(keys.UP): {
+        handled = this._handleUp()
+        break
+      }
+      case String(keys.DOWN): {
+        handled = this._handleDown()
+        break
+      }
+      case String(keys.LEFT): {
+        handled = this._handleLeft()
+        break
+      }
+      case String(keys.RIGHT): {
+        handled = this._handleRight()
+        break
+      }
+    }
+    if (handled) {
+      event.stopPropagation()
+    }
+  }
+
+  _handleEnter () {
+    const sel = this.editorState.selection
+    const selectionState = this.editorState.selectionState
+    if (sel) {
+      if (sel.customType === 'node') {
+        const node = selectionState.node
+        switch (node.type) {
+          case 'author':
+          case 'affiliation':
+          case 'keyword-group': {
+            return this.editorSession.executeCommand(`edit-${sel.customType}`)
+          }
+          default:
+            // nothing
+        }
+      }
+    }
+  }
+
+  _handleUp () {
+
+  }
+
+  _handleDown () {
+
+  }
+
+  _handleLeft () {
+
+  }
+
+  _handleRight () {
+
   }
 }

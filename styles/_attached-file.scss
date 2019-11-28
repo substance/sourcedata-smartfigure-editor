@@ -1,0 +1,12 @@
+.sc-attached-file {
+  @include ts-interface;
+  font-weight: 500
+}
+
+.sc-attached-file.sm-selected {
+  background: rgba(176, 210, 251, 0.8);
+}
+
+.sc-attached-file .se-src {
+  font-weight: 600
+}

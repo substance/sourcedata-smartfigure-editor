@@ -1,17 +1,7 @@
-import { Command } from 'substance'
+import BasicItemCommand from './_BasicItemCommand'
 
-export default class BasicFigurePanelCommand extends Command {
-  getCommandState (params, context) {
-    const sel = params.selection
-    if (sel && sel.customType === 'panel') {
-      return {
-        disabled: false,
-        currentPanelId: sel.nodeId
-      }
-    } else {
-      return {
-        disabled: true
-      }
-    }
+export default class BasicFigurePanelCommand extends BasicItemCommand {
+  getType () {
+    return 'panel'
   }
 }

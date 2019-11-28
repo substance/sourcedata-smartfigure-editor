@@ -14,6 +14,16 @@ import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
 import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
 import ReplaceFigurePanelImageCommand from './commands/ReplaceFigurePanelImageCommand'
 import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
+import AddFileCommand from './commands/AddFileCommand'
+import MoveFileCommand from './commands/MoveFileCommand'
+import AddResourceCommand from './commands/AddResourceCommand'
+import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
+import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
+import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
+import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
+import AttachFileCommand from './commands/AttachFileCommand'
+import AttachResourceCommand from './commands/AttachResourceCommand'
+import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -88,6 +98,15 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
     config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
 
+    config.addCommand('add-keyword-group', AddKeywordGroupCommand)
+    config.addCommand('edit-keyword-group', EditKeywordGroupCommand)
+    config.addCommand('remove-keyword-group', RemoveKeywordGroupCommand)
+    config.addCommand('move-keyword-group-up', MoveKeywordGroupCommand, { direction: 'up' })
+    config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
+
+    config.addCommand('attach-file', AttachFileCommand)
+    config.addCommand('attach-resource', AttachResourceCommand)
+
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
     config.addCommand('remove-author', RemoveAuthorCommand)
@@ -99,6 +118,12 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-affiliation', RemoveAffiliationCommand)
     config.addCommand('move-affiliation-forward', MoveAffiliationCommand, { direction: 'up' })
     config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
+
+    config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
+    config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
+
+    config.addCommand('add-file', AddFileCommand)
+    config.addCommand('add-resource', AddResourceCommand)
 
     // Menus
     const editorToolbar = {
@@ -123,8 +148,15 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'insert-figure-panel', label: 'Add Panel' }
+            { command: 'insert-figure-panel', label: 'Add Panel' },
+            { command: 'add-file', label: 'Add File' },
+            { command: 'add-resource', label: 'Add Resource' }
           ]
+        },
+        {
+          type: 'menu',
+          noIcons: true,
+          ComponentClass: ContextualDropdownMenu
         },
         { type: 'fill' }
       ]
@@ -148,12 +180,13 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'insert-figure-panel', label: 'Insert Panel' },
         { command: 'remove-figure-panel', label: 'Remove Panel' },
-        { command: 'replace-figure-panel-image', label: 'Replace Panel Image' },
+        { command: 'replace-figure-panel-image', label: 'Replace Image' },
         { command: 'move-figure-panel-up', label: 'Move Panel Up' },
         { command: 'move-figure-panel-down', label: 'Move Panel Down' },
-        { command: 'add-keyword-group', label: 'Add Keyword Group' }
+        { command: 'add-keyword-group', label: 'Add Keyword Group' },
+        { command: 'attach-file', label: 'Attach File' },
+        { command: 'attach-resource', label: 'Attach Resource' }
       ]
     })
 
@@ -190,8 +223,57 @@ export default class SmartFigureConfiguration extends Configurator {
       ]
     })
 
+    config.addToolPanel('context-menu:file', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'rename-file', label: 'Rename File' },
+        { command: 'remove-file', label: 'Remove File' },
+        { command: 'move-file-up', label: 'Move File Up' },
+        { command: 'move-file-down', label: 'Move File Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:resource', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'remove-resource', label: 'Remove Resource' },
+        { command: 'move-resource-up', label: 'Move Resource Up' },
+        { command: 'move-resource-down', label: 'Move Resource Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:panel.files', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'remove-attached-file', label: 'Remove Attached File' },
+        { command: 'move-attached-file-up', label: 'Move Attached File Up' },
+        { command: 'move-attached-file-down', label: 'Move Attached File Down' }
+      ]
+    })
+
+    config.addToolPanel('context-menu:panel.resources', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
+        { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
+        { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' }
+      ]
+    })
+
     // labels
     config.addLabel('paragraph', 'Paragraph')
     config.addLabel('heading', 'Heading')
+    config.addLabel('author', 'Author')
+    config.addLabel('affiliation', 'Affiliation')
+    config.addLabel('panel', 'Figure Panel')
+    config.addLabel('panel.files', 'Attached File')
+    config.addLabel('panel.resources', 'Attached Resource')
+    config.addLabel('keyword-group', 'Keyword Group')
+    config.addLabel('file', 'File')
+    config.addLabel('resource', 'Resource')
   }
 }

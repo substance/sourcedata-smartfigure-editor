@@ -22,12 +22,13 @@
     "postcss": "^7.0.18",
     "postcss-comment": "^2.0.0",
     "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.2.1",
     "postcss-reporter": "^6.0.1",
     "rollup": "^1.23.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "standard": "^14.3.1",
-    "substance": "2.0.0-preview.9",
+    "substance": "2.0.0-preview.14",
     "substance-bundler": "0.27.2",
     "substance-test": "0.15.0"
   }
