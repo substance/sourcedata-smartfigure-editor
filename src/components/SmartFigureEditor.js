@@ -71,6 +71,9 @@ export default class SmartFigureEditor extends AbstractEditor {
       $$(Popover, {
         getContainer: () => {
           return this.getElement()
+        },
+        getScrollable: () => {
+          return this.refs.scrollable.getElement()
         }
       }).ref('popover'),
       $$(FileSelect, {}).ref('fileSelect'),
@@ -152,7 +155,8 @@ export default class SmartFigureEditor extends AbstractEditor {
         this.send('requestPopover', {
           requester: this,
           desiredPos,
-          content: menuSpec
+          content: menuSpec,
+          position: 'relative'
         })
       }
     }
