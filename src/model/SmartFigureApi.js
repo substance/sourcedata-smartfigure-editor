@@ -1,10 +1,14 @@
-import { BasicEditorApi, documentHelpers, isArrayEqual, AuthorApi } from 'substance'
+import {
+  documentHelpers, isArrayEqual,
+  BasicEditorApi, AuthorApi, AffiliationApi
+} from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
   constructor (...args) {
     super(...args)
 
     this.extendWith(new AuthorApi())
+    this.extendWith(new AffiliationApi())
   }
 
   insertPanelAfter (currentPanelId, file) {
