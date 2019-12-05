@@ -1,7 +1,7 @@
 import {
   AbstractEditor, $$, domHelpers, parseKeyEvent, keys,
   EditorToolbar, Managed, ModalCanvas, Popover, FileSelect,
-  AffiliationLabelManager
+  AffiliationLabelManager, platform
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
@@ -181,12 +181,31 @@ export default class SmartFigureEditor extends AbstractEditor {
         handled = this._handleEnter()
         break
       }
+      // only used under OSX
+      case `META+${keys.BACKSPACE}`: {
+        if (platform.isMac) {
+          handled = this._handleDelete()
+        }
+        break
+      }
+      case String(keys.DELETE): {
+        handled = this._handleDelete()
+        break
+      }
       case String(keys.UP): {
         handled = this._handleUp()
         break
       }
+      case `ALT+${keys.UP}`: {
+        handled = this._handleAltUp()
+        break
+      }
       case String(keys.DOWN): {
         handled = this._handleDown()
+        break
+      }
+      case `ALT+${keys.DOWN}`: {
+        handled = this._handleAltDown()
         break
       }
       case String(keys.LEFT): {
@@ -199,7 +218,7 @@ export default class SmartFigureEditor extends AbstractEditor {
       }
     }
     if (handled) {
-      event.stopPropagation()
+      domHelpers.stopAndPrevent(event)
     }
   }
 
@@ -231,12 +250,51 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
   }
 
+  _handleDelete () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.removeAndDeleteNode(sel.nodeId)
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.removeItem([sel.nodeId, sel.data.property], sel.data.valueId)
+        return true
+      }
+    }
+  }
+
   _handleUp () {
 
   }
 
+  _handleAltUp () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.moveNode(sel.nodeId, 'up')
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.moveItem([sel.nodeId, sel.data.property], sel.data.valueId, 'up')
+        return true
+      }
+    }
+  }
+
   _handleDown () {
 
+  }
+
+  _handleAltDown () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.moveNode(sel.nodeId, 'down')
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.moveItem([sel.nodeId, sel.data.property], sel.data.valueId, 'down')
+        return true
+      }
+    }
   }
 
   _handleLeft () {
