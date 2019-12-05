@@ -11,5 +11,6 @@
     <asset id="panel-f" type="image/jpg" path="panel-f.jpg"/>
     <asset id="panel-g" type="image/jpg" path="panel-g.jpg"/>
     <asset id="panel-a-source-data" type="text/csv" path="panel-a-source-data.csv"/>
+    <asset id="file-1" type="text/r" path="tsne-af4d.R"/>
   </assets>
 </dar>
