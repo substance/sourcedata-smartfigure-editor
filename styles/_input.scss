@@ -1,11 +1,11 @@
 .sc-input {
-  height: 36px;
+  height: var(--input-height);
   width: 100%;
+  padding: 5px;
   border: none;
   border: 1px solid var(--light-border-color);
-  @include ts-content;
-  padding: 5px;
   border-radius: 3px;
+  @include ts-content;
 }
 
 .sc-input:focus {
