@@ -12,7 +12,11 @@ export default class AttachedResourcesComponent extends PropertyComponent {
       const resources = node.resolve('resources')
       el.append(
         ...resources.map(resourceNode => {
-          return $$(AttachedResourceComponent, { panel: node, node: resourceNode, onmousedown: this._onMousedown.bind(this, node, resourceNode) }).ref(resourceNode.id)
+          return $$(AttachedResourceComponent, {
+            panel: node,
+            node: resourceNode,
+            onmousedown: this._onMousedown.bind(this, node, resourceNode)
+          }).ref(resourceNode.id)
         })
       )
     }

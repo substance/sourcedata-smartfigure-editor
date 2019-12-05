@@ -43,7 +43,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     if (node.files && node.files.length > 0) {
       el.append(
         $$(Section, { label: 'Files' },
-          $$(AttachedFilesComponent, { node })
+          $$(AttachedFilesComponent, { node }).ref('attachedFiles')
         )
       )
     }
@@ -51,7 +51,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     if (node.resources && node.resources.length > 0) {
       el.append(
         $$(Section, { label: 'Resources' },
-          $$(AttachedResourcesComponent, { node })
+          $$(AttachedResourcesComponent, { node }).ref('attachedResources')
         )
       )
     }
