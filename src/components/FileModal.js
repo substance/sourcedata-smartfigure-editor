@@ -9,7 +9,8 @@ export default class FileModal extends Component {
     if (mode === 'edit') {
       data = {
         src: node.src || '',
-        mimetype: node.mimetype
+        mimetype: node.mimetype,
+        originalSrc: node.src || ''
       }
     } else {
       data = {
@@ -20,7 +21,7 @@ export default class FileModal extends Component {
     }
     return {
       data,
-      duplicateFileError: archive.hasAsset(data.src)
+      duplicateFileError: false
     }
   }
 
@@ -56,17 +57,21 @@ export default class FileModal extends Component {
   }
 
   _validateSrc () {
-    if (this.context.api.archive.hasAsset(this.state.data.src)) {
-      if (!this.state.duplicateFileError) {
-        this.extendState({
-          duplicateFileError: true
-        })
-      }
-    } else {
-      if (this.state.duplicateFileError) {
-        this.extendState({
-          duplicateFileError: false
-        })
+    const newSrc = this.state.data.src
+    const originalSrc = this.state.data.originalSrc
+    if (!originalSrc || newSrc !== originalSrc) {
+      if (this.context.api.archive.hasAsset(newSrc)) {
+        if (!this.state.duplicateFileError) {
+          this.extendState({
+            duplicateFileError: true
+          })
+        }
+      } else {
+        if (this.state.duplicateFileError) {
+          this.extendState({
+            duplicateFileError: false
+          })
+        }
       }
     }
   }
