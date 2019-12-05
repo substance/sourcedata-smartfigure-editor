@@ -11,6 +11,7 @@
 @import './_affiliations-list.scss';
 @import './_attached-file.scss';
 @import './_attached-resource.scss';
+@import './_author-modal.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
 @import './_divider.scss';
@@ -32,6 +33,7 @@
 @import './_modal-canvas.scss';
 @import './_modal.scss';
 @import './_multi-select.scss';
+@import './_optional-fields-toggle.scss';
 @import './_placeholder.scss';
 @import './_popover.scss';
 @import './_resource.scss';

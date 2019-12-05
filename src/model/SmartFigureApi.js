@@ -1,6 +1,12 @@
-import { BasicEditorApi, documentHelpers, isArrayEqual } from 'substance'
+import { BasicEditorApi, documentHelpers, isArrayEqual, AuthorApi } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
+  constructor (...args) {
+    super(...args)
+
+    this.extendWith(new AuthorApi())
+  }
+
   insertPanelAfter (currentPanelId, file) {
     const doc = this.getDocument()
     const currentPanel = doc.get(currentPanelId)

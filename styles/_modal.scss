@@ -1,3 +1,8 @@
+/*
+  TODO:
+  Modal and its CSS has to be redesigned from scratch.
+  ATM, it is not very responsive, and it does not work well for long content.
+*/
 .sc-modal {
   position: fixed;
   top: 0;
@@ -7,6 +12,8 @@
   height: 100%;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.8);
+  min-height: 400px;
+  min-width: 400px;
 }
 
 .sc-modal .se-modal-dialog {
@@ -17,14 +24,24 @@
   background: #ffffff;
   box-shadow: var(--card-shadow);
   border-radius: var(--popover-border-radius);
+  padding: var(--half-spacing) var(--double-spacing);
 }
 
 .sc-modal.sm-size-default .se-modal-dialog {
   width: 800px;
 }
 
-.sc-modal .se-modal-dialog > * {
-  padding: var(--half-spacing) var(--double-spacing);
+.sc-modal.sm-size-small .se-modal-dialog {
+  max-width: var(--modal-small-size);
+  padding: var(--half-spacing) var(--default-spacing);
+}
+
+.sc-modal.sm-size-medium .se-modal-dialog {
+  max-width: var(--modal-medium-size);
+}
+
+.sc-modal.sm-size-large .se-modal-dialog {
+  max-width: var(--modal-large-size);
 }
 
 .sc-modal .se-modal-dialog > .sc-divider {
@@ -53,27 +70,13 @@
 }
 
 .sc-modal .se-modal-dialog > .se-modal-body {
-  padding: var(--double-spacing);
+  max-height: calc(100vh - var(--header-height) - var(--header-height));
+  overflow: auto;
+  padding: 2px;
 }
 
 .sc-modal .se-modal-dialog > .se-modal-body > .sc-form > * {
   margin: var(--half-spacing) 0;
-}
-
-.sc-modal.sm-size-small .se-modal-dialog {
-  width: var(--modal-small-size);
-}
-
-.sc-modal.sm-size-medium .se-modal-dialog {
-  width: var(--modal-medium-size);
-}
-
-.sc-modal.sm-size-large .se-modal-dialog {
-  width: var(--modal-large-size);
-}
-
-.sc-modal.sm-size-small .se-modal-dialog > * {
-  padding: var(--half-spacing) var(--default-spacing);
 }
 
 .sc-modal .sc-section > .se-section-label {
