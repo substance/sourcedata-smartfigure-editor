@@ -2,6 +2,10 @@ import { $$, ItemCommand } from 'substance'
 import FileModal from '../components/FileModal'
 
 export default class EditFileCommand extends ItemCommand {
+  getType () {
+    return 'file'
+  }
+
   execute (params, context) {
     const { node } = params.commandState
     const editorSession = context.editorSession

@@ -79,7 +79,17 @@ export default class SmartFigureApi extends BasicEditorApi {
   }
 
   updateFile (fileId, data) {
-    // const doc = this.getDocument()
+    const doc = this.getDocument()
+    const file = doc.get(fileId)
+    const oldSrc = file.src
+    const newSrc = data.src
+    if (oldSrc !== newSrc) {
+      this.archive.renameAsset(oldSrc, newSrc)
+      this.editorSession.transaction(tx => {
+        tx.set([fileId, 'src'], newSrc)
+        this._selectItem(tx, file)
+      })
+    }
   }
 
   addKeywordGroup (panelId, keywordGroupData) {

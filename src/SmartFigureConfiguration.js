@@ -16,6 +16,7 @@ import RemovePanelCommand from './commands/RemovePanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
 import MovePanelCommand from './commands/MovePanelCommand'
 import AddFileCommand from './commands/AddFileCommand'
+import EditFileCommand from './commands/EditFileCommand'
 import MoveFileCommand from './commands/MoveFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
@@ -125,6 +126,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
 
     config.addCommand('add-file', AddFileCommand)
+    config.addCommand('edit-file', EditFileCommand)
     config.addCommand('remove-file', RemoveFileCommand)
     config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
     config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
@@ -236,7 +238,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'rename-file', label: 'Rename File' },
+        { command: 'edit-file', label: 'Rename File' },
         { command: 'remove-file', label: 'Remove File' },
         { command: 'move-file-up', label: 'Move File Up' },
         { command: 'move-file-down', label: 'Move File Down' }
