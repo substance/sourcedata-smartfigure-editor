@@ -221,7 +221,7 @@ export default class SmartFigureEditor extends AbstractEditor {
           case 'author':
           case 'affiliation':
           case 'keyword-group': {
-            return this.editorSession.executeCommand(`edit-${sel.customType}`)
+            return this.editorSession.executeCommand(`edit-${node.type}`)
           }
           default:
             // nothing
