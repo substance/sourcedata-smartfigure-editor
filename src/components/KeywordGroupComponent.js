@@ -1,16 +1,14 @@
 import { SelectableNodeComponent, $$, domHelpers } from 'substance'
 
-export default class StructuredKeywordComponent extends SelectableNodeComponent {
+export default class KeywordGroupComponent extends SelectableNodeComponent {
   render () {
     const node = this.props.node
     // Note: using a button so that the browser treats it as UI element, not content (e.g. re selections)
-    const el = $$('button', { class: 'sc-structured-keyword' })
+    const el = $$('button', { class: 'sc-keyword-group', 'data-id': node.id })
     if (this.state.selected) el.addClass('sm-selected')
-
     el.append(
       $$('span', { class: 'se-name' }, node.name)
     )
-
     el.append(
       $$('span', { class: 'se-values' },
         ...node.resolve('keywords').map(kwd => {
@@ -18,9 +16,7 @@ export default class StructuredKeywordComponent extends SelectableNodeComponent 
         })
       )
     )
-
     el.on('mousedown', this._onMousedown)
-
     return el
   }
 

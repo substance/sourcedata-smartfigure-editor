@@ -25,6 +25,7 @@
 @import './_horizontal-stack.scss';
 @import './_input.scss';
 @import './_isolated-node.scss';
+@import './_keyword-group.scss';
 @import './_keyword-group-modal.scss';
 @import './_limiter.scss';
 @import './_link-popover.scss';
@@ -49,7 +50,6 @@
 @import './_two-column-layout.scss';
 @import './_layouted-figure-panels.scss';
 @import './_sourcedata-logo.css';
-@import './_structured-keyword.scss';
 @import './_title.scss';
 
 html {
