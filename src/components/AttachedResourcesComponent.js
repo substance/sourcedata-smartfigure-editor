@@ -29,7 +29,7 @@ class AttachedResourceComponent extends SelectableNodeComponent {
   render () {
     const { node } = this.props
     const { selected } = this.state
-    const el = $$('button', { class: 'sc-attached-resource' })
+    const el = $$('button', { class: 'sc-attached-resource', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
     el.append(
       renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true }).addClass('se-title'),
@@ -39,15 +39,8 @@ class AttachedResourceComponent extends SelectableNodeComponent {
     return el
   }
 
-  _isSelected (selectionState) {
-    const sel = selectionState.selection
+  _getSelectableId () {
     const { panel, node } = this.props
-    return (sel &&
-      sel.isCustomSelection() &&
-      sel.customType === 'value' &&
-      sel.nodeId === panel.id &&
-      sel.data.property === 'resources' &&
-      sel.data.valueId === node.id
-    )
+    return `${panel.id}.resources#${node.id}`
   }
 }
