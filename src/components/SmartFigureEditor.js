@@ -22,6 +22,7 @@ export default class SmartFigureEditor extends AbstractEditor {
       requestModal: this._openModal,
       requestPopover: this._requestPopover,
       releasePopover: this._releasePopover,
+      closePopover: this._closePopover,
       requestFileSelect: this._openFileSelect
     })
   }
@@ -136,6 +137,10 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _releasePopover (requester) {
     return this.refs.popover.release(requester)
+  }
+
+  _closePopover () {
+    return this.refs.popover.close()
   }
 
   _openFileSelect (props) {
