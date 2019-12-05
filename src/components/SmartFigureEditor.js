@@ -173,6 +173,10 @@ export default class SmartFigureEditor extends AbstractEditor {
     let handled = false
     const combo = parseKeyEvent(event)
     switch (combo) {
+      case String(keys.ESC): {
+        handled = this._handleEscape()
+        break
+      }
       case String(keys.ENTER): {
         handled = this._handleEnter()
         break
@@ -197,6 +201,14 @@ export default class SmartFigureEditor extends AbstractEditor {
     if (handled) {
       event.stopPropagation()
     }
+  }
+
+  _handleEscape () {
+    // TODO: only close popover if it is open
+    // otherwise we could try this for escaping out from a selection within
+    // an item/node, e.g. within panel's legend
+    this._closePopover()
+    return true
   }
 
   _handleEnter () {
