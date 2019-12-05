@@ -137,27 +137,23 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  addResource (url) {
-    return this.insertResourceAfter(url)
+  addResource (data) {
+    return this.insertResourceAfter(data)
   }
 
-  insertResourceAfter (url, currentFileId) {
+  insertResourceAfter (data, currentFileId) {
     const doc = this.getDocument()
     const root = doc.root
-    let insertPos = root.files.length
+    let insertPos = root.resources.length
     if (currentFileId) {
       const currentFileNode = doc.get(currentFileId)
       insertPos = currentFileNode.getPosition() + 1
     }
+    const nodeData = Object.assign({ type: 'resource', legend: [{ type: 'paragraph' }] }, data)
     this.editorSession.transaction(tx => {
-      const newFileNode = documentHelpers.createNodeFromJson(tx, {
-        type: 'file',
-        url,
-        remote: true,
-        legend: [{ type: 'paragraph' }]
-      })
-      documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
-      this._selectItem(tx, newFileNode)
+      const node = documentHelpers.createNodeFromJson(tx, nodeData)
+      documentHelpers.insertAt(tx, [root.id, 'resources'], insertPos, node.id)
+      this._selectItem(tx, node)
     })
   }
 

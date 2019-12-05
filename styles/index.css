@@ -38,6 +38,7 @@
 @import './_placeholder.scss';
 @import './_popover.scss';
 @import './_resource.scss';
+@import './_resource-list.scss';
 @import './_section.scss';
 @import './_smart-figure-editor.scss';
 @import './_smart-figure-page.scss';
