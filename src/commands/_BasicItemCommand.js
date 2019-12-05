@@ -17,4 +17,8 @@ export default class BasicItemCommand extends Command {
       }
     }
   }
+
+  getType () {
+    throw new Error('This method is abstract')
+  }
 }

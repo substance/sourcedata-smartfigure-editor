@@ -17,8 +17,8 @@ export default class AddFileCommand extends Command {
           return $$(FileModal, { file })
         }).then(modal => {
           if (!modal) return
-          const src = modal.refs.src.val()
-          api.insertFile(src, file)
+          const { src } = modal.state.data
+          api.addFile(src, file)
         })
       }
     })

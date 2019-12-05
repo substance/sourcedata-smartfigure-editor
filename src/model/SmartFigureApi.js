@@ -40,7 +40,7 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  insertFile (fileName, file) {
+  addFile (fileName, file) {
     return this.insertFileAfter(fileName, file)
   }
 
@@ -66,6 +66,10 @@ export default class SmartFigureApi extends BasicEditorApi {
       documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
       this._selectItem(tx, newFileNode)
     })
+  }
+
+  updateFile (fileId, data) {
+    // const doc = this.getDocument()
   }
 
   addKeywordGroup (panelId, keywordGroupData) {

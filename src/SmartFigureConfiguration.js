@@ -4,8 +4,8 @@ import {
   AnnotationCommand, BasePackage, HtmlConverters,
   ParagraphComponent, HeadingComponent, OpenIsolatedNodeComponent,
   ImageComponent, LinkComponent, CreateLinkCommand,
-  AddAuthorCommand, EditAuthorCommand, RemoveAuthorCommand, MoveAuthorCommand,
-  AddAffiliationCommand, EditAffiliationCommand, RemoveAffiliationCommand, MoveAffiliationCommand
+  AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand, RemoveAuthorCommand, MoveAuthorCommand,
+  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand, RemoveAffiliationCommand, MoveAffiliationCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -24,6 +24,7 @@ import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
+import RemoveFileCommand from './commands/RemoveFileCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -109,20 +110,23 @@ export default class SmartFigureConfiguration extends Configurator {
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
+    config.addCommand('insert-author', InsertAuthorCommand)
     config.addCommand('remove-author', RemoveAuthorCommand)
     config.addCommand('move-author-forward', MoveAuthorCommand, { direction: 'up' })
     config.addCommand('move-author-back', MoveAuthorCommand, { direction: 'down' })
 
     config.addCommand('add-affiliation', AddAffiliationCommand)
+    config.addCommand('insert-affiliation', InsertAffiliationCommand)
     config.addCommand('edit-affiliation', EditAffiliationCommand)
     config.addCommand('remove-affiliation', RemoveAffiliationCommand)
     config.addCommand('move-affiliation-forward', MoveAffiliationCommand, { direction: 'up' })
     config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
 
+    config.addCommand('add-file', AddFileCommand)
+    config.addCommand('remove-file', RemoveFileCommand)
     config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
     config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
 
-    config.addCommand('add-file', AddFileCommand)
     config.addCommand('add-resource', AddResourceCommand)
 
     // Menus
@@ -196,8 +200,9 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-author', label: 'Edit Author' },
         { command: 'remove-author', label: 'Remove Author' },
-        { command: 'move-author-forward', label: 'Move Author Forward' },
-        { command: 'move-author-back', label: 'Move Author Back' }
+        { command: 'insert-author', label: 'Insert Author' },
+        { command: 'move-author-forward', label: 'Move Author Up' },
+        { command: 'move-author-back', label: 'Move Author Down' }
       ]
     })
 
@@ -207,6 +212,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-affiliation', label: 'Edit Affiliation' },
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
+        { command: 'insert-affiliation', label: 'Insert Affiliation' },
         { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
         { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
       ]

@@ -3,3 +3,9 @@
   @include ts-quiet;
   font-weight: 500;
 }
+
+.sc-file-modal .se-src .se-error {
+  @include ts-small-interface;
+  height: 15px;
+  color: var(--error-color);
+}
