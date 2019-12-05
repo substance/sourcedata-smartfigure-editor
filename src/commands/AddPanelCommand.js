@@ -1,13 +1,16 @@
-import BasicFigurePanelCommand from './_BasicFigurePanelCommand'
+import { Command } from 'substance'
 
-export default class InsertFigurePanelCommand extends BasicFigurePanelCommand {
+export default class AddPanelCommand extends Command {
+  getCommandState () {
+    return { disabled: false }
+  }
+
   execute (params, context) {
-    const commandState = params.commandState
     const editor = context.editorSession.getRootComponent()
     if (editor) {
       editor.send('requestFileSelect', { fileType: 'image/*', multiple: false }).then(files => {
         if (files.length > 0) {
-          context.api.insertPanelAfter(commandState.currentItemId, files[0])
+          context.api.addPanel(files[0])
         }
       })
     }

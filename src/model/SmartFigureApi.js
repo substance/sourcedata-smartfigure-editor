@@ -11,20 +11,30 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.extendWith(new AffiliationApi())
   }
 
-  insertPanelAfter (currentPanelId, file) {
+  addPanel (file) {
+    this.insertPanel(file)
+  }
+
+  insertPanel (file, currentPanelId) {
     const doc = this.getDocument()
-    const currentPanel = doc.get(currentPanelId)
-    const figure = currentPanel.getParent()
-    if (!figure) throw new Error('Figure does not exist')
-    const pos = currentPanel.getPosition()
+    const root = doc.root
+    let insertPos = root.panels.length
+    let template = {
+      type: 'panel',
+      image: { type: 'image' },
+      legend: [{ type: 'paragraph' }]
+    }
+    if (currentPanelId) {
+      const currentPanel = doc.get(currentPanelId)
+      insertPos = currentPanel.getPosition() + 1
+      template = currentPanel.getTemplate()
+    }
     const src = this.archive.addAsset(file)
-    const insertPos = pos + 1
-    const template = currentPanel.getTemplate()
     template.image.src = src
     template.image.mimeType = file.type
     this.editorSession.transaction(tx => {
       const newPanel = documentHelpers.createNodeFromJson(tx, template)
-      documentHelpers.insertAt(tx, [figure.id, 'panels'], insertPos, newPanel.id)
+      documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
       this._selectItem(tx, newPanel)
     })
   }

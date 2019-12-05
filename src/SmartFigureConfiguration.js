@@ -10,10 +10,11 @@ import {
 
 import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
-import InsertFigurePanelCommand from './commands/InsertFigurePanelCommand'
-import RemoveFigurePanelCommand from './commands/RemoveFigurePanelCommand'
-import ReplaceFigurePanelImageCommand from './commands/ReplaceFigurePanelImageCommand'
-import MoveFigurePanelCommand from './commands/MoveFigurePanelCommand'
+import AddPanelCommand from './commands/AddPanelCommand'
+import InsertPanelCommand from './commands/InsertPanelCommand'
+import RemovePanelCommand from './commands/RemovePanelCommand'
+import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
+import MovePanelCommand from './commands/MovePanelCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import MoveFileCommand from './commands/MoveFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
@@ -93,11 +94,12 @@ export default class SmartFigureConfiguration extends Configurator {
       nodeType: 'link',
       accelerator: 'CommandOrControl+K'
     })
-    config.addCommand('insert-figure-panel', InsertFigurePanelCommand)
-    config.addCommand('remove-figure-panel', RemoveFigurePanelCommand)
-    config.addCommand('replace-figure-panel-image', ReplaceFigurePanelImageCommand)
-    config.addCommand('move-figure-panel-up', MoveFigurePanelCommand, { direction: 'up' })
-    config.addCommand('move-figure-panel-down', MoveFigurePanelCommand, { direction: 'down' })
+    config.addCommand('add-panel', AddPanelCommand)
+    config.addCommand('insert-panel', InsertPanelCommand)
+    config.addCommand('remove-panel', RemovePanelCommand)
+    config.addCommand('replace-panel-image', ReplacePanelImageCommand)
+    config.addCommand('move-panel-up', MovePanelCommand, { direction: 'up' })
+    config.addCommand('move-panel-down', MovePanelCommand, { direction: 'down' })
 
     config.addCommand('add-keyword-group', AddKeywordGroupCommand)
     config.addCommand('edit-keyword-group', EditKeywordGroupCommand)
@@ -152,7 +154,7 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'insert-figure-panel', label: 'Add Panel' },
+            { command: 'add-panel', label: 'Add Panel' },
             { command: 'add-file', label: 'Add File' },
             { command: 'add-resource', label: 'Add Resource' }
           ]
@@ -184,10 +186,11 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'remove-figure-panel', label: 'Remove Panel' },
-        { command: 'replace-figure-panel-image', label: 'Replace Image' },
-        { command: 'move-figure-panel-up', label: 'Move Panel Up' },
-        { command: 'move-figure-panel-down', label: 'Move Panel Down' },
+        { command: 'remove-panel', label: 'Remove Panel' },
+        { command: 'replace-panel-image', label: 'Replace Image' },
+        { command: 'insert-panel', label: 'Insert Panel' },
+        { command: 'move-panel-up', label: 'Move Panel Up' },
+        { command: 'move-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },
         { command: 'attach-file', label: 'Attach File' },
         { command: 'attach-resource', label: 'Attach Resource' }
