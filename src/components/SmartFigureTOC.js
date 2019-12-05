@@ -38,6 +38,6 @@ class _TOCItem extends Component {
 
   _onClick (e) {
     domHelpers.stopAndPrevent(e)
-    this.send('scrollTo', this.props.scrollTarget)
+    this.send('scrollTo', this.props.scrollTarget, { force: true })
   }
 }

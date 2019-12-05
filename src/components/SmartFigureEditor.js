@@ -107,7 +107,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     return this.refs.scrollable.getElement()
   }
 
-  _scrollTo (params) {
+  _scrollTo (params, options) {
     let selector
     if (params.nodeId) {
       selector = `[data-id="${params.nodeId}"]`
@@ -118,7 +118,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
     const el = this._getScrollableElement().find(selector)
     if (el) {
-      super._scrollElementIntoView(el)
+      super._scrollElementIntoView(el, options)
     }
   }
 
