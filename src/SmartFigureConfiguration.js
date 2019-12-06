@@ -27,6 +27,8 @@ import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 import RemoveFileCommand from './commands/RemoveFileCommand'
+import RemoveAttachedFileCommand from './commands/RemoveAttachedFileCommand'
+import MoveAttachedFileCommand from './commands/MoveAttachedFileCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -109,6 +111,9 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
 
     config.addCommand('attach-file', AttachFileCommand)
+    config.addCommand('remove-attached-file', RemoveAttachedFileCommand)
+    config.addCommand('move-attached-file-up', MoveAttachedFileCommand, { direction: 'up' })
+    config.addCommand('move-attached-file-down', MoveAttachedFileCommand, { direction: 'down' })
     config.addCommand('attach-resource', AttachResourceCommand)
 
     config.addCommand('add-author', AddAuthorCommand)
