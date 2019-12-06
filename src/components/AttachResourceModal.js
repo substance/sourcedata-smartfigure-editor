@@ -1,59 +1,72 @@
-import { Component, $$, Form, FormRow, Modal, renderProperty } from 'substance'
-import CheckboxItem from './CheckboxItem'
+import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers } from 'substance'
+import ResourceModal from './ResourceModal'
 
 export default class AttachResourceModal extends Component {
   getInitialState () {
-    const { node } = this.props
-    const attachedResources = node.resources.slice()
-    const allResources = node.getDocument().root.resources.slice()
-    const resources = new Map()
-    attachedResources.forEach(id => {
-      resources.set(id, { attached: true })
+    const node = this.props.node
+    const doc = node.getDocument()
+    const availableResources = new Set(doc.root.resources)
+    // remove already attached resources
+    this.props.node.resources.forEach(id => {
+      availableResources.delete(id)
     })
-    allResources.forEach(id => {
-      if (!resources.has(id)) {
-        resources.set(id, { attached: false })
-      }
-    })
-    return { resources }
+    return {
+      selectedId: null,
+      availableResources: Array.from(availableResources).map(id => doc.get(id))
+    }
   }
 
   render () {
-    const resources = this.state.resources
-    const el = $$(Modal, { title: 'Attach Resource', size: 'large', confirmLabel: 'Ok' })
+    const { selectedId, availableResources } = this.state
+    const el = $$(Modal, { title: 'Attach Resource', size: 'large', confirmLabel: 'Ok', disableConfirm: !selectedId })
     el.addClass('sc-attach-resource-modal')
 
     const form = $$(Form)
-    const resourcesEl = $$(FormRow, { label: 'Resources' })
-    for (const [id, entry] of resources) {
-      resourcesEl.append(
-        $$(CheckboxItem, { selected: entry.attached, oninput: this._onToggleItem.bind(this, id) },
-          this._renderResource(id)
-        ).ref(id)
+    if (availableResources.length > 0) {
+      form.append(
+        $$(FormRow, { label: 'Choose an existing Resource' },
+          $$('select', { class: 'se-resource-select', autofocus: true, onchange: this._onSelect },
+            $$('option', { value: '' }, ''),
+            ...availableResources.map(resource => this.renderResourceOption(resource))
+          ).ref('select')
+        )
       )
     }
-
-    form.append(resourcesEl)
+    form.append(
+      $$(FormRow, { label: 'Add a new Resource' },
+        $$(Button, { onclick: this._onClickNewResource }, $$(Icon, { icon: 'plus' }))
+      )
+    )
     el.append(form)
-
     return el
   }
 
-  _renderResource (id) {
-    const doc = this.props.node.getDocument()
-    const node = doc.get(id)
-    return $$('div', { class: 'se-resource' },
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true }),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'href'], { readOnly: true, inline: true })
-    )
+  renderResourceOption (resourceNode) {
+    const option = $$('option', { class: 'se-resource', value: resourceNode.id },
+      resourceNode.title || resourceNode.href
+    ).ref(resourceNode.id)
+    if (this.state.selectedId === resourceNode.id) {
+      option.setAttribute('selected', true)
+    }
+    return option
   }
 
-  _onToggleItem (id) {
-    const newResources = new Map(this.state.resources)
-    const newEntry = this.state.resources.get(id)
-    newEntry.attached = !newEntry.attached
-    newResources.set(id, newEntry)
-    this.extendState({ resources: newResources })
+  _onSelect () {
+    const val = this.refs.select.val()
+    this.extendState({
+      selectedId: val
+    })
+  }
+
+  _onClickNewResource (event) {
+    domHelpers.stopAndPrevent(event)
+    return this.send('requestModal', () => {
+      return $$(ResourceModal)
+    }).then(modal => {
+      if (!modal) return
+      const api = this.context.api
+      const resourceNode = api.addResource(modal.state.data)
+      api.attachResource(this.props.node.id, resourceNode.id)
+    })
   }
 }

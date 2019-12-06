@@ -1,4 +1,4 @@
-import { $$, PropertyComponent, SelectableNodeComponent, renderProperty, domHelpers } from 'substance'
+import { $$, PropertyComponent, SelectableNodeComponent, domHelpers } from 'substance'
 
 export default class AttachedResourcesComponent extends PropertyComponent {
   getPath () {
@@ -35,11 +35,17 @@ class AttachedResourceComponent extends SelectableNodeComponent {
     const { selected } = this.state
     const el = $$('button', { class: 'sc-attached-resource', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
-    el.append(
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true }).addClass('se-title'),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'href'], { readOnly: true }).addClass('se-href')
-    )
+    if (node.title) {
+      el.append(
+        $$('span', { class: 'se-title' }, node.title)
+      )
+      if (node.href) el.append(': ')
+    }
+    if (node.href) {
+      el.append(
+        $$('span', { class: 'se-href' }, node.href)
+      )
+    }
     return el
   }
 

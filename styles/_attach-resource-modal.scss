@@ -1,0 +1,5 @@
+.sc-attach-resource-modal .se-resource-select {
+  @include ts-interface;
+  height: var(--input-height);
+  width: 100%;
+}

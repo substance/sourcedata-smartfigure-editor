@@ -17,13 +17,8 @@ export default class AttachResourceCommand extends BasicItemCommand {
       return $$(AttachResourceModal, { node: panel })
     }).then(modal => {
       if (!modal) return
-      const attachedResourceIds = new Set()
-      for (const [id, entry] of modal.state.resources.entries()) {
-        if (entry.attached) {
-          attachedResourceIds.add(id)
-        }
-      }
-      api.updateAttachedResources(currentItemId, attachedResourceIds)
+      const selectedId = modal.state.selectedId
+      api.attachResource(currentItemId, selectedId)
     })
   }
 }
