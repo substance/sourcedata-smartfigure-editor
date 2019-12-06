@@ -30,6 +30,10 @@ import RemoveFileCommand from './commands/RemoveFileCommand'
 import RemoveAttachedFileCommand from './commands/RemoveAttachedFileCommand'
 import MoveAttachedFileCommand from './commands/MoveAttachedFileCommand'
 import JumpToItemCommand from './commands/JumpToItemCommand'
+import RemoveAttachedResourceCommand from './commands/RemoveAttachedResourceCommand'
+import MoveAttachedResourceCommand from './commands/MoveAttachedResourceCommand'
+import RemoveResourceCommand from './commands/RemoveResourceCommand'
+import MoveResourceCommand from './commands/MoveResourceCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -115,7 +119,13 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-attached-file', RemoveAttachedFileCommand)
     config.addCommand('move-attached-file-up', MoveAttachedFileCommand, { direction: 'up' })
     config.addCommand('move-attached-file-down', MoveAttachedFileCommand, { direction: 'down' })
+    config.addCommand('jump-to-file', JumpToItemCommand, { propertySelector: 'panel.files' })
+
     config.addCommand('attach-resource', AttachResourceCommand)
+    config.addCommand('remove-attached-resource', RemoveAttachedResourceCommand)
+    config.addCommand('move-attached-resource-up', MoveAttachedResourceCommand, { direction: 'up' })
+    config.addCommand('move-attached-resource-down', MoveAttachedResourceCommand, { direction: 'down' })
+    config.addCommand('jump-to-resource', JumpToItemCommand, { propertySelector: 'panel.resources' })
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
@@ -136,10 +146,11 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-file', RemoveFileCommand)
     config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
     config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
-    config.addCommand('jump-to-file', JumpToItemCommand, { propertySelector: 'panel.files' })
 
     config.addCommand('add-resource', AddResourceCommand)
-    config.addCommand('jump-to-resource', JumpToItemCommand, { propertySelector: 'panel.resources' })
+    config.addCommand('remove-resource', RemoveResourceCommand)
+    config.addCommand('move-resource-up', MoveResourceCommand, { direction: 'up' })
+    config.addCommand('move-resource-down', MoveResourceCommand, { direction: 'down' })
 
     // Menus
     const editorToolbar = {
