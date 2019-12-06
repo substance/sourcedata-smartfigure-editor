@@ -10,11 +10,16 @@ export default class ResourceComponent extends SelectableNodeComponent {
     if (this.state.selected) {
       el.addClass('sm-selected')
     }
+    // card header
     el.append(
-      $$(Section, { label: getLabel(node) || 'Resource' },
+      $$(Section, { label: getLabel(node) || 'Resource' })
+    )
+    el.append(
+      $$(Section, { label: 'URL' },
         renderProperty(this, document, [node.id, 'href'], { placeholder: 'Enter URL' }).addClass('se-href')
       )
     )
+
     el.append(
       $$(Section, { label: 'Title' },
         renderProperty(this, document, [node.id, 'title'], { placeholder: 'Enter title' }).addClass('se-title')
