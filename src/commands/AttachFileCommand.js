@@ -1,10 +1,21 @@
-import { $$ } from 'substance'
-import BasicItemCommand from './_BasicItemCommand'
+import { $$, Command } from 'substance'
 import AttachFileModal from '../components/AttachFileModal'
 
-export default class AttachFileCommand extends BasicItemCommand {
-  getType () {
-    return 'panel'
+export default class AttachFileCommand extends Command {
+  getCommandState (params, context) {
+    const sel = params.selection
+    const selectionState = params.selectionState
+    const node = selectionState.node
+    if (node && node.type === 'panel') {
+      return {
+        disabled: false,
+        currentItemId: sel.nodeId
+      }
+    } else {
+      return {
+        disabled: true
+      }
+    }
   }
 
   execute (params, context) {
@@ -17,13 +28,10 @@ export default class AttachFileCommand extends BasicItemCommand {
       return $$(AttachFileModal, { node: panel })
     }).then(modal => {
       if (!modal) return
-      const attachedFileIds = new Set()
-      for (const [id, entry] of modal.state.files.entries()) {
-        if (entry.attached) {
-          attachedFileIds.add(id)
-        }
+      const fileId = modal.state.selectedId
+      if (fileId) {
+        api.attachFile(currentItemId, fileId)
       }
-      api.updateAttachedFiles(currentItemId, attachedFileIds)
     })
   }
 }

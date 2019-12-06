@@ -1,7 +1,7 @@
 import { SelectableNodeComponent, $$, domHelpers, renderProperty } from 'substance'
 import Section from './Section'
 import getLabel from './_getLabel'
-import StructuredKeywordComponent from './StructuredKeywordComponent'
+import KeywordGroupComponent from './KeywordGroupComponent'
 import AttachedFilesComponent from './AttachedFilesComponent'
 import AttachedResourcesComponent from './AttachedResourcesComponent'
 
@@ -34,7 +34,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
       const keywordSection = $$(Section, { label: 'Keywords' })
       for (const keywordGroup of keywords) {
         keywordSection.append(
-          $$(StructuredKeywordComponent, { node: keywordGroup }).ref(keywordGroup.id)
+          $$(KeywordGroupComponent, { node: keywordGroup }).ref(keywordGroup.id)
         )
       }
       el.append(keywordSection)
@@ -43,7 +43,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     if (node.files && node.files.length > 0) {
       el.append(
         $$(Section, { label: 'Files' },
-          $$(AttachedFilesComponent, { node })
+          $$(AttachedFilesComponent, { node }).ref('attachedFiles')
         )
       )
     }
@@ -51,7 +51,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     if (node.resources && node.resources.length > 0) {
       el.append(
         $$(Section, { label: 'Resources' },
-          $$(AttachedResourcesComponent, { node })
+          $$(AttachedResourcesComponent, { node }).ref('attachedResources')
         )
       )
     }

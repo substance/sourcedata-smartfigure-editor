@@ -1,59 +1,80 @@
-import { Component, $$, Form, FormRow, Modal, renderProperty } from 'substance'
-import CheckboxItem from './CheckboxItem'
+import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers } from 'substance'
+import FileModal from './FileModal'
 
 export default class AttachFileModal extends Component {
   getInitialState () {
-    const { node } = this.props
-    const attachedFiles = node.files.slice()
-    const allFiles = node.getDocument().root.files.slice()
-    const files = new Map()
-    attachedFiles.forEach(id => {
-      files.set(id, { attached: true })
+    const node = this.props.node
+    const doc = node.getDocument()
+    const availableFiles = new Set(doc.root.files)
+    // remove already attached files
+    this.props.node.files.forEach(id => {
+      availableFiles.delete(id)
     })
-    allFiles.forEach(id => {
-      if (!files.has(id)) {
-        files.set(id, { attached: false })
-      }
-    })
-    return { files }
+    return {
+      selectedId: null,
+      availableFiles: Array.from(availableFiles).map(id => doc.get(id))
+    }
   }
 
   render () {
-    const files = this.state.files
-    const el = $$(Modal, { title: 'Attach File', size: 'large', confirmLabel: 'Ok' })
+    const { selectedId, availableFiles } = this.state
+    const el = $$(Modal, { title: 'Attach File', size: 'large', confirmLabel: 'Ok', disableConfirm: !selectedId })
     el.addClass('sc-attach-file-modal')
 
     const form = $$(Form)
-    const filesEl = $$(FormRow, { label: 'Files' })
-    for (const [id, entry] of files) {
-      filesEl.append(
-        $$(CheckboxItem, { selected: entry.attached, oninput: this._onToggleItem.bind(this, id) },
-          this._renderFile(id)
-        ).ref(id)
+    if (availableFiles.length > 0) {
+      form.append(
+        $$(FormRow, { label: 'Choose an existing File' },
+          $$('select', { class: 'se-file-select', autofocus: true, onchange: this._onSelect },
+            $$('option', { value: '' }, ''),
+            ...availableFiles.map(file => this.renderFileOption(file))
+          ).ref('select')
+        )
       )
     }
-
-    form.append(filesEl)
+    form.append(
+      $$(FormRow, { label: 'Add a new File' },
+        $$(Button, { onclick: this._onClickNewFile }, $$(Icon, { icon: 'plus' }))
+      )
+    )
     el.append(form)
 
     return el
   }
 
-  _renderFile (id) {
-    const doc = this.props.node.getDocument()
-    const node = doc.get(id)
-    return $$('div', { class: 'se-file' },
-      $$('span', { class: 'se-src' }, node.src),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true })
-    )
+  renderFileOption (fileNode) {
+    const option = $$('option', { class: 'se-file', value: fileNode.id }, fileNode.src).ref(fileNode.id)
+    if (this.state.selectedId === fileNode.id) {
+      option.setAttribute('selected', true)
+    }
+    return option
   }
 
-  _onToggleItem (id) {
-    const newFiles = new Map(this.state.files)
-    const newEntry = this.state.files.get(id)
-    newEntry.attached = !newEntry.attached
-    newFiles.set(id, newEntry)
-    this.extendState({ files: newFiles })
+  _onSelect () {
+    const val = this.refs.select.val()
+    this.extendState({
+      selectedId: val
+    })
+  }
+
+  _onClickNewFile (event) {
+    domHelpers.stopAndPrevent(event)
+    // TODO: ideally we would use the 'add-file' command
+    // but actually we need to execute this in a little different way,
+    // particularly w.r.t selection
+    this.send('requestFileSelect', { multiple: false }).then(files => {
+      if (files.length > 0) {
+        const file = files[0]
+        return this.send('requestModal', () => {
+          return $$(FileModal, { file })
+        }).then(modal => {
+          if (!modal) return
+          const { src } = modal.state.data
+          const api = this.context.api
+          const fileNode = api.addFile(src, file)
+          api.attachFile(this.props.node.id, fileNode.id)
+        })
+      }
+    })
   }
 }

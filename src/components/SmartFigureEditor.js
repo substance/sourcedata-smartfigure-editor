@@ -1,7 +1,7 @@
 import {
   AbstractEditor, $$, domHelpers, parseKeyEvent, keys,
   EditorToolbar, Managed, ModalCanvas, Popover, FileSelect,
-  AffiliationLabelManager
+  AffiliationLabelManager, platform
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
@@ -22,6 +22,7 @@ export default class SmartFigureEditor extends AbstractEditor {
       requestModal: this._openModal,
       requestPopover: this._requestPopover,
       releasePopover: this._releasePopover,
+      closePopover: this._closePopover,
       requestFileSelect: this._openFileSelect
     })
   }
@@ -106,7 +107,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     return this.refs.scrollable.getElement()
   }
 
-  _scrollTo (params) {
+  _scrollTo (params, options) {
     let selector
     if (params.nodeId) {
       selector = `[data-id="${params.nodeId}"]`
@@ -117,7 +118,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
     const el = this._getScrollableElement().find(selector)
     if (el) {
-      super._scrollElementIntoView(el)
+      super._scrollElementIntoView(el, options)
     }
   }
 
@@ -136,6 +137,10 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _releasePopover (requester) {
     return this.refs.popover.release(requester)
+  }
+
+  _closePopover () {
+    return this.refs.popover.close()
   }
 
   _openFileSelect (props) {
@@ -168,16 +173,39 @@ export default class SmartFigureEditor extends AbstractEditor {
     let handled = false
     const combo = parseKeyEvent(event)
     switch (combo) {
+      case String(keys.ESC): {
+        handled = this._handleEscape()
+        break
+      }
       case String(keys.ENTER): {
         handled = this._handleEnter()
+        break
+      }
+      // only used under OSX
+      case `META+${keys.BACKSPACE}`: {
+        if (platform.isMac) {
+          handled = this._handleDelete()
+        }
+        break
+      }
+      case String(keys.DELETE): {
+        handled = this._handleDelete()
         break
       }
       case String(keys.UP): {
         handled = this._handleUp()
         break
       }
+      case `ALT+${keys.UP}`: {
+        handled = this._handleAltUp()
+        break
+      }
       case String(keys.DOWN): {
         handled = this._handleDown()
+        break
+      }
+      case `ALT+${keys.DOWN}`: {
+        handled = this._handleAltDown()
         break
       }
       case String(keys.LEFT): {
@@ -190,8 +218,16 @@ export default class SmartFigureEditor extends AbstractEditor {
       }
     }
     if (handled) {
-      event.stopPropagation()
+      domHelpers.stopAndPrevent(event)
     }
+  }
+
+  _handleEscape () {
+    // TODO: only close popover if it is open
+    // otherwise we could try this for escaping out from a selection within
+    // an item/node, e.g. within panel's legend
+    this._closePopover()
+    return true
   }
 
   _handleEnter () {
@@ -203,12 +239,29 @@ export default class SmartFigureEditor extends AbstractEditor {
         switch (node.type) {
           case 'author':
           case 'affiliation':
-          case 'keyword-group': {
-            return this.editorSession.executeCommand(`edit-${sel.customType}`)
+          case 'keyword-group':
+          case 'file': {
+            return this.editorSession.executeCommand(`edit-${node.type}`)
           }
           default:
             // nothing
         }
+      } else if (sel.customType === 'value') {
+        // TODO: maybe jump to ref'd item?
+        // this.api.selectItem(sel.data.valueId)
+      }
+    }
+  }
+
+  _handleDelete () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.removeAndDeleteNode(sel.nodeId)
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.removeItem([sel.nodeId, sel.data.property], sel.data.valueId)
+        return true
       }
     }
   }
@@ -217,8 +270,34 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   }
 
+  _handleAltUp () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.moveNode(sel.nodeId, 'up')
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.moveItem([sel.nodeId, sel.data.property], sel.data.valueId, 'up')
+        return true
+      }
+    }
+  }
+
   _handleDown () {
 
+  }
+
+  _handleAltDown () {
+    const sel = this.editorState.selection
+    if (sel) {
+      if (sel.customType === 'node') {
+        this.api.moveNode(sel.nodeId, 'down')
+        return true
+      } else if (sel.customType === 'value') {
+        this.api.moveItem([sel.nodeId, sel.data.property], sel.data.valueId, 'down')
+        return true
+      }
+    }
   }
 
   _handleLeft () {

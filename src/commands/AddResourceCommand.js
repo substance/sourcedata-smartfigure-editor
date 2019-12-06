@@ -8,13 +8,11 @@ export default class AddResourceCommand extends Command {
 
   execute (params, context) {
     const editorSession = context.editorSession
-    const api = context.api
     editorSession.getRootComponent().send('requestModal', () => {
       return $$(ResourceModal, {})
     }).then(modal => {
       if (!modal) return
-      const url = modal.refs.url.val()
-      api.addResource(url)
+      context.api.addResource(modal.state.data)
     })
   }
 }

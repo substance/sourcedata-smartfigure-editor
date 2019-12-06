@@ -1,9 +1,9 @@
 import { $$ } from 'substance'
-import BasicFigurePanelCommand from './_BasicFigurePanelCommand'
+import BasicPanelCommand from './_BasicPanelCommand'
 import KeywordGroupModal from '../components/KeywordGroupModal'
 
 // NOTE: in the context of SourceData SmartFigures keyword groups are part of panels.
-export default class AddKeywordGroupCommand extends BasicFigurePanelCommand {
+export default class AddKeywordGroupCommand extends BasicPanelCommand {
   execute (params, context) {
     const commandState = params.commandState
     const editorSession = context.editorSession

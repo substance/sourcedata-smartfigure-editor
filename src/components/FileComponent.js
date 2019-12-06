@@ -7,17 +7,13 @@ export default class FileComponent extends SelectableNodeComponent {
     const { node } = this.props
     const document = node.getDocument()
     const el = $$('div', { class: 'sc-file', 'data-id': node.id })
-    if (this.state.selected) {
-      el.addClass('sm-selected')
-    }
+    if (this.state.selected) el.addClass('sm-selected')
+
+    // card header
     el.append(
-      $$(Section, { label: getLabel(node) || 'File' },
-        // wrapping the filename into a button so that it does not react on native browser selection
-        $$('button', {},
-          renderProperty(this, document, [node.id, 'src'], { placeholder: 'Enter Filename', readOnly: true }).addClass('se-src')
-        )
-      )
+      $$(Section, { label: (getLabel(node) || 'File') + ': ' + node.src })
     )
+
     el.append(
       $$(Section, { label: 'Title' },
         renderProperty(this, document, [node.id, 'title'], { placeholder: 'Enter title' }).addClass('se-title')

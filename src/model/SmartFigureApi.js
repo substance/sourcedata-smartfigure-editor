@@ -1,20 +1,41 @@
-import { BasicEditorApi, documentHelpers, isArrayEqual } from 'substance'
+import {
+  documentHelpers, isArrayEqual,
+  BasicEditorApi, AuthorApi, AffiliationApi,
+  isString
+} from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
-  insertPanelAfter (currentPanelId, file) {
+  constructor (...args) {
+    super(...args)
+
+    this.extendWith(new AuthorApi())
+    this.extendWith(new AffiliationApi())
+  }
+
+  addPanel (file) {
+    this.insertPanel(file)
+  }
+
+  insertPanel (file, currentPanelId) {
     const doc = this.getDocument()
-    const currentPanel = doc.get(currentPanelId)
-    const figure = currentPanel.getParent()
-    if (!figure) throw new Error('Figure does not exist')
-    const pos = currentPanel.getPosition()
+    const root = doc.root
+    let insertPos = root.panels.length
+    let template = {
+      type: 'panel',
+      image: { type: 'image' },
+      legend: [{ type: 'paragraph' }]
+    }
+    if (currentPanelId) {
+      const currentPanel = doc.get(currentPanelId)
+      insertPos = currentPanel.getPosition() + 1
+      template = currentPanel.getTemplate()
+    }
     const src = this.archive.addAsset(file)
-    const insertPos = pos + 1
-    const template = currentPanel.getTemplate()
     template.image.src = src
     template.image.mimeType = file.type
     this.editorSession.transaction(tx => {
       const newPanel = documentHelpers.createNodeFromJson(tx, template)
-      documentHelpers.insertAt(tx, [figure.id, 'panels'], insertPos, newPanel.id)
+      documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
       this._selectItem(tx, newPanel)
     })
   }
@@ -30,7 +51,7 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  insertFile (fileName, file) {
+  addFile (fileName, file) {
     return this.insertFileAfter(fileName, file)
   }
 
@@ -47,15 +68,32 @@ export default class SmartFigureApi extends BasicEditorApi {
       type: file.type
     }
     const src = this.archive.addAsset(fileData, file)
+    let newNodeId
     this.editorSession.transaction(tx => {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
         type: 'file',
         src,
         legend: [{ type: 'paragraph' }]
       })
+      newNodeId = newFileNode.id
       documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
       this._selectItem(tx, newFileNode)
     })
+    return doc.get(newNodeId)
+  }
+
+  updateFile (fileId, data) {
+    const doc = this.getDocument()
+    const file = doc.get(fileId)
+    const oldSrc = file.src
+    const newSrc = data.src
+    if (oldSrc !== newSrc) {
+      this.archive.renameAsset(oldSrc, newSrc)
+      this.editorSession.transaction(tx => {
+        tx.set([fileId, 'src'], newSrc)
+        this._selectItem(tx, file)
+      })
+    }
   }
 
   addKeywordGroup (panelId, keywordGroupData) {
@@ -123,42 +161,31 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  addResource (url) {
-    return this.insertResourceAfter(url)
+  addResource (data) {
+    return this.insertResourceAfter(data)
   }
 
-  insertResourceAfter (url, currentFileId) {
+  insertResourceAfter (data, currentFileId) {
     const doc = this.getDocument()
     const root = doc.root
-    let insertPos = root.files.length
+    let insertPos = root.resources.length
     if (currentFileId) {
       const currentFileNode = doc.get(currentFileId)
       insertPos = currentFileNode.getPosition() + 1
     }
+    const nodeData = Object.assign({ type: 'resource', legend: [{ type: 'paragraph' }] }, data)
     this.editorSession.transaction(tx => {
-      const newFileNode = documentHelpers.createNodeFromJson(tx, {
-        type: 'file',
-        url,
-        remote: true,
-        legend: [{ type: 'paragraph' }]
-      })
-      documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
-      this._selectItem(tx, newFileNode)
+      const node = documentHelpers.createNodeFromJson(tx, nodeData)
+      documentHelpers.insertAt(tx, [root.id, 'resources'], insertPos, node.id)
+      this._selectItem(tx, node)
     })
   }
 
-  updateAttachedFiles (panelId, attachedFileIds) {
-    // TODO: for sake of convenience, it would be nice to allow upload new files from within the AttachFileModal
-    // In this case we would need the blobs as an extra argument and store in the DAR
-    const ids = Array.from(attachedFileIds)
-    const doc = this.getDocument()
-    const panel = doc.get(panelId)
-    if (!isArrayEqual(panel.files, ids)) {
-      // TODO: let this change be more incremental, i.e. adding, removing and later maybe changing order
-      this.editorSession.transaction(tx => {
-        doc.set([panel.id, 'files'], ids)
-      })
-    }
+  attachFile (panelId, fileId) {
+    this.editorSession.transaction(tx => {
+      documentHelpers.append(tx, [panelId, 'files'], fileId)
+      this._selectValue(tx, panelId, 'files', fileId)
+    })
   }
 
   updateAttachedResources (panelId, attachedResourceIds) {
@@ -175,14 +202,20 @@ export default class SmartFigureApi extends BasicEditorApi {
 
   // TODO: I'd like to have a specific selection for 'many' type relationships (e.g. author affiliations, or figure panel files, etc.)
   // maybe this could be applied to 'children' type relationships, too (e.g. author, affiliation, etc.)
-  selectValue (node, property, valueId) {
-    this.editorSession.setSelection({
+  selectValue (node, propertyName, valueId) {
+    if (isString(node)) {
+      node = this.getDocument().get(node)
+    }
+    this._selectValue(this.editorSession, node.id, propertyName, valueId)
+  }
+
+  _selectValue (tx, nodeId, propertyName, valueId) {
+    tx.setSelection({
       type: 'custom',
       customType: 'value',
-      nodeId: node.id,
+      nodeId: nodeId,
       data: {
-        nodeType: node.type,
-        property,
+        property: propertyName,
         valueId
       }
     })

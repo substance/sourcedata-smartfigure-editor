@@ -64,6 +64,8 @@ export default function SmartFigureSchema () {
     })
     v.addNode('affiliation', '@node', {
       name: { type: 'string' },
+      city: { type: 'string', optional: true },
+      country: { type: 'string', optional: true },
       label: { type: 'string', optional: true }
     })
     // panel

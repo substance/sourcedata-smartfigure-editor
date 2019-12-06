@@ -1,0 +1,19 @@
+.sc-keyword-group {
+  @include ts-interface;
+}
+
+.sc-keyword-group.sm-selected {
+  background: rgba(176, 210, 251, 0.8);
+}
+
+.sc-keyword-group > .se-name {
+  font-weight: 600;
+}
+
+.sc-keyword-group > .se-name::after {
+  content: ': '
+}
+
+.sc-keyword-group > .se-values > .se-value + .se-value::before {
+  content: '; '
+}

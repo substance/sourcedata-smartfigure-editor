@@ -1,16 +1,19 @@
 import {
   Component, $$, domHelpers, without,
-  Form, FormRow, Modal, Input, Button, Icon, HorizontalStack
+  Form, FormRow, Modal, Input, Button, Icon, HorizontalStack,
+  uuid
 } from 'substance'
 
 export default class KeywordGroupModal extends Component {
   getInitialState () {
     let name = ''
-    let keywords = [{ content: '' }]
+    let keywords
     if (this.props.node) {
       const node = this.props.node
       name = node.name
       keywords = node.resolve('keywords')
+    } else {
+      keywords = [{ id: uuid('keyword-group'), content: '' }]
     }
     return { name, keywords }
   }
@@ -27,10 +30,7 @@ export default class KeywordGroupModal extends Component {
         ),
         $$(FormRow, { label: 'Keywords:' },
           ...keywords.map(kwd => {
-            const inputEl = $$(Input, { value: kwd.content }).addClass('se-keyword')
-            if (kwd.id) {
-              inputEl.setAttribute('data-id', kwd.id)
-            }
+            const inputEl = $$(Input, { value: kwd.content, class: 'se-keyword', 'data-id': kwd.id }).ref(kwd.id)
             return $$(HorizontalStack, {},
               inputEl,
               $$(Button, {}, $$(Icon, { icon: 'times' })).on('click', this._onClickRemoveKeyword.bind(this, kwd))
@@ -48,7 +48,7 @@ export default class KeywordGroupModal extends Component {
   _onClickAddKeyword (e) {
     domHelpers.stopAndPrevent(e)
     const newState = this.getData()
-    newState.keywords.push({ content: '' })
+    newState.keywords.push({ id: uuid('keyword-group'), content: '' })
     this.setState(newState)
   }
 

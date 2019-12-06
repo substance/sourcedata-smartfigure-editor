@@ -3,9 +3,9 @@
 <smart-figure>
   <title>Depletion of hepatic ASK1 increases lipid storage</title>
   <authors>
-    <author firstName="Tenagne D" lastName="Challa" affiliations="aff1 aff2" />
+    <author firstName="Tenagne" middleNames="Delessa" lastName="Challa" affiliations="aff1 aff2" />
     <author firstName="Stephan" lastName="Wueest" affiliations="aff1 aff2" />
-    <author firstName="Fabrizio C" lastName="Lucchini" affiliations="aff1 aff2 aff3" />
+    <author firstName="Fabrizio" middleNames="C" lastName="Lucchini" affiliations="aff1 aff2 aff3" />
     <author firstName="Mara" lastName="Dedual" affiliations="aff1 aff2 aff3" />
     <author firstName="Salvatore" lastName="Modica" affiliations="aff4" />
     <author firstName="Marcela" lastName="Borsigova" affiliations="aff1 aff2" />
@@ -14,11 +14,11 @@
     <author firstName="Daniel" lastName="Konrad" affiliations="aff1 aff2 aff3" />
   </authors>
   <affiliations>
-    <affiliation id="aff1" label="1" name="Division of Pediatric Endocrinology and Diabetology, University Children's Hospital, Zurich, Switzerland" />
-    <affiliation id="aff2" label="2" name="Children's Research Center, University Children's Hospital, Zurich, Switzerland" />
-    <affiliation id="aff3" label="3" name="Zurich Center for Integrative Human Physiology, University of Zurich, Zurich, Switzerland" />
-    <affiliation id="aff4" label="4" name="Institute of Food, Nutrition and Health, ETH Zurich, Schwerzenbach, Switzerland" />
-    <affiliation id="aff5" label="5" name="Department of Medicine, University of Leipzig, Leipzig, Germany" />
+    <affiliation id="aff1" label="1" name="Division of Pediatric Endocrinology and Diabetology, University Children's Hospital" city="Zurich" country="Switzerland" />
+    <affiliation id="aff2" label="2" name="Children's Research Center, University Children's Hospital" city="Zurich" country="Switzerland" />
+    <affiliation id="aff3" label="3" name="Zurich Center for Integrative Human Physiology, University of Zurich" city="Zurich" country="Switzerland" />
+    <affiliation id="aff4" label="4" name="Institute of Food, Nutrition and Health, ETH Zurich" city="Schwerzenbach" country="Switzerland" />
+    <affiliation id="aff5" label="5" name="Department of Medicine, University of Leipzig" city="Leipzig" country="Germany" />
   </affiliations>
   <panels>
     <panel id="panel-a" label="A">

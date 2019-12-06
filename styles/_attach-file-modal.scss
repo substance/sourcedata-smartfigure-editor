@@ -1,0 +1,5 @@
+.sc-attach-file-modal .se-file-select {
+  @include ts-interface;
+  height: var(--input-height);
+  width: 100%;
+}

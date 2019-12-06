@@ -1,4 +1,4 @@
-import { $$, PropertyComponent, SelectableNodeComponent, renderProperty, domHelpers } from 'substance'
+import { $$, PropertyComponent, SelectableNodeComponent, domHelpers } from 'substance'
 
 export default class AttachedFilesComponent extends PropertyComponent {
   getPath () {
@@ -33,25 +33,22 @@ class AttachedFileComponent extends SelectableNodeComponent {
   render () {
     const { node } = this.props
     const { selected } = this.state
-    const el = $$('button', { class: 'sc-attached-file' })
+    const el = $$('button', { class: 'sc-attached-file', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
     el.append(
-      $$('span', { class: 'se-src' }, node.src),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true })
+      $$('span', { class: 'se-src' }, node.src)
     )
+    if (node.title) {
+      el.append(
+        ': ',
+        $$('span', { class: 'se-title' }, node.title)
+      )
+    }
     return el
   }
 
-  _isSelected (selectionState) {
-    const sel = selectionState.selection
+  _getSelectableId () {
     const { panel, node } = this.props
-    return (sel &&
-      sel.isCustomSelection() &&
-      sel.customType === 'value' &&
-      sel.nodeId === panel.id &&
-      sel.data.property === 'files' &&
-      sel.data.valueId === node.id
-    )
+    return `${panel.id}.files#${node.id}`
   }
 }
