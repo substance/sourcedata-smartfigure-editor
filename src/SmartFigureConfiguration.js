@@ -1,39 +1,26 @@
 import {
   Configurator, DefaultHtmlImporter, HTMLExporter,
-  UndoCommand, RedoCommand, SelectAllCommand,
-  AnnotationCommand, BasePackage, HtmlConverters,
-  ParagraphComponent, HeadingComponent, OpenIsolatedNodeComponent,
-  ImageComponent, LinkComponent, CreateLinkCommand,
-  AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand, RemoveAuthorCommand, MoveAuthorCommand,
-  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand, RemoveAffiliationCommand, MoveAffiliationCommand
+  BasePackage, HtmlConverters, ParagraphComponent, HeadingComponent,
+  OpenIsolatedNodeComponent, ImageComponent, LinkComponent,
+  UndoCommand, RedoCommand, SelectAllCommand, AnnotationCommand, CreateLinkCommand,
+  MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
+  AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
+  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
 import AddPanelCommand from './commands/AddPanelCommand'
-import InsertPanelCommand from './commands/InsertPanelCommand'
-import RemovePanelCommand from './commands/RemovePanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
-import MovePanelCommand from './commands/MovePanelCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import EditFileCommand from './commands/EditFileCommand'
-import MoveFileCommand from './commands/MoveFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
-import MoveKeywordGroupCommand from './commands/MoveKeywordGroupCommand'
-import RemoveKeywordGroupCommand from './commands/RemoveKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
-import RemoveFileCommand from './commands/RemoveFileCommand'
-import RemoveAttachedFileCommand from './commands/RemoveAttachedFileCommand'
-import MoveAttachedFileCommand from './commands/MoveAttachedFileCommand'
-import JumpToItemCommand from './commands/JumpToItemCommand'
-import RemoveAttachedResourceCommand from './commands/RemoveAttachedResourceCommand'
-import MoveAttachedResourceCommand from './commands/MoveAttachedResourceCommand'
-import RemoveResourceCommand from './commands/RemoveResourceCommand'
-import MoveResourceCommand from './commands/MoveResourceCommand'
+import JumpToItemCommand from 'substance/commons/JumpToItemCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -103,54 +90,53 @@ export default class SmartFigureConfiguration extends Configurator {
       accelerator: 'CommandOrControl+K'
     })
     config.addCommand('add-panel', AddPanelCommand)
-    config.addCommand('insert-panel', InsertPanelCommand)
-    config.addCommand('remove-panel', RemovePanelCommand)
+    config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
     config.addCommand('replace-panel-image', ReplacePanelImageCommand)
-    config.addCommand('move-panel-up', MovePanelCommand, { direction: 'up' })
-    config.addCommand('move-panel-down', MovePanelCommand, { direction: 'down' })
+    config.addCommand('move-panel-up', MoveItemCommand, { type: 'panel', direction: 'up' })
+    config.addCommand('move-panel-down', MoveItemCommand, { type: 'panel', direction: 'down' })
 
     config.addCommand('add-keyword-group', AddKeywordGroupCommand)
     config.addCommand('edit-keyword-group', EditKeywordGroupCommand)
-    config.addCommand('remove-keyword-group', RemoveKeywordGroupCommand)
-    config.addCommand('move-keyword-group-up', MoveKeywordGroupCommand, { direction: 'up' })
-    config.addCommand('move-keyword-group-down', MoveKeywordGroupCommand, { direction: 'down' })
+    config.addCommand('remove-keyword-group', RemoveItemCommand, { type: 'keyword-group' })
+    config.addCommand('move-keyword-group-up', MoveItemCommand, { type: 'keyword-group', direction: 'up' })
+    config.addCommand('move-keyword-group-down', MoveItemCommand, { type: 'keyword-group', direction: 'down' })
 
     config.addCommand('attach-file', AttachFileCommand)
-    config.addCommand('remove-attached-file', RemoveAttachedFileCommand)
-    config.addCommand('move-attached-file-up', MoveAttachedFileCommand, { direction: 'up' })
-    config.addCommand('move-attached-file-down', MoveAttachedFileCommand, { direction: 'down' })
+    config.addCommand('remove-attached-file', RemoveValueCommand, { propertySelector: 'panel.files' })
+    config.addCommand('move-attached-file-up', MoveValueCommand, { propertySelector: 'panel.files', direction: 'up' })
+    config.addCommand('move-attached-file-down', MoveValueCommand, { propertySelector: 'panel.files', direction: 'down' })
     config.addCommand('jump-to-file', JumpToItemCommand, { propertySelector: 'panel.files' })
 
     config.addCommand('attach-resource', AttachResourceCommand)
-    config.addCommand('remove-attached-resource', RemoveAttachedResourceCommand)
-    config.addCommand('move-attached-resource-up', MoveAttachedResourceCommand, { direction: 'up' })
-    config.addCommand('move-attached-resource-down', MoveAttachedResourceCommand, { direction: 'down' })
+    config.addCommand('remove-attached-resource', RemoveValueCommand, { propertySelector: 'panel.resources' })
+    config.addCommand('move-attached-resource-up', MoveValueCommand, { propertySelector: 'panel.resources', direction: 'up' })
+    config.addCommand('move-attached-resource-down', MoveValueCommand, { propertySelector: 'panel.resources', direction: 'down' })
     config.addCommand('jump-to-resource', JumpToItemCommand, { propertySelector: 'panel.resources' })
 
     config.addCommand('add-author', AddAuthorCommand)
     config.addCommand('edit-author', EditAuthorCommand)
     config.addCommand('insert-author', InsertAuthorCommand)
-    config.addCommand('remove-author', RemoveAuthorCommand)
-    config.addCommand('move-author-forward', MoveAuthorCommand, { direction: 'up' })
-    config.addCommand('move-author-back', MoveAuthorCommand, { direction: 'down' })
+    config.addCommand('remove-author', RemoveItemCommand, { type: 'author' })
+    config.addCommand('move-author-forward', MoveItemCommand, { type: 'author', direction: 'up' })
+    config.addCommand('move-author-back', MoveItemCommand, { type: 'author', direction: 'down' })
 
     config.addCommand('add-affiliation', AddAffiliationCommand)
     config.addCommand('insert-affiliation', InsertAffiliationCommand)
     config.addCommand('edit-affiliation', EditAffiliationCommand)
-    config.addCommand('remove-affiliation', RemoveAffiliationCommand)
-    config.addCommand('move-affiliation-forward', MoveAffiliationCommand, { direction: 'up' })
-    config.addCommand('move-affiliation-back', MoveAffiliationCommand, { direction: 'down' })
+    config.addCommand('remove-affiliation', RemoveItemCommand, { type: 'affiliation' })
+    config.addCommand('move-affiliation-forward', MoveItemCommand, { type: 'affiliation', direction: 'up' })
+    config.addCommand('move-affiliation-back', MoveItemCommand, { type: 'affiliation', direction: 'down' })
 
     config.addCommand('add-file', AddFileCommand)
     config.addCommand('edit-file', EditFileCommand)
-    config.addCommand('remove-file', RemoveFileCommand)
-    config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
-    config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
+    config.addCommand('remove-file', RemoveItemCommand, { type: 'file' })
+    config.addCommand('move-file-up', MoveItemCommand, { type: 'file', direction: 'up' })
+    config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
 
     config.addCommand('add-resource', AddResourceCommand)
-    config.addCommand('remove-resource', RemoveResourceCommand)
-    config.addCommand('move-resource-up', MoveResourceCommand, { direction: 'up' })
-    config.addCommand('move-resource-down', MoveResourceCommand, { direction: 'down' })
+    config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
+    config.addCommand('move-resource-up', MoveItemCommand, { type: 'resource', direction: 'up' })
+    config.addCommand('move-resource-down', MoveItemCommand, { type: 'resource', direction: 'down' })
 
     // Menus
     const editorToolbar = {

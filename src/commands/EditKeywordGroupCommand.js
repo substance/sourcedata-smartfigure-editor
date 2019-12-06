@@ -1,8 +1,11 @@
-import { $$ } from 'substance'
+import { $$, ItemCommand } from 'substance'
 import KeywordGroupModal from '../components/KeywordGroupModal'
-import BasicKeywordGroupCommand from './_BasicKeywordGroupCommand'
 
-export default class EditKeywordGroupCommand extends BasicKeywordGroupCommand {
+export default class EditKeywordGroupCommand extends ItemCommand {
+  getType () {
+    return 'keyword-group'
+  }
+
   execute (params, context) {
     const { currentItemId } = params.commandState
     const editorSession = context.editorSession
