@@ -1,6 +1,10 @@
-import BasicPanelCommand from './_BasicPanelCommand'
+import { ItemCommand } from 'substance'
 
-export default class ReplacePanelImageCommand extends BasicPanelCommand {
+export default class ReplacePanelImageCommand extends ItemCommand {
+  getType () {
+    return 'panel'
+  }
+
   execute (params, context) {
     const commandState = params.commandState
     const editor = context.editorSession.getRootComponent()
