@@ -6,7 +6,7 @@ export default class SmartFigureTOC extends Component {
   render () {
     const document = this.props.document
     const figure = document.root
-    const el = $$('div', { class: 'sc-smart-figure-toc' })
+    const el = $$('div', { class: 'sc-smart-figure-toc', oncontextmenu: this._onContextMenu })
     el.append(
       $$(_TOCItem, { scrollTarget: { section: 'title' } },
         $$(Section, { name: 'title', label: 'Title' })
@@ -25,6 +25,11 @@ export default class SmartFigureTOC extends Component {
       )
     )
     return el
+  }
+
+  _onContextMenu (event) {
+    // disable context menu on TOC
+    domHelpers.stopAndPrevent(event)
   }
 }
 
