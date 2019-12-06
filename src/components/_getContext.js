@@ -8,7 +8,6 @@ export default function _getContext (selectionState) {
     return selectionState.node.type
   }
   if (sel.customType === 'value') {
-    const { nodeType, property } = sel.data
-    return `${nodeType}.${property}`
+    return `${selectionState.node.type}.${sel.data.property}`
   }
 }

@@ -29,6 +29,7 @@ import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 import RemoveFileCommand from './commands/RemoveFileCommand'
 import RemoveAttachedFileCommand from './commands/RemoveAttachedFileCommand'
 import MoveAttachedFileCommand from './commands/MoveAttachedFileCommand'
+import JumpToItemCommand from './commands/JumpToItemCommand'
 
 const {
   ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
@@ -135,8 +136,10 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-file', RemoveFileCommand)
     config.addCommand('move-file-up', MoveFileCommand, { direction: 'up' })
     config.addCommand('move-file-down', MoveFileCommand, { direction: 'down' })
+    config.addCommand('jump-to-file', JumpToItemCommand, { propertySelector: 'panel.files' })
 
     config.addCommand('add-resource', AddResourceCommand)
+    config.addCommand('jump-to-resource', JumpToItemCommand, { propertySelector: 'panel.resources' })
 
     // Menus
     const editorToolbar = {
@@ -267,7 +270,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'attach-file', label: 'Attach File' },
         { command: 'remove-attached-file', label: 'Remove Attached File' },
         { command: 'move-attached-file-up', label: 'Move Attached File Up' },
-        { command: 'move-attached-file-down', label: 'Move Attached File Down' }
+        { command: 'move-attached-file-down', label: 'Move Attached File Down' },
+        { command: 'jump-to-file', label: 'Jump to File' }
       ]
     })
 
@@ -277,7 +281,8 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
         { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
-        { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' }
+        { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' },
+        { command: 'jump-to-resource', label: 'Jump to Resource' }
       ]
     })
 

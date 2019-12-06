@@ -2,7 +2,12 @@ import { Command } from 'substance'
 
 export default class ValueCommand extends Command {
   getPropertySelector () {
-    throw new Error('This method is abstract')
+    const propertySelector = this.config.propertySelector
+    if (!propertySelector) {
+      // either provide a selector via config, or override
+      throw new Error('propertySelector is required')
+    }
+    return propertySelector
   }
 
   getCommandState (params) {
