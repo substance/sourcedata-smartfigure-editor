@@ -1,4 +1,4 @@
-import { $$, PropertyComponent, SelectableNodeComponent, renderProperty, domHelpers } from 'substance'
+import { $$, PropertyComponent, SelectableNodeComponent, domHelpers } from 'substance'
 
 export default class AttachedFilesComponent extends PropertyComponent {
   getPath () {
@@ -36,10 +36,14 @@ class AttachedFileComponent extends SelectableNodeComponent {
     const el = $$('button', { class: 'sc-attached-file', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
     el.append(
-      $$('span', { class: 'se-src' }, node.src),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true })
+      $$('span', { class: 'se-src' }, node.src)
     )
+    if (node.title) {
+      el.append(
+        ': ',
+        $$('span', { class: 'se-title' }, node.title)
+      )
+    }
     return el
   }
 

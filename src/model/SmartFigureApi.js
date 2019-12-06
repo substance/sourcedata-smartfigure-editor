@@ -1,6 +1,7 @@
 import {
   documentHelpers, isArrayEqual,
-  BasicEditorApi, AuthorApi, AffiliationApi
+  BasicEditorApi, AuthorApi, AffiliationApi,
+  isString
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
@@ -67,15 +68,18 @@ export default class SmartFigureApi extends BasicEditorApi {
       type: file.type
     }
     const src = this.archive.addAsset(fileData, file)
+    let newNodeId
     this.editorSession.transaction(tx => {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
         type: 'file',
         src,
         legend: [{ type: 'paragraph' }]
       })
+      newNodeId = newFileNode.id
       documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
       this._selectItem(tx, newFileNode)
     })
+    return doc.get(newNodeId)
   }
 
   updateFile (fileId, data) {
@@ -177,18 +181,11 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  updateAttachedFiles (panelId, attachedFileIds) {
-    // TODO: for sake of convenience, it would be nice to allow upload new files from within the AttachFileModal
-    // In this case we would need the blobs as an extra argument and store in the DAR
-    const ids = Array.from(attachedFileIds)
-    const doc = this.getDocument()
-    const panel = doc.get(panelId)
-    if (!isArrayEqual(panel.files, ids)) {
-      // TODO: let this change be more incremental, i.e. adding, removing and later maybe changing order
-      this.editorSession.transaction(tx => {
-        doc.set([panel.id, 'files'], ids)
-      })
-    }
+  attachFile (panelId, fileId) {
+    this.editorSession.transaction(tx => {
+      documentHelpers.append(tx, [panelId, 'files'], fileId)
+      this._selectValue(tx, panelId, 'files', fileId)
+    })
   }
 
   updateAttachedResources (panelId, attachedResourceIds) {
@@ -205,14 +202,20 @@ export default class SmartFigureApi extends BasicEditorApi {
 
   // TODO: I'd like to have a specific selection for 'many' type relationships (e.g. author affiliations, or figure panel files, etc.)
   // maybe this could be applied to 'children' type relationships, too (e.g. author, affiliation, etc.)
-  selectValue (node, property, valueId) {
-    this.editorSession.setSelection({
+  selectValue (node, propertyName, valueId) {
+    if (isString(node)) {
+      node = this.getDocument().get(node)
+    }
+    this._selectValue(this.editorSession, node.id, propertyName, valueId)
+  }
+
+  _selectValue (tx, nodeId, propertyName, valueId) {
+    tx.setSelection({
       type: 'custom',
       customType: 'value',
-      nodeId: node.id,
+      nodeId: nodeId,
       data: {
-        nodeType: node.type,
-        property,
+        property: propertyName,
         valueId
       }
     })

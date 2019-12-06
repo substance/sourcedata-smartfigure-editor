@@ -264,6 +264,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
+        { command: 'attach-file', label: 'Attach File' },
         { command: 'remove-attached-file', label: 'Remove Attached File' },
         { command: 'move-attached-file-up', label: 'Move Attached File Up' },
         { command: 'move-attached-file-down', label: 'Move Attached File Down' }

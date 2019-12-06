@@ -9,6 +9,7 @@
 
 @import './_annotations.scss';
 @import './_affiliations-list.scss';
+@import './_attach-file-modal.scss';
 @import './_attached-file.scss';
 @import './_attached-resource.scss';
 @import './_author-modal.scss';
