@@ -207,9 +207,9 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
+        { command: 'insert-panel', label: 'Insert Panel' },
         { command: 'remove-panel', label: 'Remove Panel' },
         { command: 'replace-panel-image', label: 'Replace Image' },
-        { command: 'insert-panel', label: 'Insert Panel' },
         { command: 'move-panel-up', label: 'Move Panel Up' },
         { command: 'move-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },
@@ -246,6 +246,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
+        { command: 'add-keyword-group', label: 'Add Keword Group' },
         { command: 'edit-keyword-group', label: 'Edit Keword Group' },
         { command: 'remove-keyword-group', label: 'Remove Keword Group' },
         { command: 'move-keyword-group-up', label: 'Move Keword Group Up' },
