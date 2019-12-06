@@ -1,4 +1,5 @@
-import { $$, PropertyComponent, SelectableNodeComponent, renderProperty, domHelpers } from 'substance'
+import { $$, PropertyComponent, domHelpers } from 'substance'
+import AttachedResourceComponent from './AttachedResourceComponent'
 
 export default class AttachedResourcesComponent extends PropertyComponent {
   getPath () {
@@ -26,25 +27,5 @@ export default class AttachedResourcesComponent extends PropertyComponent {
   _onMousedown (panel, resourceNode, event) {
     domHelpers.stopAndPrevent(event)
     this.context.api.selectValue(panel, 'resources', resourceNode.id)
-  }
-}
-
-class AttachedResourceComponent extends SelectableNodeComponent {
-  render () {
-    const { node } = this.props
-    const { selected } = this.state
-    const el = $$('button', { class: 'sc-attached-resource', 'data-id': this._getSelectableId() })
-    if (selected) el.addClass('sm-selected')
-    el.append(
-      renderProperty(this, node.getDocument(), [node.id, 'title'], { readOnly: true, inline: true }).addClass('se-title'),
-      ': ',
-      renderProperty(this, node.getDocument(), [node.id, 'href'], { readOnly: true }).addClass('se-href')
-    )
-    return el
-  }
-
-  _getSelectableId () {
-    const { panel, node } = this.props
-    return `${panel.id}.resources#${node.id}`
   }
 }

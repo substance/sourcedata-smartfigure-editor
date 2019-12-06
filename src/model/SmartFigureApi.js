@@ -1,7 +1,6 @@
 import {
-  documentHelpers, isArrayEqual,
   BasicEditorApi, AuthorApi, AffiliationApi,
-  isString
+  isString, documentHelpers
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
@@ -174,11 +173,14 @@ export default class SmartFigureApi extends BasicEditorApi {
       insertPos = currentFileNode.getPosition() + 1
     }
     const nodeData = Object.assign({ type: 'resource', legend: [{ type: 'paragraph' }] }, data)
+    let newResourceNodeId
     this.editorSession.transaction(tx => {
       const node = documentHelpers.createNodeFromJson(tx, nodeData)
+      newResourceNodeId = node.id
       documentHelpers.insertAt(tx, [root.id, 'resources'], insertPos, node.id)
       this._selectItem(tx, node)
     })
+    return doc.get(newResourceNodeId)
   }
 
   attachFile (panelId, fileId) {
@@ -188,16 +190,11 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  updateAttachedResources (panelId, attachedResourceIds) {
-    const ids = Array.from(attachedResourceIds)
-    const doc = this.getDocument()
-    const panel = doc.get(panelId)
-    if (!isArrayEqual(panel.resources, ids)) {
-      // TODO: let this change be more incremental, i.e. adding, removing and later maybe changing order
-      this.editorSession.transaction(tx => {
-        doc.set([panel.id, 'resources'], ids)
-      })
-    }
+  attachResource (panelId, resourceId) {
+    this.editorSession.transaction(tx => {
+      documentHelpers.append(tx, [panelId, 'resources'], resourceId)
+      this._selectValue(tx, panelId, 'resources', resourceId)
+    })
   }
 
   // TODO: I'd like to have a specific selection for 'many' type relationships (e.g. author affiliations, or figure panel files, etc.)

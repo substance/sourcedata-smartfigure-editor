@@ -1,30 +1,42 @@
-import { Component, $$, domHelpers } from 'substance'
+import { Component, $$, domHelpers, PropertyComponent } from 'substance'
 import LayoutedFigurePanels from './LayoutedFigurePanels'
 import Section from './Section'
 
 export default class SmartFigureTOC extends Component {
   render () {
     const document = this.props.document
-    const figure = document.root
-    const el = $$('div', { class: 'sc-smart-figure-toc' })
+    const root = document.root
+    const el = $$('div', { class: 'sc-smart-figure-toc', oncontextmenu: this._onContextMenu })
     el.append(
       $$(_TOCItem, { scrollTarget: { section: 'title' } },
         $$(Section, { name: 'title', label: 'Title' })
       )
     )
     el.append(
-      $$(_TOCItem, { scrollTarget: { section: 'panels' } },
-        $$(Section, { name: 'panels', label: 'Panels' },
-          $$(LayoutedFigurePanels, { node: figure }).addClass('sm-plain')
-        )
-      )
+      $$(LayoutedFigurePanels, { node: root }).addClass('sm-plain')
     )
     el.append(
       $$(_TOCItem, { scrollTarget: { section: 'additionalInformation' } },
         $$(Section, { name: 'additionalInformation', label: 'Additional Information' })
       )
     )
+    el.append(
+      $$(_DynamicTOCItem, { doc: document, path: [root.id, 'files'], scrollTarget: { section: 'files' } },
+        $$(Section, { name: 'files', label: 'Files' })
+      )
+    )
+    el.append(
+      $$(_DynamicTOCItem, { doc: document, path: [root.id, 'resources'], scrollTarget: { section: 'resources' } },
+        $$(Section, { name: 'resources', label: 'Resources' })
+      )
+    )
+
     return el
+  }
+
+  _onContextMenu (event) {
+    // disable context menu on TOC
+    domHelpers.stopAndPrevent(event)
   }
 }
 
@@ -33,6 +45,30 @@ class _TOCItem extends Component {
     const el = $$('div', { class: 'se-toc-item' })
     el.append(this.props.children)
     el.on('click', this._onClick)
+    return el
+  }
+
+  _onClick (e) {
+    domHelpers.stopAndPrevent(e)
+    this.send('scrollTo', this.props.scrollTarget, { force: true })
+  }
+}
+
+class _DynamicTOCItem extends PropertyComponent {
+  getPath () {
+    return this.props.path
+  }
+
+  render () {
+    const { doc, path } = this.props
+    const el = $$('div', { class: 'se-toc-item' })
+    const val = doc.get(path)
+    if (!val || val.length === 0) {
+      el.addClass('sm-empty')
+    } else {
+      el.append(this.props.children)
+      el.on('click', this._onClick)
+    }
     return el
   }
 
