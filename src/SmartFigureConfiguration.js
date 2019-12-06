@@ -290,6 +290,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
+        { command: 'attach-resource', label: 'Attach Resource' },
         { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
         { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
         { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' },
