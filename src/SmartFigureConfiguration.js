@@ -193,14 +193,14 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'insert-panel', label: 'Insert Panel' },
         { command: 'remove-panel', label: 'Remove Panel' },
         { command: 'replace-panel-image', label: 'Replace Image' },
         { command: 'move-panel-up', label: 'Move Panel Up' },
         { command: 'move-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },
         { command: 'attach-file', label: 'Attach File' },
-        { command: 'attach-resource', label: 'Attach Resource' }
+        { command: 'attach-resource', label: 'Attach Resource' },
+        { command: 'add-panel', label: 'Add Panel' }
       ]
     })
 
@@ -210,9 +210,9 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-author', label: 'Edit Author' },
         { command: 'remove-author', label: 'Remove Author' },
-        { command: 'insert-author', label: 'Insert Author' },
         { command: 'move-author-forward', label: 'Move Author Up' },
-        { command: 'move-author-back', label: 'Move Author Down' }
+        { command: 'move-author-back', label: 'Move Author Down' },
+        { command: 'insert-author', label: 'Insert Author' }
       ]
     })
 
@@ -222,9 +222,9 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-affiliation', label: 'Edit Affiliation' },
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
-        { command: 'insert-affiliation', label: 'Insert Affiliation' },
         { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
-        { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
+        { command: 'move-affiliation-back', label: 'Move Affiliation Down' },
+        { command: 'insert-affiliation', label: 'Insert Affiliation' }
       ]
     })
 
@@ -232,11 +232,11 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'add-keyword-group', label: 'Add Keword Group' },
         { command: 'edit-keyword-group', label: 'Edit Keword Group' },
         { command: 'remove-keyword-group', label: 'Remove Keword Group' },
         { command: 'move-keyword-group-up', label: 'Move Keword Group Up' },
-        { command: 'move-keyword-group-down', label: 'Move Keword Group Down' }
+        { command: 'move-keyword-group-down', label: 'Move Keword Group Down' },
+        { command: 'add-keyword-group', label: 'Add Keword Group' }
       ]
     })
 
@@ -247,7 +247,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'edit-file', label: 'Rename File' },
         { command: 'remove-file', label: 'Remove File' },
         { command: 'move-file-up', label: 'Move File Up' },
-        { command: 'move-file-down', label: 'Move File Down' }
+        { command: 'move-file-down', label: 'Move File Down' },
+        { command: 'add-file', label: 'Add File' }
       ]
     })
 
@@ -257,7 +258,8 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'remove-resource', label: 'Remove Resource' },
         { command: 'move-resource-up', label: 'Move Resource Up' },
-        { command: 'move-resource-down', label: 'Move Resource Down' }
+        { command: 'move-resource-down', label: 'Move Resource Down' },
+        { command: 'add-resource', label: 'Add Resource' }
       ]
     })
 
@@ -265,11 +267,11 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'attach-file', label: 'Attach File' },
         { command: 'remove-attached-file', label: 'Remove Attached File' },
         { command: 'move-attached-file-up', label: 'Move Attached File Up' },
         { command: 'move-attached-file-down', label: 'Move Attached File Down' },
-        { command: 'jump-to-file', label: 'Jump to File' }
+        { command: 'jump-to-file', label: 'Jump to File' },
+        { command: 'attach-file', label: 'Attach File' }
       ]
     })
 
@@ -277,11 +279,11 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'attach-resource', label: 'Attach Resource' },
         { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
         { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
         { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' },
-        { command: 'jump-to-resource', label: 'Jump to Resource' }
+        { command: 'jump-to-resource', label: 'Jump to Resource' },
+        { command: 'attach-resource', label: 'Attach Resource' }
       ]
     })
 
