@@ -9,6 +9,7 @@ const {
   app, dialog, protocol, session,
   BrowserWindow, Menu, ipcMain, shell
 } = require('electron')
+const windowStateKeeper = require('electron-window-state')
 
 const DEBUG = process.env.DEBUG
 
@@ -22,10 +23,16 @@ const darStorageFolder = path.join(tmpDir, app.getName(), 'dar-storage')
 fsExtra.ensureDirSync(darStorageFolder)
 const sharedStorage = new DarFileStorage(darStorageFolder, 'dar://')
 // keeping a handle to every opened window
-const windowStates = new Map()
+const windows = new Map()
+let windowState
 const _pendingOpenFileRequests = []
 
 app.on('ready', () => {
+  windowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 800
+  })
+
   protocol.registerFileProtocol('dar', (request, handler) => {
     debug('handling "dar://" request: ' + request.url)
     // stripping away the protocol prefix 'dar://' and normalizing the requested path
@@ -142,7 +149,17 @@ function _openDar (dar) {
 // TODO: Make sure the same dar folder can't be opened multiple times
 function _createEditorWindow (darPath, options = {}) {
   // Create the browser window.
-  const editorWindow = new BrowserWindow({ width: 1024, height: 768 })
+
+  const editorWindow = new BrowserWindow({
+    x: windowState.x,
+    y: windowState.y,
+    width: windowState.width,
+    height: windowState.height,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
   const editorConfig = {
     darStorageFolder,
     darPath,
@@ -157,7 +174,7 @@ function _createEditorWindow (darPath, options = {}) {
   editorWindow.sharedStorage = sharedStorage
 
   const windowId = editorWindow.id
-  windowStates.set(windowId, {
+  windows.set(windowId, {
     dirty: false
   })
   // and load the index.html of the app.
@@ -169,24 +186,26 @@ function _createEditorWindow (darPath, options = {}) {
   editorWindow.loadURL(mainUrl)
 
   // Open the DevTools.
-  if (DEBUG) {
-    editorWindow.webContents.openDevTools()
-  }
+  // if (DEBUG) {
+  editorWindow.webContents.openDevTools()
+  // }
 
   editorWindow.on('close', e => {
-    const state = windowStates.get(windowId)
+    const state = windows.get(windowId)
     if (state.dirty) {
       _promptUnsavedChanges(e, editorWindow)
     }
   })
 
   editorWindow.on('closed', e => {
-    windowStates.delete(windowId)
+    windows.delete(windowId)
   })
+
+  windowState.manage(editorWindow)
 }
 
 ipcMain.on('updateState', (event, windowId, update) => {
-  const state = windowStates.get(windowId)
+  const state = windows.get(windowId)
   if (state) {
     Object.assign(state, update)
   }

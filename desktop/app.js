@@ -1,50 +1,44 @@
-const { ipcRenderer: ipc, remote } = require('electron')
-const { shell, dialog } = remote
-const path = require('path')
-const url = require('url')
+import {
+  Component, $$, HorizontalStack, Title, StackFill
+} from 'substance'
+import loadArchive from 'substance/dar/loadArchive'
+import { SmartFigureConfiguration, SmartFigureEditor } from '../index'
 
-let _app, _window
-
-// HACK: we should find a better solution to intercept window.open calls (e.g. as done by LinkComponent)
-window.open = function (url, frameName, features) {
-  console.log('Open external url', url, frameName, features)
-  shell.openExternal(url)
-}
-
-ipc.on('save', () => {
-  _saveOrSaveAs(_saveCallback)
-})
-
-ipc.on('saveAs', () => {
-  _saveAs(_saveCallback)
-})
+// Note: these are provided by preload.js
 
 window.addEventListener('load', () => {
-  _window = remote.getCurrentWindow()
-
-  _app.on('save', () => {
-    _saveOrSaveAs(_handleSaveError)
+  const { windowId, ipc, editorConfig, sharedStorage } = window
+  const { darPath, readOnly } = editorConfig
+  let app
+  sharedStorage.read(darPath, (err, rawArchive) => {
+    if (err) {
+      console.error('Could not load DAR:', err)
+    } else {
+      const config = new SmartFigureConfiguration()
+      const archive = loadArchive(rawArchive, config)
+      app = SmartFigureEditor.mount({ archive, readOnly }, window.document.body, { inplace: true })
+    }
   })
 
-  _app.on('openExternal', url => {
-    shell.openExternal(url)
-  })
-
-  _app.on('archive:ready', () => {
-    // let archive = _app.state.archive
-    // archive.on('archive:changed', () => {
-    //   ipc.send('updateState', _window.id, {
-    //     dirty: true
-    //   })
-    // })
-    // archive.on('archive:saved', () => {
-    //   ipc.send('updateState', _window.id, {
-    //     dirty: false
-    //   })
-    // })
-  })
-
-  _window = remote.getCurrentWindow()
+  // _app.on('save', () => {
+  //   _saveOrSaveAs(_handleSaveError)
+  // })
+  // _app.on('openExternal', url => {
+  //   shell.openExternal(url)
+  // })
+  // _app.on('archive:ready', () => {
+  //   // let archive = _app.state.archive
+  //   // archive.on('archive:changed', () => {
+  //   //   ipc.send('updateState', _window.id, {
+  //   //     dirty: true
+  //   //   })
+  //   // })
+  //   // archive.on('archive:saved', () => {
+  //   //   ipc.send('updateState', _window.id, {
+  //   //     dirty: false
+  //   //   })
+  //   // })
+  // })
 })
 
 function _saveOrSaveAs (cb) {
@@ -112,4 +106,48 @@ function _saveCallback (err) {
   //   // console.log(msg)
   //   ipc.send(msg)
   // }
+}
+
+class App extends Component {
+  constructor (...args) {
+    super(...args)
+
+    this.config = new SmartFigureConfiguration()
+  }
+
+  getInitialState () {
+    return {
+      archive: null,
+      error: null
+    }
+  }
+
+  getChildContext () {
+    return {
+      config: this.config,
+      archive: this.state.archive
+    }
+  }
+
+  didMount () {
+    const archiveId = this.props.archiveId
+    this.props.darStorage
+  }
+
+  dispose () {
+  }
+
+  render () {
+    const { archive } = this.state.archive
+    return $$('body', { class: 'sc-app' },
+      archive ? $$(SmartFigureEditor, { archive }) : null
+    )
+  }
+
+  _getTitle () {
+    // TODO: do we need this?
+    return ''
+  }
+
+  _onDocumentChange (change) {}
 }

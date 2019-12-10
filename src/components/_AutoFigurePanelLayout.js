@@ -95,7 +95,7 @@ export default class AutoFigurePanelLayout extends NodeComponent {
     const urlResolver = this.context.urlResolver
     let url = image.src
     if (urlResolver) {
-      url = urlResolver.resolveUrl(url)
+      url = urlResolver.resolveUrl(url) || url
     }
     return new Promise(resolve => {
       const $$ = this.el.createElement.bind(this.el)

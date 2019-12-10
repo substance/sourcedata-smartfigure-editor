@@ -103,13 +103,13 @@ b.task('build:desktop:dars', () => {
 b.task('build:desktop:assets', () => {
   b.copy('desktop/index.html', APPDIST)
   b.copy('desktop/build-resources', APPDIST)
-  b.copy(DIST + 'fonts', APPDIST + 'lib/')
-  b.copy(DIST + 'styles', APPDIST + 'lib/')
-  b.copy(DIST + 'smartfigure-editor.js', APPDIST + 'lib/')
-  b.copy(DIST + 'smartfigure-editor.js.map', APPDIST + 'lib/')
+  b.copy(DIST + 'fonts', APPDIST)
+  b.copy(DIST + 'styles', APPDIST)
+  b.copy('desktop/preload.js', APPDIST)
+  b.copy('desktop/placeholder.svg', APPDIST)
 })
 
-b.task('build:desktop', ['clean', 'build:fonts', 'build:css', 'build:lib', 'build:desktop:assets', 'build:desktop:dars'], () => {
+b.task('build:desktop', ['clean', 'build:fonts', 'build:css', 'build:desktop:assets', 'build:desktop:dars'], () => {
   b.custom('Generate dist/package.json', {
     src: [APP_PACKAGE_JSON_TEMPLATE, PACKAGE_JSON],
     dest: APPDIST + 'package.json',
@@ -150,16 +150,13 @@ b.task('build:desktop', ['clean', 'build:fonts', 'build:css', 'build:lib', 'buil
       file: APPDIST + 'app.js',
       format: 'umd',
       name: 'SmartFigureEditorApp',
-      globals: {
-        substance: 'substance'
-      }
+      sourcemap: true
     },
-    external: ['substance'],
     plugins: [
-      nodeResolve(),
-      commonjs({
-        include: 'node_modules/**'
-      })
+      nodeResolve({
+        mainFields: ['esnext', 'module', 'main']
+      }),
+      commonjs()
     ]
   })
   // execute 'install-app-deps'

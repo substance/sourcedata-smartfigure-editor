@@ -4,9 +4,10 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "electron-window-state": "*",
+    "fs-extra": "*",
     "yazl": "*",
-    "yauzl": "*",
-    "fs-extra": "*"
+    "yauzl": "*"
   },
   "build": {
     "electronVersion": "",
@@ -14,7 +15,8 @@
     "copyright": "",
     "files": [
       "data",
-      "lib",
+      "fonts",
+      "styles",
       "node_modules",
       "templates",
       "examples",
