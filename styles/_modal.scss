@@ -83,3 +83,13 @@
 .sc-modal .sc-section > .se-section-label {
   @include ts-interface;
 }
+
+@media screen and (max-width: 640px) {
+  .sc-modal .se-modal-dialog {
+    height: 100%;
+    top: unset;
+    left: unset;
+    transform: none;
+    border-radius: 0;
+  }
+}
