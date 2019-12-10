@@ -1,5 +1,5 @@
 import {
-  Component, $$, DOMElement, HorizontalStack, Title, StackFill, platform
+  Component, $$, DefaultDOMElement as DOMElement, HorizontalStack, Title, StackFill, platform
 } from 'substance'
 import VfsStorageClient from 'substance/dar/VfsStorageClient'
 import loadArchive from 'substance/dar/loadArchive'
