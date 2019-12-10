@@ -210,8 +210,8 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'edit-author', label: 'Edit Author' },
         { command: 'remove-author', label: 'Remove Author' },
-        { command: 'move-author-forward', label: 'Move Author Up' },
-        { command: 'move-author-back', label: 'Move Author Down' },
+        { command: 'move-author-forward', label: 'Move Author Left' },
+        { command: 'move-author-back', label: 'Move Author Right' },
         { command: 'insert-author', label: 'Insert Author' }
       ]
     })
