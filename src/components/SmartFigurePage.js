@@ -1,5 +1,5 @@
 import {
-  Component, $$, HorizontalStack, Title, StackFill
+  Component, $$, DOMElement, HorizontalStack, Title, StackFill, platform
 } from 'substance'
 import VfsStorageClient from 'substance/dar/VfsStorageClient'
 import loadArchive from 'substance/dar/loadArchive'
@@ -30,12 +30,31 @@ export default class SmartFigurePage extends Component {
     }
   }
 
+  getInitialState () {
+    return {
+      isMobile: this._isMobile()
+    }
+  }
+
   didMount () {
     this.document.on('document:changed', this._onDocumentChange, this)
+    this.handleWindowSizeChange()
+    if (platform.inBrowser) {
+      DOMElement.wrap(window).addEventListener('resize', this.handleWindowSizeChange, { context: this })
+    }
   }
 
   dispose () {
     this.document.off(this)
+    if (platform.inBrowser) {
+      DOMElement.wrap(window).off(this)
+    }
+  }
+
+  handleWindowSizeChange () {
+    if (platform.inBrowser) {
+      this.extendState({ isMobile: this._isMobile() })
+    }
   }
 
   render () {
@@ -64,6 +83,14 @@ export default class SmartFigurePage extends Component {
 
   _getTitle () {
     return this.document.root.title
+  }
+
+  _isMobile () {
+    if (platform.inBrowser) {
+      return window.innerWidth < 640
+    } else {
+      return false
+    }
   }
 
   _onDocumentChange (change) {
