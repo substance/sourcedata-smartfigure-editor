@@ -4,23 +4,6 @@
   ATM, it is not very responsive, and it does not work well for long content.
 */
 .sc-modal {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.8);
-  min-height: 400px;
-  min-width: 400px;
-}
-
-.sc-modal .se-modal-dialog {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,58 +11,59 @@
   background: #ffffff;
   box-shadow: var(--card-shadow);
   border-radius: var(--popover-border-radius);
-  padding: var(--half-spacing) var(--double-spacing);
 }
 
-.sc-modal.sm-size-default .se-modal-dialog {
+.sc-modal.sm-size-default {
   width: 800px;
 }
 
-.sc-modal.sm-size-small .se-modal-dialog {
+.sc-modal.sm-size-small {
   max-width: var(--modal-small-size);
   padding: var(--half-spacing) var(--default-spacing);
 }
 
-.sc-modal.sm-size-medium .se-modal-dialog {
+.sc-modal.sm-size-medium {
   max-width: var(--modal-medium-size);
 }
 
-.sc-modal.sm-size-large .se-modal-dialog {
+.sc-modal.sm-size-large {
   max-width: var(--modal-large-size);
 }
 
-.sc-modal .se-modal-dialog > .sc-divider {
+.sc-modal > * {
+  padding: 0 var(--double-spacing);
+}
+
+.sc-modal > .sc-divider {
   padding: 0!important;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-header {
+.sc-modal > .se-modal-header {
   height: 60px;
   border-bottom: 1px solid #EAEAEA;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-header .sc-title {
+.sc-modal > .se-modal-header .sc-title {
   @include ts-large-interface;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-header .sc-button {
+.sc-modal > .se-modal-header .sc-button {
   opacity: 0.5;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-footer {
+.sc-modal > .se-modal-footer {
   height: 60px;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-footer > .sc-horizontal-stack {
+.sc-modal > .se-modal-footer > .sc-horizontal-stack {
   justify-content: flex-end;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-body {
-  max-height: calc(100vh - var(--header-height) - var(--header-height));
+.sc-modal > .se-modal-body {
   overflow: auto;
-  padding: 2px;
 }
 
-.sc-modal .se-modal-dialog > .se-modal-body > .sc-form > * {
+.sc-modal > .se-modal-body > .sc-form > * {
   margin: var(--half-spacing) 0;
 }
 
