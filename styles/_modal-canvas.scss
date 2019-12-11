@@ -2,3 +2,11 @@
   position: fixed;
   z-index: 10000;
 }
+
+.sc-modal-canvas.sm-modal-mobile .sc-modal .se-modal-dialog {
+  height: 100%;
+  top: unset;
+  left: unset;
+  transform: none;
+  border-radius: 0;
+}

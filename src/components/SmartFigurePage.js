@@ -76,8 +76,9 @@ export default class SmartFigurePage extends Component {
 
   renderContent () {
     const archive = this.archive
+    const { isMobile } = this.state
     return $$('div', { class: 'se-content' },
-      $$(SmartFigureEditor, { archive })
+      $$(SmartFigureEditor, { archive, isMobile })
     )
   }
 
