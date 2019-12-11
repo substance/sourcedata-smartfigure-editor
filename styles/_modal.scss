@@ -60,6 +60,7 @@
 }
 
 .sc-modal > .se-modal-body {
+  max-height: calc(100vh - var(--header-height) - var(--header-height));
   overflow: auto;
 }
 
