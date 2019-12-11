@@ -1,4 +1,3 @@
-import loadArchive from 'substance/dar/loadArchive'
 import DocumentArchive from 'substance/dar/DocumentArchive'
 import InMemoryDarBuffer from 'substance/dar/InMemoryDarBuffer'
 import { SmartFigureConfiguration, SmartFigureEditor } from '../index'
@@ -15,12 +14,11 @@ window.addEventListener('load', () => {
   const archive = new DocumentArchive(sharedStorage, new InMemoryDarBuffer(), {}, config)
   // Note: readOnly=true if a template is loaded
   archive.readOnly = readOnly
-  let editor = null
   archive.load(darPath, err => {
     if (err) {
       console.error('Could not load DAR:', err)
     } else {
-      editor = SmartFigureEditor.mount({ archive }, window.document.body, { inplace: true })
+      SmartFigureEditor.mount({ archive }, window.document.body, { inplace: true })
     }
   })
 
@@ -56,15 +54,11 @@ window.addEventListener('load', () => {
             console.error(err)
             return cb(err)
           }
-          // HACK: this is kind of an optimization but formally it is not
-          // 100% correct to continue with the same archive instance
-          // Instead one would expect that cloning an archive returns
-          // a new archive instance
-          // Though, this would have other undesired implications
-          // such as loosing the scroll position or undo history
-          // Thus we move on with this solution, but we need to clear
-          // the isReadOnly flag now.
-          archive.readOnly = false
+          // ATTENTION: in case the archive has been loaded from a template, which is readonly,
+          // we reuse the archive instance with a changed location, and removing the readonly flag.
+          if (archive.readOnly) {
+            delete archive.readOnly
+          }
           _updateWindowUrl(filePath)
           cb()
         })
