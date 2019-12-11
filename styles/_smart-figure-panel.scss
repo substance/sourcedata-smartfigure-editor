@@ -3,5 +3,10 @@
 }
 
 .sc-smart-figure-panel .sc-image {
-  max-width: 90%;
+  display: block;
+  margin: 0 auto;
+}
+
+.sc-smart-figure-panel .sc-image.sm-empty {
+  opacity: 0.4;
 }
