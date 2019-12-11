@@ -60,6 +60,7 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   render () {
     const document = this.document
+    const { isMobile } = this.props
 
     const el = $$('div', { class: 'sc-smart-figure-editor' },
       $$(Managed(EditorToolbar, 'commandStates')),
@@ -78,7 +79,7 @@ export default class SmartFigureEditor extends AbstractEditor {
         }
       }).ref('popover'),
       $$(FileSelect, {}).ref('fileSelect'),
-      $$(ModalCanvas).ref('modalCanvas')
+      $$(ModalCanvas, { isMobile }).ref('modalCanvas')
     )
     // ATTENTION: hopefully this does not prevent any other default behavior
     // important not to preventDefault here, as otherwise native mouse stuff, like focussing is not working anymore
