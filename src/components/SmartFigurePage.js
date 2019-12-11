@@ -1,11 +1,15 @@
 import {
-  Component, $$, DefaultDOMElement as DOMElement, HorizontalStack, Title, StackFill, platform
+  Component, $$, DefaultDOMElement as DOMElement, HorizontalStack, Title,
+  StackFill, platform, parseKeyEvent, parseKeyCombo
 } from 'substance'
 import VfsStorageClient from 'substance/dar/VfsStorageClient'
 import loadArchive from 'substance/dar/loadArchive'
 import SmartFigureConfiguration from '../SmartFigureConfiguration'
 import SourceDataLogo from './SourceDataLogo'
 import SmartFigureEditor from './SmartFigureEditor'
+import { domHelpers } from 'substance/dom'
+
+const SAVE_COMBO = parseKeyEvent(parseKeyCombo('CommandOrControl+S'))
 
 export default class SmartFigurePage extends Component {
   constructor (...args) {
@@ -38,10 +42,15 @@ export default class SmartFigurePage extends Component {
 
   didMount () {
     this.document.on('document:changed', this._onDocumentChange, this)
+
+    // mobile detection
     this.handleWindowSizeChange()
     if (platform.inBrowser) {
       DOMElement.wrap(window).addEventListener('resize', this.handleWindowSizeChange, { context: this })
     }
+
+    // global keyboard events
+    this.refs.editor.context.globalEventHandler.addEventListener('keydown', this._onKeydown, this)
   }
 
   dispose () {
@@ -49,6 +58,7 @@ export default class SmartFigurePage extends Component {
     if (platform.inBrowser) {
       DOMElement.wrap(window).off(this)
     }
+    this.refs.editor.context.globalEventHandler.removeEventListener(this)
   }
 
   handleWindowSizeChange () {
@@ -78,7 +88,7 @@ export default class SmartFigurePage extends Component {
     const archive = this.archive
     const { isMobile } = this.state
     return $$('div', { class: 'se-content' },
-      $$(SmartFigureEditor, { archive, isMobile })
+      $$(SmartFigureEditor, { archive, isMobile }).ref('editor')
     )
   }
 
@@ -97,6 +107,31 @@ export default class SmartFigurePage extends Component {
   _onDocumentChange (change) {
     if (change.hasUpdated([this.document.root.id, 'title'])) {
       this.refs.title.extendProps({ children: [this._getTitle()] })
+    }
+  }
+
+  _onKeydown (event) {
+    const combo = parseKeyEvent(event)
+    switch (combo) {
+      // ATTENTION: this is used for development only
+      // i.e. when pressing CommandOrControl+S, we simulate a save, serializing the DAR to the console
+      // TODO: disable or replace this if needed as a web-based editor
+      case SAVE_COMBO: {
+        domHelpers.stopAndPrevent(event)
+        this.archive.save((err, update) => {
+          if (err) {
+            console.error(err)
+          } else {
+            const smartfigureUpdate = update.resources['smart-figure.xml']
+            if (smartfigureUpdate) {
+              const xmlDom = DOMElement.parseXML(smartfigureUpdate.data)
+              console.log('Saved Document:')
+              console.dirxml(xmlDom.el)
+            }
+          }
+        })
+        return true
+      }
     }
   }
 }

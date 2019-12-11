@@ -1,11 +1,11 @@
-import { $$, NodeComponent } from 'substance'
+import { $$, Component } from 'substance'
 import FigurePanelThumbnail from './FigurePanelThumbnail'
 
 // EXPERIMENTAL: trying to provide a good auto layout based on width/height ratio
 const HORIZONTAL = 2.5
 const VERTICAL = 0.75
 
-export default class AutoFigurePanelLayout extends NodeComponent {
+export default class AutoFigurePanelLayout extends Component {
   getInitialState () {
     return { dimensions: null }
   }
@@ -16,10 +16,14 @@ export default class AutoFigurePanelLayout extends NodeComponent {
   }
 
   didMount () {
-    super.didMount()
+    this.context.editorState.addObserver(['document'], this._onDocumentUpdate, this, { stage: 'render' })
 
     // start an initial layout
     this._layout()
+  }
+
+  dispose () {
+    this.context.editorState.removeObserver(this)
   }
 
   async _layout () {
@@ -84,18 +88,27 @@ export default class AutoFigurePanelLayout extends NodeComponent {
     return el
   }
 
-  _onNodeUpdate (change) {
+  _onDocumentUpdate (change) {
     // Only rerender this when 'panels' have changed, as opposed to other properties such as title
-    if (change.hasUpdated([this.props.node.id, 'panels'])) {
+    if (this._needsRelayout(change)) {
       this._layout()
     }
+  }
+
+  _needsRelayout (change) {
+    if (change.hasUpdated([this.props.node.id, 'panels'])) return true
+    const panels = this.props.node.resolve('panels')
+    for (const panel of panels) {
+      if (change.hasUpdated(panel.image)) return true
+    }
+    return false
   }
 
   _renderImg (image) {
     const urlResolver = this.context.urlResolver
     let url = image.src
     if (urlResolver) {
-      url = urlResolver.resolveUrl(url)
+      url = urlResolver.resolveUrl(url) || url
     }
     return new Promise(resolve => {
       const $$ = this.el.createElement.bind(this.el)

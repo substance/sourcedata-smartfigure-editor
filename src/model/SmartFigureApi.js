@@ -40,13 +40,20 @@ export default class SmartFigureApi extends BasicEditorApi {
   }
 
   replacePanelImage (panelId, file) {
+    const archive = this.archive
     const doc = this.getDocument()
     const panel = doc.get(panelId)
     const image = panel.resolve('image')
     const articleSession = this.editorSession
-    const newPath = this.archive.replaceAsset(image.src, file)
+    let newSrc
+    const oldSrc = image.src
+    if (!archive.hasAsset(oldSrc)) {
+      newSrc = archive.addAsset(file)
+    } else {
+      newSrc = this.archive.replaceAsset(oldSrc, file)
+    }
     articleSession.transaction(tx => {
-      tx.set([image.id, 'src'], newPath)
+      tx.set([image.id, 'src'], newSrc)
     })
   }
 

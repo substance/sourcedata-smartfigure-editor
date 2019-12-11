@@ -1,0 +1,39 @@
+{
+  "name": "sourcedata-smartfigure-editor",
+  "version": "",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "electron-window-state": "*",
+    "fs-extra": "*",
+    "yazl": "*",
+    "yauzl": "*"
+  },
+  "build": {
+    "electronVersion": "",
+    "appId": "com.sourcedata.smartfigure-editor",
+    "copyright": "",
+    "files": [
+      "data",
+      "fonts",
+      "styles",
+      "node_modules",
+      "templates",
+      "examples",
+      "*.html",
+      "*.js",
+      "package.json"
+    ],
+    "asar": "false",
+    "directories": {
+      "output": "build",
+      "buildResources": "build-resources"
+    },
+    "publish": null,
+    "fileAssociations": [{
+      "ext": "smartfigure",
+      "name": "SmartFigure",
+      "role": "Editor"
+    }]
+  }
+}

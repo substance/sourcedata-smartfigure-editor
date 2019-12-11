@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE smart-figure PUBLIC "-//SOURCEDATA//DTD SmartFigure v1.0//EN"  "SourceData-SmartFigure-1.0.dtd">
+<smart-figure>
+  <title></title>
+  <authors>
+  </authors>
+  <affiliations>
+  </affiliations>
+  <panels>
+    <panel id="panel-a" label="A">
+      <legend>
+        <paragraph id="panel-a-legend-p1"></paragraph>
+      </legend>
+      <image id="panel-a-image" mimetype="image/jpeg" src="" />
+    </panel>
+  </panels>
+  <additionalInformation>
+    <paragraph id="additional-information-p1"></paragraph>
+  </additionalInformation>
+</smart-figure>

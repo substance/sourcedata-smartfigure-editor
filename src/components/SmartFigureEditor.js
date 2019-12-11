@@ -150,6 +150,8 @@ export default class SmartFigureEditor extends AbstractEditor {
     return fileSelect.selectFiles()
   }
 
+  // TODO: ATM we show the contextmenu for the last selected item
+  // which is a bit off when right-clicking somewhere else, i.e. not on a selectable
   _onContextMenu (event) {
     domHelpers.stopAndPrevent(event)
     const selectionState = this.editorState.selectionState
@@ -168,8 +170,11 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
   }
 
+  // TODO: it would be better if we used commands here, instead of hard-coded
+  // keyboard shortcuts... then it would be self-explanatory, as shortcuts get
+  // displayed in the menus
   _onKeydown (event) {
-    if (super.handleKeydown(event)) return
+    if (super.handleKeydown(event)) return true
 
     let handled = false
     const combo = parseKeyEvent(event)
@@ -220,7 +225,10 @@ export default class SmartFigureEditor extends AbstractEditor {
     }
     if (handled) {
       domHelpers.stopAndPrevent(event)
+      return true
     }
+
+    return false
   }
 
   _handleEscape () {

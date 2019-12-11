@@ -20,7 +20,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     )
 
     el.append(
-      renderProperty(this, document, [node.id, 'image']).ref('image')
+      renderProperty(this, document, [node.id, 'image'], { placeholder: 'placeholder.svg' }).ref('image')
     )
 
     el.append(

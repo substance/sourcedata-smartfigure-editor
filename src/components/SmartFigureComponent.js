@@ -14,7 +14,7 @@ export default class SmartFigureComponent extends Component {
     el.append(
       $$(Section, { name: 'title', label: 'Title' },
         // HACK: using style of sc-heading level 1
-        renderProperty(this, doc, [node.id, 'title'], { placeholder: 'Untitled' }).addClass('sc-heading sm-level-1')
+        renderProperty(this, doc, [node.id, 'title'], { placeholder: 'Enter Title' }).addClass('sc-heading sm-level-1')
       )
     )
 

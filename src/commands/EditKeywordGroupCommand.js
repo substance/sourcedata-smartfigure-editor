@@ -7,14 +7,13 @@ export default class EditKeywordGroupCommand extends ItemCommand {
   }
 
   execute (params, context) {
-    const { currentItemId } = params.commandState
+    const { node } = params.commandState
     const editorSession = context.editorSession
     const api = context.api
-    const keywordGroup = editorSession.getDocument().get(currentItemId)
     return editorSession.getRootComponent().send('requestModal', () => {
       return $$(KeywordGroupModal, {
         mode: 'edit',
-        node: keywordGroup
+        node
       })
     }).then(modal => {
       if (!modal) return
@@ -25,7 +24,7 @@ export default class EditKeywordGroupCommand extends ItemCommand {
         name: data.name,
         keywords: data.keywords
       }
-      api.updateKeywordGroup(keywordGroup.id, keywordGroupData)
+      api.updateKeywordGroup(node.id, keywordGroupData)
     })
   }
 }
