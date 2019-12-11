@@ -4,9 +4,6 @@
 }
 
 .sc-modal-canvas.sm-modal-mobile .sc-modal .se-modal-dialog {
-  height: 100%;
-  top: unset;
-  left: unset;
-  transform: none;
+  max-height: 100%;
   border-radius: 0;
 }
