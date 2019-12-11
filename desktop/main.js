@@ -10,6 +10,7 @@ const {
   BrowserWindow, Menu, ipcMain, shell
 } = require('electron')
 const windowStateKeeper = require('electron-window-state')
+const fileFilters = require('./_fileFilters')
 
 const DEBUG = process.env.DEBUG
 
@@ -242,16 +243,16 @@ function _promptUnsavedChanges (event, editorWindow) {
   }
 }
 
+// TODO: this should be configurable
 function _promptOpen () {
   dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [
-      { name: 'Dar Files', extensions: ['dar'] }
-    ]
-  }, (fileNames) => {
-    if (fileNames && fileNames.length > 0) {
+    filters: fileFilters
+  }).then(res => {
+    const { canceled, filePaths } = res
+    if (!canceled && filePaths.length > 0) {
       // not possible to select multiple DARs at once
-      const darPath = fileNames[0]
+      const darPath = filePaths[0]
       console.info('opening Dar: ', darPath)
       _createEditorWindow(darPath)
     }

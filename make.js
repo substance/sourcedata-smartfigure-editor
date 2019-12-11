@@ -106,6 +106,7 @@ b.task('build:desktop:assets', () => {
   b.copy(DIST + 'fonts', APPDIST)
   b.copy(DIST + 'styles', APPDIST)
   b.copy('desktop/preload.js', APPDIST)
+  b.copy('desktop/_fileFilters.js', APPDIST)
   b.copy('desktop/placeholder.svg', APPDIST)
 })
 
