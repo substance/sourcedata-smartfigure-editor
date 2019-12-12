@@ -2,18 +2,6 @@
   margin-top: var(--default-spacing);
 }
 
-.sc-author-modal .se-middle-names .se-remove-item {
-  color: var(--primary-button-color);
-  padding: 0 var(--default-spacing);
-  margin: 0px;
-}
-
-.sc-author-modal .se-middle-names .se-add-item {
-  @include ts-interface;
-  color: var(--primary-button-color);
-  cursor: pointer;
-}
-
 .sc-author-modal .sc-optional-fields-toggle {
   margin-top: var(--double-spacing);
 }
