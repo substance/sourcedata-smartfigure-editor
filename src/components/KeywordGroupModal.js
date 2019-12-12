@@ -23,22 +23,21 @@ export default class KeywordGroupModal extends Component {
     const title = this.props.mode === 'edit' ? 'Edit Keyword Group' : 'Create Keyword Group'
     const confirmLabel = this.props.mode === 'edit' ? 'Update' : 'Create'
 
-    return $$(Modal, { title, size: 'large', confirmLabel },
+    return $$(Modal, { title, size: 'small', confirmLabel },
       $$(Form, {},
-        $$(FormRow, { label: 'Name:' },
+        $$(FormRow, { label: 'Name' },
           $$(Input, { value: name, autofocus: true }).ref('name')
         ),
-        $$(FormRow, { label: 'Keywords:' },
+        $$(FormRow, { label: 'Keywords' },
           ...keywords.map(kwd => {
             const inputEl = $$(Input, { value: kwd.content, class: 'se-keyword', 'data-id': kwd.id }).ref(kwd.id)
             return $$(HorizontalStack, {},
               inputEl,
-              $$(Button, {}, $$(Icon, { icon: 'times' })).on('click', this._onClickRemoveKeyword.bind(this, kwd))
+              $$(Button, { style: 'plain', class: 'se-remove-item' }, $$(Icon, { icon: 'trash' })).on('click', this._onClickRemoveKeyword.bind(this, kwd))
             )
           }),
           $$(HorizontalStack, {},
-            $$('div'),
-            $$(Button, {}, $$(Icon, { icon: 'plus' })).on('click', this._onClickAddKeyword)
+            $$('a', { class: 'se-add-item' }, 'Add Keyword').on('click', this._onClickAddKeyword)
           )
         ).addClass('se-keywords')
       )
