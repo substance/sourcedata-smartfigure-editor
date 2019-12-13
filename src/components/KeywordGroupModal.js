@@ -31,7 +31,7 @@ export default class KeywordGroupModal extends Component {
     const confirmLabel = this.props.mode === 'edit' ? 'Update' : 'Create'
     const values = keywords.map(kwd => kwd.content)
 
-    return $$(Modal, { title, size: 'small', confirmLabel },
+    return $$(Modal, { title, size: 'medium', confirmLabel },
       $$(Form, {},
         $$(FormRow, { label: 'Name' },
           $$(Input, { value: name, autofocus: true }).ref('name')
