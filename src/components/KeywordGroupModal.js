@@ -1,10 +1,17 @@
 import {
-  Component, $$, domHelpers, without,
-  Form, FormRow, Modal, Input, Button, Icon, HorizontalStack,
-  uuid
+  Component, $$, without, Form, FormRow,
+  Modal, Input, MultiInput, uuid
 } from 'substance'
 
 export default class KeywordGroupModal extends Component {
+  getActionHandlers () {
+    return {
+      addMultiInputItem: this._addMultiInputItem,
+      updateMultiInputItem: this._updateMultiInputItem,
+      removeMultiInputItem: this._removeMultiInputItem
+    }
+  }
+
   getInitialState () {
     let name = ''
     let keywords
@@ -22,6 +29,7 @@ export default class KeywordGroupModal extends Component {
     const { name, keywords } = this.state
     const title = this.props.mode === 'edit' ? 'Edit Keyword Group' : 'Create Keyword Group'
     const confirmLabel = this.props.mode === 'edit' ? 'Update' : 'Create'
+    const values = keywords.map(kwd => kwd.content)
 
     return $$(Modal, { title, size: 'small', confirmLabel },
       $$(Form, {},
@@ -29,38 +37,34 @@ export default class KeywordGroupModal extends Component {
           $$(Input, { value: name, autofocus: true }).ref('name')
         ),
         $$(FormRow, { label: 'Keywords' },
-          ...keywords.map(kwd => {
-            const inputEl = $$(Input, { value: kwd.content, class: 'se-keyword', 'data-id': kwd.id }).ref(kwd.id)
-            return $$(HorizontalStack, {},
-              inputEl,
-              $$(Button, { style: 'plain', class: 'se-remove-item' }, $$(Icon, { icon: 'trash' })).on('click', this._onClickRemoveKeyword.bind(this, kwd))
-            )
-          }),
-          $$(HorizontalStack, {},
-            $$('a', { class: 'se-add-item' }, 'Add Keyword').on('click', this._onClickAddKeyword)
-          )
+          $$(MultiInput, { name: 'keywords', value: values, addLabel: 'Add Keyword' }).ref('keywords')
         ).addClass('se-keywords')
       )
     ).addClass('sc-keyword-group-modal')
   }
 
-  _onClickAddKeyword (e) {
-    domHelpers.stopAndPrevent(e)
+  _addMultiInputItem () {
     const newState = this.getData()
     newState.keywords.push({ id: uuid('keyword-group'), content: '' })
     this.setState(newState)
   }
 
-  _onClickRemoveKeyword (kwd, e) {
-    domHelpers.stopAndPrevent(e)
+  _updateMultiInputItem (name, idx, value) {
+    this.state[name][idx].content = value
+  }
+
+  _removeMultiInputItem (name, idx) {
     const newState = this.getData()
-    newState.keywords = without(this.state.keywords, kwd)
+    const { keywords } = this.state
+    const kwd = keywords[idx]
+    newState.keywords = without(keywords, kwd)
     this.setState(newState)
   }
 
   getData () {
     const name = this.refs.name.val()
-    const keywords = this.findAll('.se-keyword').map(input => {
+    const keywordsEl = this.refs.keywords
+    const keywords = keywordsEl.findAll('input').map(input => {
       return {
         type: 'keyword',
         id: input.getAttribute('data-id'),
