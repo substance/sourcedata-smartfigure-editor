@@ -35,6 +35,7 @@
 @import './_menu-item.scss';
 @import './_modal-canvas.scss';
 @import './_modal.scss';
+@import './_multi-input.scss';
 @import './_multi-select.scss';
 @import './_optional-fields-toggle.scss';
 @import './_placeholder.scss';

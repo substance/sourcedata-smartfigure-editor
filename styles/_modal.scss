@@ -72,14 +72,3 @@
   @include ts-interface;
 }
 
-.sc-modal .se-add-item {
-  @include ts-interface;
-  color: var(--primary-button-color);
-  cursor: pointer;
-}
-
-.sc-modal .se-remove-item {
-  color: var(--primary-button-color);
-  padding: 0 var(--default-spacing);
-  margin: 0px;
-}
