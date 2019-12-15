@@ -3,39 +3,27 @@
   width: 100%;
 }
 
-.sc-multi-select > .se-placeholder {
+.sc-multi-select .sc-horizontal-stack {
+  margin-bottom: var(--half-spacing);
+}
+
+.sc-multi-select .se-add-item {
   @include ts-interface;
-  @include ts-quiet;
-  font-weight: 400;
+  margin-top: var(--half-spacing);
+  color: var(--primary-button-color);
+  cursor: pointer;
 }
 
-// ATTENTION: styles below are rendered in the popover canvas
-// i.e. at a different place in the DOM
-
-.sc-multi-select-options {
-  max-width: var(--popover-medium-size);
-  font-size: smaller;
-  overflow: auto;
+.sc-multi-select .se-remove-item {
+  color: var(--primary-button-color);
+  padding: 0 var(--default-spacing);
+  margin: 0px;
 }
 
-.sc-multi-select-options > .se-option {
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-  justify-content: space-between;
-  align-content: center;
-  height: 100%;
+.sc-multi-select .sc-button {
+  height: initial;
 }
 
-.sc-multi-select-options > .se-option > * {
-  align-self: center;
-  margin: 0 var(--default-spacing);
+.sc-multi-select .se-options {
+  margin-top: var(--half-spacing);
 }
-
-.sc-multi-select-options > .se-option.sm-selected > i {
-  flex-grow: 0;
-}
-
-// .sc-multi-select-options > .se-option > * + * {
-//   margin-left: var(--default-spacing);
-// }
