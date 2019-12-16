@@ -5,7 +5,7 @@
 
 .sc-form-row > .se-description > .se-label {
   float: left;
-  @include ts-interface;
+  @include ts-small-interface;
 }
 
 .sc-form-row > .se-description > .se-error {
