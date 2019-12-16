@@ -66,7 +66,7 @@ export default class SmartFigureEditor extends AbstractEditor {
       $$(Managed(EditorToolbar, 'commandStates')),
       $$(TwoColumnLayout, {},
         $$(SmartFigureTOC, { document }),
-        $$('div', { class: 'se-smart-figure-editor-content' },
+        $$('div', { class: 'se-smart-figure-editor-content', onscroll: this._onScroll },
           $$(SmartFigureComponent, { node: document.root, editable: true })
         ).ref('scrollable')
       ),
@@ -315,5 +315,11 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _handleRight () {
 
+  }
+
+  _onScroll (event) {
+    // HACK: Popover needs to reposition on scroll
+    // we have to provide it with the scroll event
+    this.refs.popover.reposition(event)
   }
 }
