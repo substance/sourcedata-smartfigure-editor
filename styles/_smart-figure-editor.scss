@@ -20,6 +20,8 @@
 }
 
 .sc-smart-figure-editor .sc-surface {
+  padding: var(--input-padding);
+  margin: var(--negative-input-padding);
   cursor: text;
 }
 
