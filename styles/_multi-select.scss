@@ -26,4 +26,13 @@
 
 .sc-multi-select .se-options {
   margin-top: var(--half-spacing);
+  color: var(--primary-button-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.sc-multi-select .se-options:focus {
+  box-shadow: none;
 }
