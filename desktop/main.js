@@ -20,7 +20,7 @@ const argv = process.argv
 
 // initialize a shared storage where DAR files are extracted to
 const tmpDir = app.getPath('temp')
-const darStorageFolder = path.join(tmpDir, app.getName(), 'dar-storage')
+const darStorageFolder = path.join(tmpDir, app.name, 'dar-storage')
 fsExtra.ensureDirSync(darStorageFolder)
 const sharedStorage = new DarFileStorage(darStorageFolder, 'dar://')
 // keeping a handle to every opened window
@@ -46,8 +46,6 @@ app.on('ready', () => {
       debug('.. resolved to ' + absPath)
       handler({ path: absPath })
     }
-  }, (error) => {
-    if (error) console.error('Failed to register protocol')
   })
 
   // register a hook for downloads, i.e. when the user clicks on an `<a>` element
@@ -353,7 +351,7 @@ function _createMenu () {
 
   if (process.platform === 'darwin') {
     menuTemplate.unshift({
-      label: app.getName(),
+      label: app.name,
       submenu: [
         { role: 'about' },
         { type: 'separator' },
