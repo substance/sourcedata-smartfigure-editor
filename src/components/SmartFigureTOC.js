@@ -13,6 +13,11 @@ export default class SmartFigureTOC extends Component {
       )
     )
     el.append(
+      $$(_TOCItem, { scrollTarget: { section: 'panels' } },
+        $$(Section, { name: 'panels', label: 'Panels' })
+      )
+    )
+    el.append(
       $$(LayoutedFigurePanels, { node: root }).addClass('sm-plain')
     )
     el.append(

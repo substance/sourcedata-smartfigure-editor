@@ -12,5 +12,5 @@
 }
 
 .sc-smart-figure-panels > * + * {
-  margin-top: 10px;
+  margin-top: var(--quad-spacing);
 }
