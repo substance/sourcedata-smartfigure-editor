@@ -1,51 +1,36 @@
 .sc-multi-select {
   @include ts-interface;
   width: 100%;
-  padding: 0 5px;
 }
 
-.sc-multi-select.sm-active {
-  box-shadow: var(--custom-selection-box-shadow);
-  // background: rgba(176, 210, 251, 0.8);
+.sc-multi-select .sc-horizontal-stack {
+  margin-bottom: var(--half-spacing);
 }
 
-.sc-multi-select > .se-placeholder {
+.sc-multi-select .se-remove-item {
+  color: var(--primary-button-color);
+  padding: 0 var(--default-spacing);
+  margin: 0px;
+}
+
+.sc-multi-select .sc-button {
+  height: initial;
+}
+
+.sc-multi-select .se-options {
   @include ts-interface;
-  @include ts-quiet;
-  font-weight: 400;
+  height: var(--small-button-height);
+  max-width: 200px;
+  margin-top: var(--half-spacing);
+  padding: 0 var(--default-spacing);
+  margin-top: var(--half-spacing);
+  color: var(--primary-button-color);
+  background-color: rgba(26,115,232,0.1);
+  background-position: right var(--default-spacing) top 50%, 0 0;
+  border: none;
+  cursor: pointer;
 }
 
-.sc-multi-select > .se-preview > .se-value::before {
-  content: '• '
+.sc-multi-select .se-options:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
 }
-
-// ATTENTION: styles below are rendered in the popover canvas
-// i.e. at a different place in the DOM
-
-.sc-multi-select-options {
-  max-width: var(--popover-medium-size);
-  font-size: smaller;
-  overflow: auto;
-}
-
-.sc-multi-select-options > .se-option {
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-  justify-content: space-between;
-  align-content: center;
-  height: 100%;
-}
-
-.sc-multi-select-options > .se-option > * {
-  align-self: center;
-  margin: 0 var(--default-spacing);
-}
-
-.sc-multi-select-options > .se-option.sm-selected > i {
-  flex-grow: 0;
-}
-
-// .sc-multi-select-options > .se-option > * + * {
-//   margin-left: var(--default-spacing);
-// }

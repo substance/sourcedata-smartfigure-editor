@@ -1,21 +1,20 @@
 import { Component, $$, renderProperty, AuthorsListComponent, AffiliationsListComponent } from 'substance'
-import Section from './Section'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
 import FileListComponent from './FileListComponent'
 import ResourceListComponent from './ResourceListComponent'
+import Heading from './Heading'
 
 export default class SmartFigureComponent extends Component {
   render () {
     const { node } = this.props
     const doc = node.getDocument()
-
     const el = $$('div', { class: 'sc-smart-figure' })
 
     el.append(
-      $$(Section, { name: 'title', label: 'Title' },
-        // HACK: using style of sc-heading level 1
-        renderProperty(this, doc, [node.id, 'title'], { placeholder: 'Enter Title' }).addClass('sc-heading sm-level-1')
-      )
+      // HACK: using style of sc-heading level 1
+      // HACK: using data-section manually to make it a TOC target
+      renderProperty(this, doc, [node.id, 'title'], { placeholder: 'Enter Title' }).addClass('sc-heading sm-level-1')
+        .setAttribute('data-section', 'title')
     )
 
     // Authors & Affiliations
@@ -28,24 +27,27 @@ export default class SmartFigureComponent extends Component {
 
     // Panels
     el.append(
-      $$(Section, { name: 'panels', label: 'Panels' },
-        $$(FigurePanelsComponent, { node })
-      )
+      $$(Heading, { level: 2 }, 'Panels')
+        .setAttribute('data-section', 'panels'),
+      $$(FigurePanelsComponent, { node })
     )
 
     // Additional Information
     el.append(
-      $$(Section, { name: 'additionalInformation', label: 'Additional Information' },
-        // HACK: using style of sc-heading level 1
-        renderProperty(this, doc, [node.id, 'additionalInformation'], { placeholder: 'Enter additional information' })
-      )
+      $$(Heading, { level: 2 }, 'Additional Information')
+        .setAttribute('data-section', 'additionalInformation'),
+      renderProperty(this, doc, [node.id, 'additionalInformation'], { placeholder: 'Enter additional information' })
     )
 
     // Panels
     el.append(
+      $$(Heading, { level: 2 }, 'Files')
+        .setAttribute('data-section', 'files'),
       $$(FileListComponent, { document: doc })
     )
     el.append(
+      $$(Heading, { level: 2 }, 'Resources')
+        .setAttribute('data-section', 'resources'),
       $$(ResourceListComponent, { document: doc })
     )
 

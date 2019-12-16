@@ -41,6 +41,7 @@
 @import './_popover.scss';
 @import './_resource.scss';
 @import './_resource-list.scss';
+@import './_select.scss';
 @import './_section.scss';
 @import './_smart-figure-editor.scss';
 @import './_smart-figure-page.scss';

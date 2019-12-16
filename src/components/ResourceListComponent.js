@@ -1,6 +1,5 @@
 import { PropertyComponent, $$ } from 'substance'
 import ResourceComponent from './ResourceComponent'
-import Section from './Section'
 
 export default class ResourceListComponent extends PropertyComponent {
   getPath () {
@@ -14,11 +13,9 @@ export default class ResourceListComponent extends PropertyComponent {
     if (root.resources && root.resources.length > 0) {
       const resources = root.resolve('resources')
       el.append(
-        $$(Section, { name: 'resources', label: 'Resources' },
-          ...resources.map(resourceNode => {
-            return $$(ResourceComponent, { node: resourceNode }).ref(resourceNode.id)
-          })
-        )
+        ...resources.map(resourceNode => {
+          return $$(ResourceComponent, { node: resourceNode }).ref(resourceNode.id)
+        })
       )
     }
     return el
