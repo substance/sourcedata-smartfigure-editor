@@ -48,13 +48,3 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, .5);
 }
 
-/*
-  FIXME/MAYBE WONTFIX(?): there seems to be a bug in electron's chromium
-  which is choking with :hover styles.
-  For now, we are disabling that style, to avoid visual glitches.
-  We should destill a minimal example and file a bug.
-*/
-.sc-smart-figure-editor .sc-menu-item:hover {
-  background: none;
-}
-

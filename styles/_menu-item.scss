@@ -6,7 +6,7 @@
   width: 100%;
   padding: 4px var(--default-spacing);
   @include ts-interface;
-  
+
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -43,6 +43,7 @@
 
 .sc-menu-item:disabled {
   opacity: 0.3;
+  cursor: default;
 }
 
 .sc-menu-item.sm-active {
