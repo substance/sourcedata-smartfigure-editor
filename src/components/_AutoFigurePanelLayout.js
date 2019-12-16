@@ -52,6 +52,11 @@ export default class AutoFigurePanelLayout extends Component {
     const dimensions = this.state.dimensions
     if (dimensions) {
       el = $$('table')
+      // ATTENTION: hard-coded two-column layout
+      el.append($$('colgroup').append(
+        $$('col').setStyle('width', '50%'),
+        $$('col').setStyle('width', '50%')
+      ))
       const panels = this.props.node.resolve('panels')
       let colsLeft = 2
       let rowspan = 1
