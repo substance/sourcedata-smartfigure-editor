@@ -93,6 +93,7 @@ b.task('build:web:assets', ['build:vfs'], () => {
   b.copy('./web-page/demo.js', DIST)
   b.copy('./web-page/index.html', DIST)
   b.copy('./data', DIST + 'data')
+  b.copy('./desktop/placeholder.svg', DIST)
 })
 
 b.task('build:desktop:dars', () => {

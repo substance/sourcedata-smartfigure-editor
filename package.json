@@ -5,7 +5,8 @@
   "description": "Texture plugin for SourceData",
   "main": "index.js",
   "scripts": {
-    "start": "node make -w -s"
+    "start": "node make -w -s",
+    "build-app": "node make build:desktop && electron-builder --project app-dist"
   },
   "repository": {
     "type": "git",
@@ -19,10 +20,11 @@
   "homepage": "https://github.com/substance/texture-plugin-sourcedata#readme",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "electron": "^7.1.4",
-    "electron-builder": "^21.2.0",
+    "debug": "4.1.1",
+    "electron": "7.1.5",
+    "electron-builder": "21.2.0",
     "electron-window-state": "^5.0.3",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "8.1.0",
     "postcss": "^7.0.18",
     "postcss-comment": "^2.0.0",
     "postcss-import": "^12.0.1",
@@ -35,7 +37,7 @@
     "substance": "2.0.0-preview.19",
     "substance-bundler": "0.27.2",
     "substance-test": "0.15.0",
-    "yauzl": "^2.10.0",
-    "yazl": "^2.5.1"
+    "yauzl": "2.10.0",
+    "yazl": "2.5.1"
   }
 }

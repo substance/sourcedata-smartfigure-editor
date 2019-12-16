@@ -7,12 +7,10 @@ const fsExtra = require('fs-extra')
 const debug = require('debug')('main')
 const {
   app, dialog, protocol, session,
-  BrowserWindow, Menu, ipcMain, shell
+  BrowserWindow, Menu, ipcMain
 } = require('electron')
 const windowStateKeeper = require('electron-window-state')
 const fileFilters = require('./_fileFilters')
-
-const DEBUG = process.env.DEBUG
 
 const BLANK_DOCUMENT = path.join(__dirname, 'templates', 'blank.dar')
 
