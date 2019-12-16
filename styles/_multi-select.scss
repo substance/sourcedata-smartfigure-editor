@@ -19,9 +19,10 @@
 
 .sc-multi-select .se-options {
   @include ts-interface;
-  width: auto;
+  height: var(--small-button-height);
+  max-width: 200px;
   margin-top: var(--half-spacing);
-  padding: var(--half-spacing) var(--default-spacing);
+  padding: 0 var(--default-spacing);
   margin-top: var(--half-spacing);
   color: var(--primary-button-color);
   background-color: rgba(26,115,232,0.1);
