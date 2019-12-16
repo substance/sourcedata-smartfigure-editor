@@ -7,8 +7,6 @@
   left: -1123px;
   padding-top: 4px;
   padding-bottom: 4px;
-  /* Attention: user-select=none is problematic for us, because then we do not receive mousedown events anymore */
-  user-select: none;
 }
 
 .sc-popover.sm-hidden {
