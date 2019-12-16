@@ -9,13 +9,15 @@
 
 .sc-multi-input .se-add-item {
   @include ts-interface;
-  padding: 0;
+  padding: 0 var(--default-spacing);
+  margin-top: var(--half-spacing);
   color: var(--primary-button-color);
+  background-color: rgba(26,115,232,0.1);
   cursor: pointer;
 }
 
 .sc-multi-input .se-add-item:focus {
-  background: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
 }
 
 .sc-multi-input .se-remove-item {

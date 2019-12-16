@@ -7,13 +7,6 @@
   margin-bottom: var(--half-spacing);
 }
 
-.sc-multi-select .se-add-item {
-  @include ts-interface;
-  margin-top: var(--half-spacing);
-  color: var(--primary-button-color);
-  cursor: pointer;
-}
-
 .sc-multi-select .se-remove-item {
   color: var(--primary-button-color);
   padding: 0 var(--default-spacing);
@@ -25,14 +18,18 @@
 }
 
 .sc-multi-select .se-options {
+  @include ts-interface;
+  width: auto;
+  margin-top: var(--half-spacing);
+  padding: var(--half-spacing) var(--default-spacing);
   margin-top: var(--half-spacing);
   color: var(--primary-button-color);
-  cursor: pointer;
-  background: none;
+  background-color: rgba(26,115,232,0.1);
+  background-position: right var(--default-spacing) top 50%, 0 0;
   border: none;
-  padding: 0;
+  cursor: pointer;
 }
 
 .sc-multi-select .se-options:focus {
-  box-shadow: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
 }
