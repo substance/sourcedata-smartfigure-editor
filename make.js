@@ -38,15 +38,15 @@ b.task('clean', function () {
 }).describe('removes all generated files and folders.')
 
 // used for dev bundling a web-only demo
-b.task('demo', ['clean', 'build:web:assets', 'build:fonts', 'build:lib', 'build:css'])
+b.task('demo', ['clean', 'build:web:assets', 'build:fonts', 'build:css', 'build:demo'])
 
 b.task('default', ['demo'])
 
-b.task('build:lib', () => {
+b.task('build:demo', () => {
   rollup(b, {
-    input: 'index.js',
+    input: 'web-page/demo.js',
     output: {
-      file: DIST + 'smartfigure-editor.js',
+      file: DIST + 'demo.js',
       format: 'es',
       sourcemap: true
     },
@@ -90,7 +90,6 @@ b.task('build:vfs', () => {
 
 b.task('build:web:assets', ['build:vfs'], () => {
   b.copy('./web-page/images', DIST + 'images')
-  b.copy('./web-page/demo.js', DIST)
   b.copy('./web-page/index.html', DIST)
   b.copy('./data', DIST + 'data')
   b.copy('./desktop/placeholder.svg', DIST)
