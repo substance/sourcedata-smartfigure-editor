@@ -1,3 +1,3 @@
 module.exports = [
-  { name: 'Smart Figures', extensions: ['zip'] }
+  { name: 'Smart Figures', extensions: ['smartfigure'] }
 ]
