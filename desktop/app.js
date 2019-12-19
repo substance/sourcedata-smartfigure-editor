@@ -49,7 +49,6 @@ window.addEventListener('load', () => {
   })
 
   function _updateWindowTitle () {
-    console.log('MEH')
     const frags = []
     if (state.dirty) frags.push('*')
     const doc = archive.getDocuments().find(doc => doc.type === 'smart-figure')
