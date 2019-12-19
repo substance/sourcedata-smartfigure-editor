@@ -1,6 +1,6 @@
 {
   "name": "sourcedata-smartfigure-editor",
-  "version": "",
+  "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "dependencies": {
@@ -10,7 +10,7 @@
     "yazl": "*",
     "yauzl": "*"
   },
-  "productName": "SourceData SmartFigure Editor",
+  "productName": "SmartFigure Editor",
   "build": {
     "electronVersion": "",
     "appId": "com.sourcedata.smartfigure-editor",
