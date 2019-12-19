@@ -11,10 +11,6 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.extendWith(new AffiliationApi())
   }
 
-  addPanel (file) {
-    this.insertPanel(file)
-  }
-
   insertPanel (file, currentPanelId) {
     const doc = this.getDocument()
     const root = doc.root
