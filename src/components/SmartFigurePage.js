@@ -119,16 +119,20 @@ export default class SmartFigurePage extends Component {
       // i.e. when pressing CommandOrControl+S, we simulate a save, serializing the DAR to the console
       // TODO: disable or replace this if needed as a web-based editor
       case SAVE_COMBO: {
+        const archive = this.archive
         domHelpers.stopAndPrevent(event)
-        this.archive.save((err, update) => {
+        archive.save((err, update) => {
           if (err) {
             console.error(err)
           } else {
-            const smartfigureUpdate = update.resources['smart-figure.xml']
-            if (smartfigureUpdate) {
-              const xmlDom = DOMElement.parseXML(smartfigureUpdate.data)
-              console.log('Saved Document:')
-              console.dirxml(xmlDom.el)
+            const smartFigure = archive.getDocumentEntries().find(entry => entry.type === 'smart-figure')
+            if (smartFigure) {
+              const smartfigureUpdate = update.resources[smartFigure.id]
+              if (smartfigureUpdate) {
+                const xmlDom = DOMElement.parseXML(smartfigureUpdate.data)
+                console.log('Saved Document:')
+                console.dirxml(xmlDom.el)
+              }
             }
           }
         })
