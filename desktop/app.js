@@ -14,25 +14,30 @@ window.addEventListener('load', () => {
 
   const config = new SmartFigureConfiguration()
   const archive = new DocumentArchive(sharedStorage, new InMemoryDarBuffer(), {}, config)
+  const state = {
+    dirty: false
+  }
+
   // Note: readOnly=true if a template is loaded
   archive.readOnly = readOnly
   archive.load(darPath, err => {
     if (err) {
       console.error('Could not load DAR:', err)
     } else {
+      _updateWindowTitle()
       SmartFigureEditor.mount({ archive }, window.document.body, { inplace: true })
     }
   })
 
   archive.on('archive:changed', () => {
-    ipc.send('updateState', windowId, {
-      dirty: true
-    })
+    state.dirty = true
+    ipc.send('updateState', windowId, state)
+    _updateWindowTitle()
   })
   archive.on('archive:saved', () => {
-    ipc.send('updateState', windowId, {
-      dirty: false
-    })
+    state.dirty = false
+    ipc.send('updateState', windowId, state)
+    _updateWindowTitle()
   })
 
   ipc.on('save', () => {
@@ -42,6 +47,16 @@ window.addEventListener('load', () => {
   ipc.on('saveAs', url => {
     _saveAs(_handleSaveError)
   })
+
+  function _updateWindowTitle () {
+    console.log('MEH')
+    const frags = []
+    if (state.dirty) frags.push('*')
+    const doc = archive.getDocuments().find(doc => doc.type === 'smart-figure')
+    const title = doc.root.title
+    frags.push(title || 'Untitled')
+    window.document.title = frags.join(' ')
+  }
 
   function _saveOrSaveAs (cb) {
     if (!archive) return
