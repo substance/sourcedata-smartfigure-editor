@@ -12,6 +12,7 @@ export default class SmartFigureApi extends BasicEditorApi {
   }
 
   insertPanels (files, currentPanelId) {
+    const archive = this.archive
     const doc = this.getDocument()
     const root = doc.root
     let insertPos = root.panels.length
@@ -27,7 +28,10 @@ export default class SmartFigureApi extends BasicEditorApi {
     }
     const assetIds = []
     for (const file of files) {
-      const assetId = this.archive.addAsset(file)
+      const assetId = this.archive.addAsset({
+        name: archive.getUniqueFileName(file.name),
+        type: file.type
+      }, file)
       assetIds.push(assetId)
     }
     this.editorSession.transaction(tx => {
