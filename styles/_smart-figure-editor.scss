@@ -5,6 +5,12 @@
   position: relative;
 }
 
+.sc-smart-figure-editor > .sc-two-column-layout > .se-column {
+  flex-grow: 1;
+  height: calc(100vh - var(--toolbar-height));
+  width: 100%;
+}
+
 .sc-smart-figure-editor > .sc-two-column-layout > .se-column.sm-left {
   width: 300px;
   border-right: solid 1px var(--light-border-color);
@@ -15,7 +21,6 @@
 
 .sc-smart-figure-editor > .sc-two-column-layout > .se-column.sm-right {
   flex-grow: 1;
-  height: 100%;
   width: 100%;
 }
 
