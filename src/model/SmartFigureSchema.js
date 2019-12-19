@@ -90,9 +90,10 @@ export default function SmartFigureSchema () {
       }
     }, { Mixin: PanelMixin })
     // image
-    v.addNode('image', '@node', {
-      mimetype: { type: 'string' },
-      src: { type: 'string' }
+    v.addNode('image', '@asset', {
+      // ATTENTION: these are not used as regular properties, but linked to the information in the DAR
+      src: { type: 'string' },
+      mimetype: { type: 'string', optional: true }
     })
     // keyword-group + keyword
     v.addNode('keyword-group', '@node', {
@@ -102,9 +103,10 @@ export default function SmartFigureSchema () {
     v.addNode('keyword', '@text', {
       content: { type: 'string' }
     })
-    v.addNode('file', '@node', {
+    v.addNode('file', '@asset', {
+      // ATTENTION: these are not used as regular properties, but linked to the information in the DAR
       src: { type: 'string' },
-      mimetype: { type: 'string' },
+      mimetype: { type: 'string', optional: true },
       title: TITLE(),
       legend: LEGEND()
     })
