@@ -127,7 +127,7 @@ b.task('build:desktop', ['clean', 'build:fonts', 'build:css', 'build:desktop:ass
           appPkg.dependencies[moduleName] = version
         }
       })
-      // appPkg.version = pkg.version
+      appPkg.version = pkg.version
       appPkg.build.electronVersion = pkg.devDependencies.electron
       b.writeFileSync(APPDIST + 'package.json', JSON.stringify(appPkg, 0, 2))
     }
