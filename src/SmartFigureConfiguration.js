@@ -10,7 +10,7 @@ import {
 
 import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
-import AddPanelCommand from './commands/AddPanelCommand'
+import InsertPanelCommand from './commands/InsertPanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
 import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
@@ -90,7 +90,7 @@ export default class SmartFigureConfiguration extends Configurator {
       nodeType: 'link',
       accelerator: 'CommandOrControl+K'
     })
-    config.addCommand('add-panel', AddPanelCommand)
+    config.addCommand('insert-panel', InsertPanelCommand)
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
     config.addCommand('rename-panel-image', RenamePanelImageCommand)
     config.addCommand('replace-panel-image', ReplacePanelImageCommand)
@@ -163,7 +163,7 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'add-panel', label: 'Add Panel' },
+            { command: 'insert-panel', label: 'Add Panel' },
             { command: 'add-file', label: 'Add File' },
             { command: 'add-resource', label: 'Add Resource' }
           ]
@@ -195,7 +195,7 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'add-panel', label: 'Insert Panel' },
+        { command: 'insert-panel', label: 'Insert Panel' },
         { command: 'remove-panel', label: 'Remove Panel' },
         { command: 'rename-panel-image', label: 'Rename Image' },
         { command: 'replace-panel-image', label: 'Replace Image' },

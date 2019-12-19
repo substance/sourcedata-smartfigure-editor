@@ -1,6 +1,6 @@
 import { Command } from 'substance'
 
-export default class AddPanelCommand extends Command {
+export default class InsertPanelCommand extends Command {
   getCommandState () {
     return { disabled: false }
   }
