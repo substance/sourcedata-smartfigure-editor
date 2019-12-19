@@ -1,5 +1,6 @@
 import { PropertyComponent, $$ } from 'substance'
 import ResourceComponent from './ResourceComponent'
+import Heading from './Heading'
 
 export default class ResourceListComponent extends PropertyComponent {
   getPath () {
@@ -13,9 +14,15 @@ export default class ResourceListComponent extends PropertyComponent {
     if (root.resources && root.resources.length > 0) {
       const resources = root.resolve('resources')
       el.append(
-        ...resources.map(resourceNode => {
-          return $$(ResourceComponent, { node: resourceNode }).ref(resourceNode.id)
-        })
+        $$(Heading, { level: 2 }, 'Resources')
+          .setAttribute('data-section', 'resources')
+      )
+      el.append(
+        $$('div', { class: 'se-resources' },
+          ...resources.map(resourceNode => {
+            return $$(ResourceComponent, { node: resourceNode }).ref(resourceNode.id)
+          })
+        )
       )
     }
     return el

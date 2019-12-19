@@ -3,3 +3,12 @@
   height: var(--input-height);
   width: 100%;
 }
+
+.sc-attach-file-modal .se-add-new-file {
+  @include ts-interface;
+  padding: 0 var(--default-spacing);
+  margin-top: var(--half-spacing);
+  color: var(--primary-button-color);
+  background-color: rgba(26,115,232,0.1);
+  cursor: pointer;
+}

@@ -13,6 +13,7 @@ const windowStateKeeper = require('electron-window-state')
 const fileFilters = require('./_fileFilters')
 
 const BLANK_DOCUMENT = path.join(__dirname, 'templates', 'blank.dar')
+const KITCHEN_SINK_DOCUMENT = path.join(__dirname, 'examples', 'kitchen-sink.dar')
 
 const argv = process.argv
 
@@ -313,20 +314,20 @@ function _createMenu () {
         }
       ]
     },
-    {
-      label: 'Edit',
-      submenu: [
-        { role: 'undo' },
-        { role: 'redo' },
-        { type: 'separator' },
-        { role: 'cut' },
-        { role: 'copy' },
-        { role: 'paste' },
-        { role: 'pasteandmatchstyle' },
-        { role: 'delete' },
-        { role: 'selectall' }
-      ]
-    },
+    // {
+    //   label: 'Edit',
+    //   submenu: [
+    //     { role: 'undo' },
+    //     { role: 'redo' },
+    //     { type: 'separator' },
+    //     { role: 'cut' },
+    //     { role: 'copy' },
+    //     { role: 'paste' },
+    //     { role: 'pasteandmatchstyle' },
+    //     { role: 'delete' },
+    //     { role: 'selectall' }
+    //   ]
+    // },
     {
       label: 'View',
       submenu: [
@@ -343,7 +344,19 @@ function _createMenu () {
       role: 'window',
       submenu: [
         { role: 'minimize' },
-        { role: 'close' }
+        { role: 'close' },
+        { type: 'separator' },
+        {
+          label: 'Examples',
+          submenu: [
+            {
+              label: 'kitchen-sink',
+              click () {
+                _createEditorWindow(KITCHEN_SINK_DOCUMENT, { isNew: true })
+              }
+            }
+          ]
+        }
       ]
     }
   ]
@@ -370,7 +383,7 @@ function _createMenu () {
 }
 
 function _isDAR (path) {
-  return Boolean(/.dar$/i.exec(path))
+  return Boolean(/.smartfigure$/i.exec(path))
 }
 
 function _detectDar (f) {

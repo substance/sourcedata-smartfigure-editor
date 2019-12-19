@@ -1,6 +1,6 @@
 import {
   BasicEditorApi, AuthorApi, AffiliationApi,
-  isString, documentHelpers
+  isString, documentHelpers, cloneDeep
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
@@ -11,15 +11,12 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.extendWith(new AffiliationApi())
   }
 
-  addPanel (file) {
-    this.insertPanel(file)
-  }
-
-  insertPanel (file, currentPanelId) {
+  insertPanels (files, currentPanelId) {
+    const archive = this.archive
     const doc = this.getDocument()
     const root = doc.root
     let insertPos = root.panels.length
-    let template = {
+    let masterTemplate = {
       type: 'panel',
       image: { type: 'image' },
       legend: [{ type: 'paragraph' }]
@@ -27,14 +24,24 @@ export default class SmartFigureApi extends BasicEditorApi {
     if (currentPanelId) {
       const currentPanel = doc.get(currentPanelId)
       insertPos = currentPanel.getPosition() + 1
-      template = currentPanel.getTemplate()
+      masterTemplate = currentPanel.getTemplate()
     }
-    const assetId = this.archive.addAsset(file)
-    template.image.src = assetId
-    template.image.mimeType = file.type
+    const assetIds = []
+    for (const file of files) {
+      const assetId = this.archive.addAsset({
+        name: archive.getUniqueFileName(file.name),
+        type: file.type
+      }, file)
+      assetIds.push(assetId)
+    }
     this.editorSession.transaction(tx => {
-      const newPanel = documentHelpers.createNodeFromJson(tx, template)
-      documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
+      let newPanel
+      for (const assetId of assetIds) {
+        const template = cloneDeep(masterTemplate)
+        template.image.src = assetId
+        newPanel = documentHelpers.createNodeFromJson(tx, template)
+        documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
+      }
       this._selectItem(tx, newPanel)
     })
   }
@@ -67,11 +74,10 @@ export default class SmartFigureApi extends BasicEditorApi {
       const currentFileNode = doc.get(currentFileId)
       insertPos = currentFileNode.getPosition() + 1
     }
-    const fileData = {
+    const assetId = this.archive.addAsset({
       name: fileName,
       type: file.type
-    }
-    const assetId = this.archive.addAsset(fileData, file)
+    }, file)
     let newNodeId
     this.editorSession.transaction(tx => {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
@@ -84,20 +90,6 @@ export default class SmartFigureApi extends BasicEditorApi {
       this._selectItem(tx, newFileNode)
     })
     return doc.get(newNodeId)
-  }
-
-  updateFile (fileId, data) {
-    const doc = this.getDocument()
-    const file = doc.get(fileId)
-    const oldSrc = file.src
-    const newSrc = data.src
-    if (oldSrc !== newSrc) {
-      this.archive.renameAsset(oldSrc, newSrc)
-      this.editorSession.transaction(tx => {
-        tx.set([fileId, 'src'], newSrc)
-        this._selectItem(tx, file)
-      })
-    }
   }
 
   addKeywordGroup (panelId, keywordGroupData) {

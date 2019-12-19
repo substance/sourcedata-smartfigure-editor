@@ -10,10 +10,11 @@ import {
 
 import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
-import AddPanelCommand from './commands/AddPanelCommand'
+import InsertPanelCommand from './commands/InsertPanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
+import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
-import EditFileCommand from './commands/EditFileCommand'
+import RenameFileCommand from './commands/RenameFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
@@ -89,8 +90,9 @@ export default class SmartFigureConfiguration extends Configurator {
       nodeType: 'link',
       accelerator: 'CommandOrControl+K'
     })
-    config.addCommand('add-panel', AddPanelCommand)
+    config.addCommand('insert-panel', InsertPanelCommand)
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
+    config.addCommand('rename-panel-image', RenamePanelImageCommand)
     config.addCommand('replace-panel-image', ReplacePanelImageCommand)
     config.addCommand('move-panel-up', MoveItemCommand, { type: 'panel', direction: 'up' })
     config.addCommand('move-panel-down', MoveItemCommand, { type: 'panel', direction: 'down' })
@@ -117,18 +119,18 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('edit-author', EditAuthorCommand)
     config.addCommand('insert-author', InsertAuthorCommand)
     config.addCommand('remove-author', RemoveItemCommand, { type: 'author' })
-    config.addCommand('move-author-forward', MoveItemCommand, { type: 'author', direction: 'up' })
-    config.addCommand('move-author-back', MoveItemCommand, { type: 'author', direction: 'down' })
+    config.addCommand('move-author-left', MoveItemCommand, { type: 'author', direction: 'up' })
+    config.addCommand('move-author-right', MoveItemCommand, { type: 'author', direction: 'down' })
 
     config.addCommand('add-affiliation', AddAffiliationCommand)
     config.addCommand('insert-affiliation', InsertAffiliationCommand)
     config.addCommand('edit-affiliation', EditAffiliationCommand)
     config.addCommand('remove-affiliation', RemoveItemCommand, { type: 'affiliation' })
-    config.addCommand('move-affiliation-forward', MoveItemCommand, { type: 'affiliation', direction: 'up' })
-    config.addCommand('move-affiliation-back', MoveItemCommand, { type: 'affiliation', direction: 'down' })
+    config.addCommand('move-affiliation-up', MoveItemCommand, { type: 'affiliation', direction: 'up' })
+    config.addCommand('move-affiliation-down', MoveItemCommand, { type: 'affiliation', direction: 'down' })
 
     config.addCommand('add-file', AddFileCommand)
-    config.addCommand('edit-file', EditFileCommand)
+    config.addCommand('rename-file', RenameFileCommand)
     config.addCommand('remove-file', RemoveItemCommand, { type: 'file' })
     config.addCommand('move-file-up', MoveItemCommand, { type: 'file', direction: 'up' })
     config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
@@ -161,7 +163,7 @@ export default class SmartFigureConfiguration extends Configurator {
           items: [
             { command: 'add-author', label: 'Add Author' },
             { command: 'add-affiliation', label: 'Add Affiliation' },
-            { command: 'add-panel', label: 'Add Panel' },
+            { command: 'insert-panel', label: 'Add Panel' },
             { command: 'add-file', label: 'Add File' },
             { command: 'add-resource', label: 'Add Resource' }
           ]
@@ -193,8 +195,9 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'add-panel', label: 'Insert Panel' },
+        { command: 'insert-panel', label: 'Insert Panel' },
         { command: 'remove-panel', label: 'Remove Panel' },
+        { command: 'rename-panel-image', label: 'Rename Image' },
         { command: 'replace-panel-image', label: 'Replace Image' },
         { command: 'move-panel-up', label: 'Move Panel Up' },
         { command: 'move-panel-down', label: 'Move Panel Down' },
@@ -211,8 +214,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'insert-author', label: 'Insert Author' },
         { command: 'edit-author', label: 'Edit Author' },
         { command: 'remove-author', label: 'Remove Author' },
-        { command: 'move-author-forward', label: 'Move Author Left' },
-        { command: 'move-author-back', label: 'Move Author Right' }
+        { command: 'move-author-left', label: 'Move Author Left' },
+        { command: 'move-author-right', label: 'Move Author Right' }
       ]
     })
 
@@ -223,8 +226,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'insert-affiliation', label: 'Insert Affiliation' },
         { command: 'edit-affiliation', label: 'Edit Affiliation' },
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
-        { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
-        { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
+        { command: 'move-affiliation-up', label: 'Move Affiliation Up' },
+        { command: 'move-affiliation-down', label: 'Move Affiliation Down' }
       ]
     })
 
@@ -245,7 +248,7 @@ export default class SmartFigureConfiguration extends Configurator {
       noIcons: true,
       items: [
         { command: 'add-file', label: 'Insert File' },
-        { command: 'edit-file', label: 'Rename File' },
+        { command: 'rename-file', label: 'Rename File' },
         { command: 'remove-file', label: 'Remove File' },
         { command: 'move-file-up', label: 'Move File Up' },
         { command: 'move-file-down', label: 'Move File Down' }

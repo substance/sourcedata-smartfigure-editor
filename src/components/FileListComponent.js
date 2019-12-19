@@ -1,5 +1,6 @@
 import { $$, PropertyComponent } from 'substance'
 import FileComponent from './FileComponent'
+import Heading from './Heading'
 
 export default class FileListComponent extends PropertyComponent {
   getPath () {
@@ -13,9 +14,15 @@ export default class FileListComponent extends PropertyComponent {
     if (root.files && root.files.length > 0) {
       const files = root.resolve('files')
       el.append(
-        ...files.map(fileNode => {
-          return $$(FileComponent, { node: fileNode }).ref(fileNode.id)
-        })
+        $$(Heading, { level: 2 }, 'Files')
+          .setAttribute('data-section', 'files')
+      )
+      el.append(
+        $$('div', { class: 'se-files' },
+          ...files.map(fileNode => {
+            return $$(FileComponent, { node: fileNode }).ref(fileNode.id)
+          })
+        )
       )
     }
     return el

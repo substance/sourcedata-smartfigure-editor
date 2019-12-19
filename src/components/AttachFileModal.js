@@ -1,5 +1,4 @@
-import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers } from 'substance'
-import FileModal from './FileModal'
+import { Component, $$, Form, FormRow, Modal, Button, HorizontalStack, domHelpers, AssetModal } from 'substance'
 
 export default class AttachFileModal extends Component {
   getInitialState () {
@@ -33,8 +32,8 @@ export default class AttachFileModal extends Component {
       )
     }
     form.append(
-      $$(FormRow, { label: 'Add a new File' },
-        $$(Button, { onclick: this._onClickNewFile }, $$(Icon, { icon: 'plus' }))
+      $$(HorizontalStack, {},
+        $$(Button, { style: 'plain', size: 'small', class: 'se-add-new-file', onclick: this._onClickNewFile }, 'Add a new File')
       )
     )
     el.append(form)
@@ -43,7 +42,8 @@ export default class AttachFileModal extends Component {
   }
 
   renderFileOption (fileNode) {
-    const option = $$('option', { class: 'se-file', value: fileNode.id }, fileNode.src).ref(fileNode.id)
+    const archive = this.context.archive
+    const option = $$('option', { class: 'se-file', value: fileNode.id }, archive.getFilename(fileNode.src)).ref(fileNode.id)
     if (this.state.selectedId === fileNode.id) {
       option.setAttribute('selected', true)
     }
@@ -66,12 +66,12 @@ export default class AttachFileModal extends Component {
       if (files.length > 0) {
         const file = files[0]
         return this.send('requestModal', () => {
-          return $$(FileModal, { file })
+          return $$(AssetModal, { file })
         }).then(modal => {
           if (!modal) return
-          const { src } = modal.state.data
           const api = this.context.api
-          const fileNode = api.addFile(src, file)
+          const { filename } = modal.state.data
+          const fileNode = api.addFile(filename, file)
           api.attachFile(this.props.node.id, fileNode.id)
         })
       }
