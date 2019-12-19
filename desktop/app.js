@@ -5,8 +5,10 @@ import { SmartFigureConfiguration, SmartFigureEditor } from '../index'
 // Note: these are provided by preload.js
 
 window.addEventListener('load', () => {
+  // ATTENTION: these variables are provided by preload.js serving as a bridge
+  // between the node backend and the web process
   const {
-    ipc, editorConfig, sharedStorage, _showSaveDialog, _updateWindowUrl
+    ipc, editorConfig, sharedStorage, _showSaveDialog, _updateWindowUrl, windowId
   } = window
   const { darPath, readOnly } = editorConfig
 
@@ -20,6 +22,17 @@ window.addEventListener('load', () => {
     } else {
       SmartFigureEditor.mount({ archive }, window.document.body, { inplace: true })
     }
+  })
+
+  archive.on('archive:changed', () => {
+    ipc.send('updateState', windowId, {
+      dirty: true
+    })
+  })
+  archive.on('archive:saved', () => {
+    ipc.send('updateState', windowId, {
+      dirty: false
+    })
   })
 
   ipc.on('save', () => {

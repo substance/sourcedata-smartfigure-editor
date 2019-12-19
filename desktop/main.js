@@ -184,7 +184,7 @@ function _createEditorWindow (darPath, options = {}) {
 
   // Open the DevTools.
   // if (DEBUG) {
-  editorWindow.webContents.openDevTools()
+  // editorWindow.webContents.openDevTools()
   // }
 
   editorWindow.on('close', e => {
@@ -202,6 +202,7 @@ function _createEditorWindow (darPath, options = {}) {
 }
 
 ipcMain.on('updateState', (event, windowId, update) => {
+  // console.log('window state updated', update)
   const state = windows.get(windowId)
   if (state) {
     Object.assign(state, update)
@@ -209,7 +210,7 @@ ipcMain.on('updateState', (event, windowId, update) => {
 })
 
 function _promptUnsavedChanges (event, editorWindow) {
-  const choice = dialog.showMessageBox(
+  const choice = dialog.showMessageBoxSync(
     editorWindow,
     {
       type: 'question',
