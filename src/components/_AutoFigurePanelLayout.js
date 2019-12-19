@@ -109,11 +109,17 @@ export default class AutoFigurePanelLayout extends Component {
     return false
   }
 
+  // TODO: try to consolidate
+  // this is redundant with substance.ImageComponent
+  // but substantially different because of the Promise logic
   _renderImg (image) {
     const urlResolver = this.context.urlResolver
     let url = image.src
     if (urlResolver) {
       url = urlResolver.resolveUrl(url) || url
+    }
+    if (!url) {
+      url = 'placeholder.svg'
     }
     return new Promise(resolve => {
       const $$ = this.el.createElement.bind(this.el)
