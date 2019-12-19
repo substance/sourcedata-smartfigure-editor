@@ -41,13 +41,9 @@ export default class SmartFigureComponent extends Component {
 
     // Panels
     el.append(
-      $$(Heading, { level: 2 }, 'Files')
-        .setAttribute('data-section', 'files'),
       $$(FileListComponent, { document: doc })
     )
     el.append(
-      $$(Heading, { level: 2 }, 'Resources')
-        .setAttribute('data-section', 'resources'),
       $$(ResourceListComponent, { document: doc })
     )
 
