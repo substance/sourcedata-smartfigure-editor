@@ -29,8 +29,8 @@ export default class SmartFigureApi extends BasicEditorApi {
       insertPos = currentPanel.getPosition() + 1
       template = currentPanel.getTemplate()
     }
-    const src = this.archive.addAsset(file)
-    template.image.src = src
+    const assetId = this.archive.addAsset(file)
+    template.image.src = assetId
     template.image.mimeType = file.type
     this.editorSession.transaction(tx => {
       const newPanel = documentHelpers.createNodeFromJson(tx, template)
@@ -40,21 +40,19 @@ export default class SmartFigureApi extends BasicEditorApi {
   }
 
   replacePanelImage (panelId, file) {
-    const archive = this.archive
+    // Note: as assets are not owned by the document
+    // there is no change happening within the document
+    // Thus we have to trigger a fake update of image.src
+    // so that the change is reflected visually
     const doc = this.getDocument()
     const panel = doc.get(panelId)
     const image = panel.resolve('image')
-    const articleSession = this.editorSession
-    let newSrc
-    const oldSrc = image.src
-    if (!archive.hasAsset(oldSrc)) {
-      newSrc = archive.addAsset(file)
-    } else {
-      newSrc = this.archive.replaceAsset(oldSrc, file)
-    }
-    articleSession.transaction(tx => {
-      tx.set([image.id, 'src'], newSrc)
+    // Note: internally image.src is the assetId, not filename
+    const newAssetId = this.archive.addAsset(file)
+    this.editorSession.transaction(tx => {
+      tx.set([image.id, 'src'], newAssetId)
     })
+    return newAssetId
   }
 
   addFile (fileName, file) {
@@ -73,12 +71,12 @@ export default class SmartFigureApi extends BasicEditorApi {
       name: fileName,
       type: file.type
     }
-    const src = this.archive.addAsset(fileData, file)
+    const assetId = this.archive.addAsset(fileData, file)
     let newNodeId
     this.editorSession.transaction(tx => {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
         type: 'file',
-        src,
+        src: assetId,
         legend: [{ type: 'paragraph' }]
       })
       newNodeId = newFileNode.id

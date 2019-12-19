@@ -1,15 +1,14 @@
 .sc-popover {
-  z-index: 10000000;
   background: white;
   border-radius: var(--popover-border-radius);
   box-shadow: var(--popover-shadow);
   position: absolute;
-  top: -3000px;
-  left: -1123px;
   padding-top: 4px;
   padding-bottom: 4px;
-  /* Attention: user-select=none is problematic for us, because then we do not receive mousedown events anymore */
-  user-select: none;
+  // NOTE: positioning the popover outside of the visible area by default
+  // to have it out of the way, because we can not use display:none
+  top: -10000px;
+  left: -10000px;
 }
 
 .sc-popover.sm-hidden {

@@ -7,12 +7,10 @@ const fsExtra = require('fs-extra')
 const debug = require('debug')('main')
 const {
   app, dialog, protocol, session,
-  BrowserWindow, Menu, ipcMain, shell
+  BrowserWindow, Menu, ipcMain
 } = require('electron')
 const windowStateKeeper = require('electron-window-state')
 const fileFilters = require('./_fileFilters')
-
-const DEBUG = process.env.DEBUG
 
 const BLANK_DOCUMENT = path.join(__dirname, 'templates', 'blank.dar')
 
@@ -20,7 +18,7 @@ const argv = process.argv
 
 // initialize a shared storage where DAR files are extracted to
 const tmpDir = app.getPath('temp')
-const darStorageFolder = path.join(tmpDir, app.getName(), 'dar-storage')
+const darStorageFolder = path.join(tmpDir, app.name, 'dar-storage')
 fsExtra.ensureDirSync(darStorageFolder)
 const sharedStorage = new DarFileStorage(darStorageFolder, 'dar://')
 // keeping a handle to every opened window
@@ -46,8 +44,6 @@ app.on('ready', () => {
       debug('.. resolved to ' + absPath)
       handler({ path: absPath })
     }
-  }, (error) => {
-    if (error) console.error('Failed to register protocol')
   })
 
   // register a hook for downloads, i.e. when the user clicks on an `<a>` element
@@ -188,7 +184,7 @@ function _createEditorWindow (darPath, options = {}) {
 
   // Open the DevTools.
   // if (DEBUG) {
-  editorWindow.webContents.openDevTools()
+  // editorWindow.webContents.openDevTools()
   // }
 
   editorWindow.on('close', e => {
@@ -206,6 +202,7 @@ function _createEditorWindow (darPath, options = {}) {
 }
 
 ipcMain.on('updateState', (event, windowId, update) => {
+  // console.log('window state updated', update)
   const state = windows.get(windowId)
   if (state) {
     Object.assign(state, update)
@@ -213,7 +210,7 @@ ipcMain.on('updateState', (event, windowId, update) => {
 })
 
 function _promptUnsavedChanges (event, editorWindow) {
-  const choice = dialog.showMessageBox(
+  const choice = dialog.showMessageBoxSync(
     editorWindow,
     {
       type: 'question',
@@ -353,7 +350,7 @@ function _createMenu () {
 
   if (process.platform === 'darwin') {
     menuTemplate.unshift({
-      label: app.getName(),
+      label: app.name,
       submenu: [
         { role: 'about' },
         { type: 'separator' },

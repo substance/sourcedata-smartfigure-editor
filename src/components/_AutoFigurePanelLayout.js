@@ -52,6 +52,11 @@ export default class AutoFigurePanelLayout extends Component {
     const dimensions = this.state.dimensions
     if (dimensions) {
       el = $$('table')
+      // ATTENTION: hard-coded two-column layout
+      el.append($$('colgroup').append(
+        $$('col').setStyle('width', '50%'),
+        $$('col').setStyle('width', '50%')
+      ))
       const panels = this.props.node.resolve('panels')
       let colsLeft = 2
       let rowspan = 1
@@ -104,11 +109,17 @@ export default class AutoFigurePanelLayout extends Component {
     return false
   }
 
+  // TODO: try to consolidate
+  // this is redundant with substance.ImageComponent
+  // but substantially different because of the Promise logic
   _renderImg (image) {
     const urlResolver = this.context.urlResolver
     let url = image.src
     if (urlResolver) {
       url = urlResolver.resolveUrl(url) || url
+    }
+    if (!url) {
+      url = 'placeholder.svg'
     }
     return new Promise(resolve => {
       const $$ = this.el.createElement.bind(this.el)

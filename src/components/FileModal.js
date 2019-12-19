@@ -60,7 +60,8 @@ export default class FileModal extends Component {
     const newSrc = this.state.data.src
     const originalSrc = this.state.data.originalSrc
     if (!originalSrc || newSrc !== originalSrc) {
-      if (this.context.api.archive.hasAsset(newSrc)) {
+      const archive = this.context.api.archive
+      if (archive.isFilenameUsed(newSrc)) {
         if (!this.state.duplicateFileError) {
           this.extendState({
             duplicateFileError: true

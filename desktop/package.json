@@ -4,11 +4,13 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "debug": "*",
     "electron-window-state": "*",
     "fs-extra": "*",
     "yazl": "*",
     "yauzl": "*"
   },
+  "productName": "SourceData SmartFigure Editor",
   "build": {
     "electronVersion": "",
     "appId": "com.sourcedata.smartfigure-editor",
@@ -22,7 +24,9 @@
       "examples",
       "*.html",
       "*.js",
-      "package.json"
+      "package.json",
+      "build-resource/icon.*",
+      "placeholder.svg"
     ],
     "asar": "false",
     "directories": {

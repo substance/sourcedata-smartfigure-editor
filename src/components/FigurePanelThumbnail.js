@@ -8,7 +8,7 @@ export default class FigurePanelThumbnail extends Component {
     const label = getLabel(panel)
     return $$('button', { class: 'sc-smart-figure-panel-thumbnail', title: label },
       $$('div', { class: 'se-label' }, label),
-      $$(ImageComponent, { node: image })
+      $$(ImageComponent, { node: image, placeholder: 'placeholder.svg' })
     ).on('click', this._onClick)
   }
 
@@ -17,6 +17,6 @@ export default class FigurePanelThumbnail extends Component {
     domHelpers.stopAndPrevent(event)
     this.send('selectItem', panel)
     // TODO: this should not be necessary
-    this.send('scrollTo', { nodeId: panel.id })
+    // this.send('scrollTo', { nodeId: panel.id })
   }
 }

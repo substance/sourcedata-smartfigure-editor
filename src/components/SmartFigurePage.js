@@ -1,6 +1,6 @@
 import {
   Component, $$, DefaultDOMElement as DOMElement, HorizontalStack, Title,
-  StackFill, platform, parseKeyEvent, parseKeyCombo
+  StackFill, platform, parseKeyEvent, parseKeyCombo, getQueryStringParam
 } from 'substance'
 import VfsStorageClient from 'substance/dar/VfsStorageClient'
 import loadArchive from 'substance/dar/loadArchive'
@@ -18,8 +18,10 @@ export default class SmartFigurePage extends Component {
     const config = new SmartFigureConfiguration()
     // TODO: this should be generalized if we want to use this component in a different
     // embedding scenario
+    const archiveId = getQueryStringParam('archiveId') || 'kitchen-sink'
+
     const vfsStorage = new VfsStorageClient(window.vfs, '/data/')
-    const rawArchive = vfsStorage.read('kitchen-sink')
+    const rawArchive = vfsStorage.read(archiveId)
     const archive = loadArchive(rawArchive, config)
 
     this.config = config
@@ -117,16 +119,20 @@ export default class SmartFigurePage extends Component {
       // i.e. when pressing CommandOrControl+S, we simulate a save, serializing the DAR to the console
       // TODO: disable or replace this if needed as a web-based editor
       case SAVE_COMBO: {
+        const archive = this.archive
         domHelpers.stopAndPrevent(event)
-        this.archive.save((err, update) => {
+        archive.save((err, update) => {
           if (err) {
             console.error(err)
           } else {
-            const smartfigureUpdate = update.resources['smart-figure.xml']
-            if (smartfigureUpdate) {
-              const xmlDom = DOMElement.parseXML(smartfigureUpdate.data)
-              console.log('Saved Document:')
-              console.dirxml(xmlDom.el)
+            const smartFigure = archive.getDocumentEntries().find(entry => entry.type === 'smart-figure')
+            if (smartFigure) {
+              const smartfigureUpdate = update.resources[smartFigure.id]
+              if (smartfigureUpdate) {
+                const xmlDom = DOMElement.parseXML(smartfigureUpdate.data)
+                console.log('Saved Document:')
+                console.dirxml(xmlDom.el)
+              }
             }
           }
         })

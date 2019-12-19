@@ -26,6 +26,7 @@
 @import './_heading.scss';
 @import './_horizontal-stack.scss';
 @import './_input.scss';
+@import './_image.scss';
 @import './_isolated-node.scss';
 @import './_keyword-group.scss';
 @import './_keyword-group-modal.scss';
