@@ -1,5 +1,4 @@
-import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers } from 'substance'
-import FileModal from './FileModal'
+import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers, AssetModal } from 'substance'
 
 export default class AttachFileModal extends Component {
   getInitialState () {
@@ -66,7 +65,7 @@ export default class AttachFileModal extends Component {
       if (files.length > 0) {
         const file = files[0]
         return this.send('requestModal', () => {
-          return $$(FileModal, { file })
+          return $$(AssetModal, { file })
         }).then(modal => {
           if (!modal) return
           const { src } = modal.state.data

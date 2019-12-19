@@ -1,5 +1,4 @@
-import { Command, $$ } from 'substance'
-import FileModal from '../components/FileModal'
+import { Command, $$, AssetModal } from 'substance'
 
 export default class AddFileCommand extends Command {
   getCommandState () {
@@ -14,7 +13,7 @@ export default class AddFileCommand extends Command {
       if (files.length > 0) {
         const file = files[0]
         return editorSession.getRootComponent().send('requestModal', () => {
-          return $$(FileModal, { file })
+          return $$(AssetModal, { file })
         }).then(modal => {
           if (!modal) return
           const { filename } = modal.state.data
