@@ -12,6 +12,7 @@ import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
 import AddPanelCommand from './commands/AddPanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
+import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import RenameFileCommand from './commands/RenameFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
@@ -91,6 +92,7 @@ export default class SmartFigureConfiguration extends Configurator {
     })
     config.addCommand('add-panel', AddPanelCommand)
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
+    config.addCommand('rename-panel-image', RenamePanelImageCommand)
     config.addCommand('replace-panel-image', ReplacePanelImageCommand)
     config.addCommand('move-panel-up', MoveItemCommand, { type: 'panel', direction: 'up' })
     config.addCommand('move-panel-down', MoveItemCommand, { type: 'panel', direction: 'down' })
@@ -195,6 +197,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'add-panel', label: 'Insert Panel' },
         { command: 'remove-panel', label: 'Remove Panel' },
+        { command: 'rename-panel-image', label: 'Rename Image' },
         { command: 'replace-panel-image', label: 'Replace Image' },
         { command: 'move-panel-up', label: 'Move Panel Up' },
         { command: 'move-panel-down', label: 'Move Panel Down' },
