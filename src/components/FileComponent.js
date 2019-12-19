@@ -3,6 +3,18 @@ import Section from './Section'
 import getLabel from './_getLabel'
 
 export default class FileComponent extends SelectableNodeComponent {
+  didMount () {
+    super.didMount()
+
+    this.context.archive.getManifestSession().on('change', this._onManifestChange, this)
+  }
+
+  dispose () {
+    super.dispose()
+
+    this.context.archive.getManifestSession().off(this)
+  }
+
   render () {
     const { node } = this.props
     const archive = this.context.archive
@@ -34,5 +46,12 @@ export default class FileComponent extends SelectableNodeComponent {
   _onMousedown (e) {
     domHelpers.stopAndPrevent(e)
     this.send('selectItem', this.props.node)
+  }
+
+  _onManifestChange (change) {
+    const { node } = this.props
+    if (change.hasUpdated(node.src)) {
+      this.rerender()
+    }
   }
 }
