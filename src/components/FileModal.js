@@ -7,14 +7,15 @@ export default class FileModal extends Component {
     const { mode, node, file } = this.props
     let data
     if (mode === 'edit') {
+      const asset = archive.getAssetById(node.src)
       data = {
-        src: node.src || '',
-        mimetype: node.mimetype,
-        originalSrc: node.src || ''
+        filename: asset.filename || '',
+        mimetype: asset.mimetype,
+        originalFilename: asset.filename || ''
       }
     } else {
       data = {
-        src: archive.getUniqueFileName(file.name),
+        filename: archive.getUniqueFileName(file.name),
         mimetype: file.type,
         size: file.size
       }
@@ -34,7 +35,7 @@ export default class FileModal extends Component {
     const form = $$(Form)
     form.append(
       $$(FormRow, { label: 'Filename:' },
-        $$(Input, { value: data.src, autofocus: true, oninput: this._updateSrc }).ref('src'),
+        $$(Input, { value: data.filename, autofocus: true, oninput: this._updateFilename }).ref('filename'),
         $$('div', { class: 'se-error' }, duplicateFileError ? 'A file with this name already exists' : null)
       ).addClass('se-src')
     )
@@ -51,17 +52,17 @@ export default class FileModal extends Component {
     return modal
   }
 
-  _updateSrc () {
-    this.state.data.src = this.refs.src.val()
+  _updateFilename () {
+    this.state.data.filename = this.refs.filename.val()
     this._validateSrc()
   }
 
   _validateSrc () {
-    const newSrc = this.state.data.src
-    const originalSrc = this.state.data.originalSrc
-    if (!originalSrc || newSrc !== originalSrc) {
+    const newFilename = this.state.data.filename
+    const originalFilename = this.state.data.originalFilename
+    if (!originalFilename || newFilename !== originalFilename) {
       const archive = this.context.api.archive
-      if (archive.isFilenameUsed(newSrc)) {
+      if (archive.isFilenameUsed(newFilename)) {
         if (!this.state.duplicateFileError) {
           this.extendState({
             duplicateFileError: true

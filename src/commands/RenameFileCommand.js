@@ -1,7 +1,7 @@
 import { $$, ItemCommand } from 'substance'
 import FileModal from '../components/FileModal'
 
-export default class EditFileCommand extends ItemCommand {
+export default class RenameFileCommand extends ItemCommand {
   getType () {
     return 'file'
   }
@@ -18,7 +18,7 @@ export default class EditFileCommand extends ItemCommand {
     }).then(modal => {
       if (!modal) return
       const data = modal.state.data
-      api.updateFile(node.id, data)
+      api.renameFile(node.id, data)
     })
   }
 }

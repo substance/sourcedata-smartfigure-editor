@@ -67,11 +67,10 @@ export default class SmartFigureApi extends BasicEditorApi {
       const currentFileNode = doc.get(currentFileId)
       insertPos = currentFileNode.getPosition() + 1
     }
-    const fileData = {
+    const assetId = this.archive.addAsset({
       name: fileName,
       type: file.type
-    }
-    const assetId = this.archive.addAsset(fileData, file)
+    }, file)
     let newNodeId
     this.editorSession.transaction(tx => {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
@@ -86,17 +85,14 @@ export default class SmartFigureApi extends BasicEditorApi {
     return doc.get(newNodeId)
   }
 
-  updateFile (fileId, data) {
+  renameFile (fileId, data) {
+    const archive = this.archive
     const doc = this.getDocument()
     const file = doc.get(fileId)
-    const oldSrc = file.src
-    const newSrc = data.src
-    if (oldSrc !== newSrc) {
-      this.archive.renameAsset(oldSrc, newSrc)
-      this.editorSession.transaction(tx => {
-        tx.set([fileId, 'src'], newSrc)
-        this._selectItem(tx, file)
-      })
+    const assetId = file.src
+    const asset = archive.getAssetById(assetId)
+    if (asset.filename !== data.filename) {
+      this.archive.renameAsset(assetId, data.filename)
     }
   }
 

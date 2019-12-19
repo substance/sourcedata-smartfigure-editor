@@ -5,13 +5,14 @@ import getLabel from './_getLabel'
 export default class FileComponent extends SelectableNodeComponent {
   render () {
     const { node } = this.props
+    const archive = this.context.archive
     const document = node.getDocument()
     const el = $$('div', { class: 'sc-file', 'data-id': node.id })
     if (this.state.selected) el.addClass('sm-selected')
 
     // card header
     el.append(
-      $$(Section, { label: (getLabel(node) || 'File') + ': ' + node.src })
+      $$(Section, { label: (getLabel(node) || 'File') + ': ' + archive.getFilename(node.src) })
     )
 
     el.append(
