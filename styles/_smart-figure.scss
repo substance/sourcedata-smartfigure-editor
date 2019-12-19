@@ -1,5 +1,6 @@
 .sc-smart-figure {
   @include ts-content;
+  margin-top: var(--double-spacing);
   padding-bottom: 200px;
 }
 
