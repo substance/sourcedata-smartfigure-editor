@@ -34,7 +34,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "standard": "^14.3.1",
-    "substance": "2.0.0-preview.19",
+    "substance": "2.0.0-preview.20",
     "substance-bundler": "0.27.2",
     "substance-test": "0.15.0",
     "yauzl": "2.10.0",
