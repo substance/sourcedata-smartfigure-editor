@@ -6,9 +6,23 @@ import AttachedFilesComponent from './AttachedFilesComponent'
 import AttachedResourcesComponent from './AttachedResourcesComponent'
 
 export default class FigurePanelComponent extends SelectableNodeComponent {
+  didMount () {
+    super.didMount()
+
+    this.context.archive.getManifestSession().on('change', this._onManifestChange, this)
+  }
+
+  dispose () {
+    super.dispose()
+
+    this.context.archive.getManifestSession().off(this)
+  }
+
   render () {
     const node = this.props.node
     const document = node.getDocument()
+
+    const label = this._getLabel()
 
     const el = $$('div', { class: 'sc-smart-figure-panel', 'data-id': node.id })
     if (this.state.selected) {
@@ -16,7 +30,7 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     }
 
     el.append(
-      $$(Section, { label: getLabel(node) })
+      $$(Section, { label })
     )
 
     el.append(
@@ -61,8 +75,30 @@ export default class FigurePanelComponent extends SelectableNodeComponent {
     return el
   }
 
+  _getLabel () {
+    const archive = this.context.archive
+    const node = this.props.node
+    const image = node.resolve('image')
+    let label = getLabel(node)
+    if (image) {
+      const filename = archive.getFilename(image.src)
+      if (filename) {
+        label += ': ' + filename
+      }
+    }
+    return label
+  }
+
   _onMousedown (e) {
     domHelpers.stopAndPrevent(e)
     this.send('selectItem', this.props.node)
+  }
+
+  _onManifestChange (change) {
+    const { node } = this.props
+    const image = node.resolve('image')
+    if (image && change.hasUpdated(image.src)) {
+      this.rerender()
+    }
   }
 }
