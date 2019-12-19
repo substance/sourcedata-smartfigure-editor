@@ -1,6 +1,6 @@
 import {
   BasicEditorApi, AuthorApi, AffiliationApi,
-  isString, documentHelpers
+  isString, documentHelpers, cloneDeep
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
@@ -11,11 +11,11 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.extendWith(new AffiliationApi())
   }
 
-  insertPanel (file, currentPanelId) {
+  insertPanels (files, currentPanelId) {
     const doc = this.getDocument()
     const root = doc.root
     let insertPos = root.panels.length
-    let template = {
+    let masterTemplate = {
       type: 'panel',
       image: { type: 'image' },
       legend: [{ type: 'paragraph' }]
@@ -23,14 +23,21 @@ export default class SmartFigureApi extends BasicEditorApi {
     if (currentPanelId) {
       const currentPanel = doc.get(currentPanelId)
       insertPos = currentPanel.getPosition() + 1
-      template = currentPanel.getTemplate()
+      masterTemplate = currentPanel.getTemplate()
     }
-    const assetId = this.archive.addAsset(file)
-    template.image.src = assetId
-    template.image.mimeType = file.type
+    const assetIds = []
+    for (const file of files) {
+      const assetId = this.archive.addAsset(file)
+      assetIds.push(assetId)
+    }
     this.editorSession.transaction(tx => {
-      const newPanel = documentHelpers.createNodeFromJson(tx, template)
-      documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
+      let newPanel
+      for (const assetId of assetIds) {
+        const template = cloneDeep(masterTemplate)
+        template.image.src = assetId
+        newPanel = documentHelpers.createNodeFromJson(tx, template)
+        documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
+      }
       this._selectItem(tx, newPanel)
     })
   }
