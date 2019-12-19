@@ -1,4 +1,4 @@
-import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers, AssetModal } from 'substance'
+import { Component, $$, Form, FormRow, Modal, Button, HorizontalStack, domHelpers, AssetModal } from 'substance'
 
 export default class AttachFileModal extends Component {
   getInitialState () {
@@ -32,8 +32,8 @@ export default class AttachFileModal extends Component {
       )
     }
     form.append(
-      $$(FormRow, { label: 'Add a new File' },
-        $$(Button, { onclick: this._onClickNewFile }, $$(Icon, { icon: 'plus' }))
+      $$(HorizontalStack, {},
+        $$(Button, { style: 'plain', size: 'small', class: 'se-add-new-file', onclick: this._onClickNewFile }, 'Add a new File')
       )
     )
     el.append(form)
@@ -69,9 +69,9 @@ export default class AttachFileModal extends Component {
           return $$(AssetModal, { file })
         }).then(modal => {
           if (!modal) return
-          const { src } = modal.state.data
           const api = this.context.api
-          const fileNode = api.addFile(src, file)
+          const { filename } = modal.state.data
+          const fileNode = api.addFile(filename, file)
           api.attachFile(this.props.node.id, fileNode.id)
         })
       }

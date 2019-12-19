@@ -1,4 +1,4 @@
-import { Component, $$, Form, FormRow, Modal, Button, Icon, domHelpers } from 'substance'
+import { Component, $$, Form, FormRow, Modal, Button, HorizontalStack, domHelpers } from 'substance'
 import ResourceModal from './ResourceModal'
 
 export default class AttachResourceModal extends Component {
@@ -33,8 +33,8 @@ export default class AttachResourceModal extends Component {
       )
     }
     form.append(
-      $$(FormRow, { label: 'Add a new Resource' },
-        $$(Button, { onclick: this._onClickNewResource }, $$(Icon, { icon: 'plus' }))
+      $$(HorizontalStack, {},
+        $$(Button, { style: 'plain', size: 'small', class: 'se-add-new-resource', onclick: this._onClickNewResource }, 'Add a new Resource')
       )
     )
     el.append(form)
