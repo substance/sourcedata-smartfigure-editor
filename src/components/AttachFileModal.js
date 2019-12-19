@@ -42,7 +42,8 @@ export default class AttachFileModal extends Component {
   }
 
   renderFileOption (fileNode) {
-    const option = $$('option', { class: 'se-file', value: fileNode.id }, fileNode.src).ref(fileNode.id)
+    const archive = this.context.archive
+    const option = $$('option', { class: 'se-file', value: fileNode.id }, archive.getFilename(fileNode.src)).ref(fileNode.id)
     if (this.state.selectedId === fileNode.id) {
       option.setAttribute('selected', true)
     }
