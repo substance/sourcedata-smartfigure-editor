@@ -119,15 +119,15 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('edit-author', EditAuthorCommand)
     config.addCommand('insert-author', InsertAuthorCommand)
     config.addCommand('remove-author', RemoveItemCommand, { type: 'author' })
-    config.addCommand('move-author-forward', MoveItemCommand, { type: 'author', direction: 'up' })
-    config.addCommand('move-author-back', MoveItemCommand, { type: 'author', direction: 'down' })
+    config.addCommand('move-author-left', MoveItemCommand, { type: 'author', direction: 'up' })
+    config.addCommand('move-author-right', MoveItemCommand, { type: 'author', direction: 'down' })
 
     config.addCommand('add-affiliation', AddAffiliationCommand)
     config.addCommand('insert-affiliation', InsertAffiliationCommand)
     config.addCommand('edit-affiliation', EditAffiliationCommand)
     config.addCommand('remove-affiliation', RemoveItemCommand, { type: 'affiliation' })
-    config.addCommand('move-affiliation-forward', MoveItemCommand, { type: 'affiliation', direction: 'up' })
-    config.addCommand('move-affiliation-back', MoveItemCommand, { type: 'affiliation', direction: 'down' })
+    config.addCommand('move-affiliation-up', MoveItemCommand, { type: 'affiliation', direction: 'up' })
+    config.addCommand('move-affiliation-down', MoveItemCommand, { type: 'affiliation', direction: 'down' })
 
     config.addCommand('add-file', AddFileCommand)
     config.addCommand('rename-file', RenameFileCommand)
@@ -214,8 +214,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'insert-author', label: 'Insert Author' },
         { command: 'edit-author', label: 'Edit Author' },
         { command: 'remove-author', label: 'Remove Author' },
-        { command: 'move-author-forward', label: 'Move Author Left' },
-        { command: 'move-author-back', label: 'Move Author Right' }
+        { command: 'move-author-left', label: 'Move Author Left' },
+        { command: 'move-author-right', label: 'Move Author Right' }
       ]
     })
 
@@ -226,8 +226,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'insert-affiliation', label: 'Insert Affiliation' },
         { command: 'edit-affiliation', label: 'Edit Affiliation' },
         { command: 'remove-affiliation', label: 'Remove Affiliation' },
-        { command: 'move-affiliation-forward', label: 'Move Affiliation Up' },
-        { command: 'move-affiliation-back', label: 'Move Affiliation Down' }
+        { command: 'move-affiliation-up', label: 'Move Affiliation Up' },
+        { command: 'move-affiliation-down', label: 'Move Affiliation Down' }
       ]
     })
 
