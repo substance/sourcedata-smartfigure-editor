@@ -8,9 +8,7 @@ export default class SmartFigureTOC extends Component {
     const root = document.root
     const el = $$('div', { class: 'sc-smart-figure-toc', oncontextmenu: this._onContextMenu })
     el.append(
-      $$(_TOCItem, { scrollTarget: { section: 'title' } },
-        $$(Section, { name: 'title', label: 'Title' })
-      )
+      $$(_DynamicTOCItem, { doc: document, path: [root.id, 'title'], scrollTarget: { section: 'title' }, name: 'title' })
     )
     el.append(
       $$(_TOCItem, { scrollTarget: { section: 'panels' } },
@@ -65,13 +63,19 @@ class _DynamicTOCItem extends PropertyComponent {
   }
 
   render () {
-    const { doc, path } = this.props
+    const { children, doc, name, path } = this.props
     const el = $$('div', { class: 'se-toc-item' })
     const val = doc.get(path)
     if (!val || val.length === 0) {
       el.addClass('sm-empty')
     } else {
-      el.append(this.props.children)
+      if (children.length > 0) {
+        el.append(children)
+      } else {
+        el.append(
+          $$(Section, { label: val, name })
+        )
+      }
       el.on('click', this._onClick)
     }
     return el
