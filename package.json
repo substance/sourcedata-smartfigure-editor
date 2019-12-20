@@ -1,7 +1,7 @@
 {
   "name": "sourcedata-smartfigure-editor",
   "private": true,
-  "version": "1.0.0-rc1",
+  "version": "1.0.0-rc2",
   "description": "Texture plugin for SourceData",
   "main": "index.js",
   "scripts": {
