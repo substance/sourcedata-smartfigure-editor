@@ -36,11 +36,12 @@ export default class SmartFigureApi extends BasicEditorApi {
     }
     this.editorSession.transaction(tx => {
       let newPanel
-      for (const assetId of assetIds) {
+      for (let idx = 0; idx < assetIds.length; idx++) {
+        const assetId = assetIds[idx]
         const template = cloneDeep(masterTemplate)
         template.image.src = assetId
         newPanel = documentHelpers.createNodeFromJson(tx, template)
-        documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos, newPanel.id)
+        documentHelpers.insertAt(tx, [root.id, 'panels'], insertPos + idx, newPanel.id)
       }
       this._selectItem(tx, newPanel)
     })
