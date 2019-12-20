@@ -135,7 +135,8 @@ b.task('build:desktop', ['clean', 'build:fonts', 'build:css', 'build:desktop:ass
     input: 'desktop/main.js',
     output: {
       file: APPDIST + 'main.js',
-      format: 'cjs'
+      format: 'cjs',
+      sourcemap: true
     },
     external: ['electron', 'path', 'url', 'fs-extra', 'yazl', 'yauzl'],
     plugins: [
