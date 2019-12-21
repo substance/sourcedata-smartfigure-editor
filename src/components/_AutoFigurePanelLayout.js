@@ -69,7 +69,7 @@ export default class AutoFigurePanelLayout extends Component {
           tr.append(
             $$('td', { colspan: dim.colspan, rowspan: dim.rowspan })
               .append(
-                $$(FigurePanelThumbnail, { node: panel })
+                $$(FigurePanelThumbnail, { node: panel }).ref(panel.id)
               )
           )
           colsLeft -= dim.colspan
