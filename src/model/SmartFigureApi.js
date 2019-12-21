@@ -63,6 +63,13 @@ export default class SmartFigureApi extends BasicEditorApi {
     return newAssetId
   }
 
+  renamePanelImage (panel, newFilename) {
+    const image = panel.resolve('image')
+    super.renameAsset(image.src, newFilename)
+    // HACK: triggering a node state update so that components can react to the filename change
+    this.editorSession.updateNodeState([[panel.id, {}]])
+  }
+
   addFile (fileName, file) {
     return this.insertFileAfter(fileName, file)
   }
@@ -91,6 +98,13 @@ export default class SmartFigureApi extends BasicEditorApi {
       this._selectItem(tx, newFileNode)
     })
     return doc.get(newNodeId)
+  }
+
+  renameFile (file, newFilename) {
+    const assetId = file.src
+    super.renameAsset(assetId, newFilename)
+    // HACK: trigger a node state update, as renaming the asset does not change anything in the file node
+    this.editorSession.updateNodeState([[file.id, {}]])
   }
 
   addKeywordGroup (panelId, keywordGroupData) {

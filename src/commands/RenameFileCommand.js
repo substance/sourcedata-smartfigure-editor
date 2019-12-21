@@ -19,7 +19,7 @@ export default class RenameFileCommand extends ItemCommand {
   }
 
   execute (params, context) {
-    const { asset } = params.commandState
+    const { node, asset } = params.commandState
     const editorSession = context.editorSession
     const api = context.api
     return editorSession.getRootComponent().send('requestModal', () => {
@@ -30,7 +30,7 @@ export default class RenameFileCommand extends ItemCommand {
     }).then(modal => {
       if (!modal) return
       const filename = modal.state.data.filename
-      api.renameAsset(asset.id, filename)
+      api.renameFile(node, filename)
     })
   }
 }
