@@ -18,3 +18,9 @@
 .sc-smart-figure-toc .sc-section-label {
   cursor: pointer;
 }
+
+.sc-smart-figure-toc .sc-section.sm-title .se-section-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
