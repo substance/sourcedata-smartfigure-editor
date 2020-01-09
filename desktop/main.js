@@ -1,4 +1,5 @@
 import DarFileStorage from 'substance/dar/DarFileStorage'
+import { shell } from 'electron'
 
 const fs = require('fs')
 const path = require('path')
@@ -188,6 +189,11 @@ function _createEditorWindow (darPath, options = {}) {
   // editorWindow.webContents.openDevTools()
   // }
 
+  editorWindow.webContents.on('new-window', (e, url) => {
+    e.preventDefault()
+    shell.openExternal(url)
+  })
+
   editorWindow.on('close', e => {
     const state = windows.get(windowId)
     if (state.dirty) {
@@ -314,20 +320,21 @@ function _createMenu () {
         }
       ]
     },
-    // {
-    //   label: 'Edit',
-    //   submenu: [
-    //     { role: 'undo' },
-    //     { role: 'redo' },
-    //     { type: 'separator' },
-    //     { role: 'cut' },
-    //     { role: 'copy' },
-    //     { role: 'paste' },
-    //     { role: 'pasteandmatchstyle' },
-    //     { role: 'delete' },
-    //     { role: 'selectall' }
-    //   ]
-    // },
+    {
+      // ATTENTION: this menu must not be removed, as otherwise e.g. copy and paste events are not fired.
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        // { role: 'pasteandmatchstyle' },
+        // { role: 'delete' },
+        { role: 'selectall' }
+      ]
+    },
     {
       label: 'View',
       submenu: [

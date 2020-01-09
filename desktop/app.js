@@ -2,8 +2,6 @@ import DocumentArchive from 'substance/dar/DocumentArchive'
 import InMemoryDarBuffer from 'substance/dar/InMemoryDarBuffer'
 import { SmartFigureConfiguration, SmartFigureEditor } from '../index'
 
-// Note: these are provided by preload.js
-
 window.addEventListener('load', () => {
   // ATTENTION: these variables are provided by preload.js serving as a bridge
   // between the node backend and the web process
