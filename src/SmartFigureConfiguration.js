@@ -24,8 +24,9 @@ import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 import JumpToItemCommand from 'substance/commons/JumpToItemCommand'
 
 const {
-  ParagraphConverter, HeadingConverter, FigureConverter, BoldConverter, ItalicConverter,
-  StrikeConverter, SubscriptConverter, SuperscriptConverter
+  ParagraphConverter, BoldConverter, ItalicConverter,
+  StrikeConverter, SubscriptConverter, SuperscriptConverter,
+  LinkConverter
 } = HtmlConverters
 
 export default class SmartFigureConfiguration extends Configurator {
@@ -51,13 +52,12 @@ export default class SmartFigureConfiguration extends Configurator {
 
     // HTML conversion
     config.addConverter('html', ParagraphConverter)
-    config.addConverter('html', HeadingConverter)
-    config.addConverter('html', FigureConverter)
     config.addConverter('html', BoldConverter)
     config.addConverter('html', ItalicConverter)
     config.addConverter('html', StrikeConverter)
     config.addConverter('html', SubscriptConverter)
     config.addConverter('html', SuperscriptConverter)
+    config.addConverter('html', LinkConverter)
     config.addImporter('html', DefaultHtmlImporter)
     config.addExporter('html', HTMLExporter)
 
