@@ -1,4 +1,5 @@
 import DarFileStorage from 'substance/dar/DarFileStorage'
+import { shell } from 'electron'
 
 const fs = require('fs')
 const path = require('path')
@@ -187,6 +188,11 @@ function _createEditorWindow (darPath, options = {}) {
   // if (DEBUG) {
   // editorWindow.webContents.openDevTools()
   // }
+
+  editorWindow.webContents.on('new-window', (e, url) => {
+    e.preventDefault()
+    shell.openExternal(url)
+  })
 
   editorWindow.on('close', e => {
     const state = windows.get(windowId)
