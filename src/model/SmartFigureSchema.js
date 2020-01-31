@@ -51,6 +51,11 @@ export default function SmartFigureSchema () {
         type: 'children',
         childTypes: ['resource'],
         optional: true
+      },
+      references: {
+        type: 'children',
+        childTypes: ['reference'],
+        optional: true
       }
     })
     // author
@@ -115,6 +120,13 @@ export default function SmartFigureSchema () {
       title: TITLE(),
       legend: LEGEND()
     })
+    v.addNode('reference', '@node', {
+      label: { type: 'string' },
+      content: {
+        type: 'text',
+        childTypes: ['bold', 'italic', 'link', 'superscript', 'subscript']
+      }
+    }, { omitPropertyElement: true })
     // annotations
     v.addNode('bold', '@annotation')
     v.addNode('italic', '@annotation')
