@@ -95,14 +95,8 @@
     </resource>
   </resources>
   <references>
-    <reference id="reference-1" label="1">
-      Yuste R, Katz L. Control of postsynaptic Ca2+ influx in developing neocortex. Neuron. 1991;6:333-44. https://doi.org/10.1016/0896-6273(91)90243-S
-    </reference>
-    <reference id="reference-2" label="2">
-      Diabetes Australia. Diabetes globally [Internet]. Canberra ACT: Diabetes Australia; 2012. http://www.diabetesaustralia.com.au/en/​Understanding-Diabetes/Diabetes-Globally
-    </reference>
-    <reference id="reference-3" label="3">
-      Van Eck NJ, Waltman L. 2007. VOS: A new method for visualizing similarities between objects. Advances in Data Analysis: Proceedings of the 30th Annual Conference of the Gesellschaft Für Klassifikation e.V, Freie Universita ̈t Berlin, March 8–10, 2006. Berlin, Heidelberg: Springer Berlin Heidelberg. p299–306.
-    </reference>
+    <reference id="reference-1" label="1">Yuste R, Katz L. Control of postsynaptic Ca2+ influx in developing neocortex. Neuron. 1991;6:333-44. https://doi.org/10.1016/0896-6273(91)90243-S</reference>
+    <reference id="reference-2" label="2">Diabetes Australia. Diabetes globally [Internet]. Canberra ACT: Diabetes Australia; 2012. http://www.diabetesaustralia.com.au/en/​Understanding-Diabetes/Diabetes-Globally</reference>
+    <reference id="reference-3" label="3">Van Eck NJ, Waltman L. 2007. VOS: A new method for visualizing similarities between objects. Advances in Data Analysis: Proceedings of the 30th Annual Conference of the Gesellschaft Für Klassifikation e.V, Freie Universita ̈t Berlin, March 8–10, 2006. Berlin, Heidelberg: Springer Berlin Heidelberg. p299–306.</reference>
   </references>
 </smart-figure>
