@@ -40,6 +40,8 @@
 @import './_multi-select.scss';
 @import './_placeholder.scss';
 @import './_popover.scss';
+@import './_reference.scss';
+@import './_reference-list.scss';
 @import './_resource.scss';
 @import './_resource-list.scss';
 @import './_select.scss';

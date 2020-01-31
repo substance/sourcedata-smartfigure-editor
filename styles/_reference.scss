@@ -1,0 +1,17 @@
+.sc-reference {
+  @include card-style;
+  display: flex;
+  height: 100%;
+}
+
+.sc-reference > div:first-child {
+  display: flex;
+  align-items: center;
+  margin: -20px 0px -20px -20px;
+  border-right: 1px solid #E5E5E5;
+  border-bottom: none;
+}
+
+.sc-reference > .se-content {
+  margin: 0!important;
+}
