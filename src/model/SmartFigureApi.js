@@ -1,14 +1,15 @@
 import {
   BasicEditorApi, AuthorApi, AffiliationApi,
-  isString, documentHelpers, cloneDeep
+  ReferenceApi, isString, documentHelpers, cloneDeep
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
   constructor (...args) {
     super(...args)
 
-    this.extendWith(new AuthorApi())
     this.extendWith(new AffiliationApi())
+    this.extendWith(new AuthorApi())
+    this.extendWith(new ReferenceApi())
   }
 
   insertPanels (files, currentPanelId) {
@@ -170,29 +171,6 @@ export default class SmartFigureApi extends BasicEditorApi {
       documentHelpers.insertAt(tx, [panel.id, 'keywords'], insertPos, newKwdGroup.id)
       this._selectItem(tx, newKwdGroup)
     })
-  }
-
-  addReference (data) {
-    return this.insertReferenceAfter(data)
-  }
-
-  insertReferenceAfter (data, currentReferenceId) {
-    const doc = this.getDocument()
-    const root = doc.root
-    let insertPos = root.references.length
-    if (currentReferenceId) {
-      const currentReferenceNode = doc.get(currentReferenceId)
-      insertPos = currentReferenceNode.getPosition() + 1
-    }
-    const nodeData = Object.assign({ type: 'reference' }, data)
-    let newReferenceNodeId
-    this.editorSession.transaction(tx => {
-      const node = documentHelpers.createNodeFromJson(tx, nodeData)
-      newReferenceNodeId = node.id
-      documentHelpers.insertAt(tx, [root.id, 'references'], insertPos, node.id)
-      this._selectItem(tx, node)
-    })
-    return doc.get(newReferenceNodeId)
   }
 
   addResource (data) {

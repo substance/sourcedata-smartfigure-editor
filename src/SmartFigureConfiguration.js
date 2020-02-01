@@ -5,7 +5,8 @@ import {
   UndoCommand, RedoCommand, SelectAllCommand, AnnotationCommand, CreateLinkCommand,
   MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
-  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand
+  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
+  AddReferenceCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -15,7 +16,6 @@ import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
 import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import RenameFileCommand from './commands/RenameFileCommand'
-import AddReferenceCommand from './commands/AddReferenceCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
@@ -140,7 +140,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-reference', RemoveItemCommand, { type: 'reference' })
     config.addCommand('move-reference-up', MoveItemCommand, { type: 'reference', direction: 'up' })
     config.addCommand('move-reference-down', MoveItemCommand, { type: 'reference', direction: 'down' })
-    
+
     config.addCommand('add-resource', AddResourceCommand)
     config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
     config.addCommand('move-resource-up', MoveItemCommand, { type: 'resource', direction: 'up' })
