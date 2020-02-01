@@ -7,6 +7,6 @@ export default class ReferencesLabelManager extends CollectionItemLabelManager {
   }
 
   getItemLabel (item) {
-    return `Reference ${item.getPosition() + 1}`
+    return `${item.getPosition() + 1}`
   }
 }
