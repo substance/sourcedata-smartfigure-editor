@@ -15,6 +15,7 @@ import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
 import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import RenameFileCommand from './commands/RenameFileCommand'
+import AddReferenceCommand from './commands/AddReferenceCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
@@ -135,6 +136,8 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-file-up', MoveItemCommand, { type: 'file', direction: 'up' })
     config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
 
+    config.addCommand('add-reference', AddReferenceCommand)
+    
     config.addCommand('add-resource', AddResourceCommand)
     config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
     config.addCommand('move-resource-up', MoveItemCommand, { type: 'resource', direction: 'up' })
@@ -165,7 +168,8 @@ export default class SmartFigureConfiguration extends Configurator {
             { command: 'add-affiliation', label: 'Add Affiliation' },
             { command: 'insert-panel', label: 'Add Panel' },
             { command: 'add-file', label: 'Add File' },
-            { command: 'add-resource', label: 'Add Resource' }
+            { command: 'add-resource', label: 'Add Resource' },
+            { command: 'add-reference', label: 'Add Reference' }
           ]
         },
         {
@@ -255,6 +259,14 @@ export default class SmartFigureConfiguration extends Configurator {
       ]
     })
 
+    config.addToolPanel('context-menu:reference', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'add-reference', label: 'Insert Reference' }
+      ]
+    })
+
     config.addToolPanel('context-menu:resource', {
       type: 'menu',
       noIcons: true,
@@ -300,6 +312,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addLabel('panel.resources', 'Attached Resource')
     config.addLabel('keyword-group', 'Keyword Group')
     config.addLabel('file', 'File')
+    config.addLabel('reference', 'Reference')
     config.addLabel('resource', 'Resource')
   }
 }

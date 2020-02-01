@@ -172,6 +172,29 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
+  addReference (data) {
+    return this.insertReferenceAfter(data)
+  }
+
+  insertReferenceAfter (data, currentReferenceId) {
+    const doc = this.getDocument()
+    const root = doc.root
+    let insertPos = root.references.length
+    if (currentReferenceId) {
+      const currentReferenceNode = doc.get(currentReferenceId)
+      insertPos = currentReferenceNode.getPosition() + 1
+    }
+    const nodeData = Object.assign({ type: 'reference' }, data)
+    let newReferenceNodeId
+    this.editorSession.transaction(tx => {
+      const node = documentHelpers.createNodeFromJson(tx, nodeData)
+      newReferenceNodeId = node.id
+      documentHelpers.insertAt(tx, [root.id, 'references'], insertPos, node.id)
+      this._selectItem(tx, node)
+    })
+    return doc.get(newReferenceNodeId)
+  }
+
   addResource (data) {
     return this.insertResourceAfter(data)
   }
