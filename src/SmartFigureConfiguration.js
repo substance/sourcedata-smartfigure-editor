@@ -137,6 +137,9 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
 
     config.addCommand('add-reference', AddReferenceCommand)
+    config.addCommand('remove-reference', RemoveItemCommand, { type: 'reference' })
+    config.addCommand('move-reference-up', MoveItemCommand, { type: 'reference', direction: 'up' })
+    config.addCommand('move-reference-down', MoveItemCommand, { type: 'reference', direction: 'down' })
     
     config.addCommand('add-resource', AddResourceCommand)
     config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
@@ -263,7 +266,10 @@ export default class SmartFigureConfiguration extends Configurator {
       type: 'menu',
       noIcons: true,
       items: [
-        { command: 'add-reference', label: 'Insert Reference' }
+        { command: 'add-reference', label: 'Insert Reference' },
+        { command: 'remove-reference', label: 'Remove Reference' },
+        { command: 'move-reference-up', label: 'Move Reference Up' },
+        { command: 'move-reference-down', label: 'Move Reference Down' }
       ]
     })
 
