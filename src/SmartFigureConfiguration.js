@@ -6,7 +6,7 @@ import {
   MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
   AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
-  AddReferenceCommand
+  AddReferenceCommand, CreateCitationCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -93,6 +93,10 @@ export default class SmartFigureConfiguration extends Configurator {
       nodeType: 'link',
       accelerator: 'CommandOrControl+K'
     })
+    config.addCommand('create-citation', CreateCitationCommand, {
+      nodeType: 'cite',
+      accelerator: 'CommandOrControl+Shift+C'
+    })
     config.addCommand('insert-panel', InsertPanelCommand)
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
     config.addCommand('rename-panel-image', RenamePanelImageCommand)
@@ -163,6 +167,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-subscript', icon: 'subscript', tooltip: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', tooltip: 'Superscript' },
         { command: 'create-link', icon: 'link', tooltip: 'Link' },
+        { command: 'create-citation', icon: 'asterisk', tooltip: 'Citation' },
         {
           type: 'menu',
           label: 'Smart Figure',
@@ -197,7 +202,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-strike', icon: 'strikethrough', label: 'Strike Through' },
         { command: 'toggle-subscript', icon: 'subscript', label: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', label: 'Superscript' },
-        { command: 'create-link', icon: 'link', label: 'Link' }
+        { command: 'create-link', icon: 'link', label: 'Link' },
+        { command: 'create-citation', icon: 'asterisk', label: 'Citation' }
       ]
     })
     config.addToolPanel('context-menu:panel', {
