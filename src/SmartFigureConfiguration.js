@@ -23,6 +23,7 @@ import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 import JumpToItemCommand from 'substance/commons/JumpToItemCommand'
+import CitationComponent from './components/CitationComponent'
 
 const {
   ParagraphConverter, BoldConverter, ItalicConverter,
@@ -50,6 +51,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addComponent('heading', HeadingComponent)
     config.addComponent('image', ImageComponent)
     config.addComponent('link', LinkComponent)
+    config.addComponent('cite', CitationComponent)
 
     // HTML conversion
     config.addConverter('html', ParagraphConverter)
