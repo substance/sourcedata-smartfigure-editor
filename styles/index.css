@@ -16,6 +16,7 @@
 @import './_author-modal.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
+@import './_citation-popover.scss';
 @import './_divider.scss';
 @import './_editor-toolbar.scss';
 @import './_file-modal.scss';

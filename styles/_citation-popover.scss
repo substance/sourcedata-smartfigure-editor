@@ -1,0 +1,25 @@
+.sc-citation-popover {
+  width: 500px;
+  margin: -4px 0;
+}
+
+.sc-citation-popover > .se-reference {
+  @include ts-small-interface;
+  @include ts-quiet;
+  padding: var(--half-spacing) var(--default-spacing);
+  word-break: break-all;
+}
+
+.sc-citation-popover > .sc-horizontal-stack {
+  padding: var(--half-spacing) var(--default-spacing);
+}
+
+.sc-citation-popover > .sc-horizontal-stack > div {
+  @include ts-small-interface;
+  @include ts-quiet;
+}
+
+.sc-citation-popover > .sc-horizontal-stack > .sc-button {
+  width: 100px;
+  margin: 0 var(--half-spacing);
+}
