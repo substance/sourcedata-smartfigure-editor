@@ -12,6 +12,7 @@ import PanelLabelManager from './PanelLabelManager'
 import FilesLabelManager from './FilesLabelManager'
 import ReferencesLabelManager from './ReferencesLabelManager'
 import ResourcesLabelManager from './ResourcesLabelManager'
+import CitationLabelManager from './CitationLabelManager'
 
 export default class SmartFigureEditor extends AbstractEditor {
   constructor (...args) {
@@ -44,7 +45,8 @@ export default class SmartFigureEditor extends AbstractEditor {
       new FilesLabelManager(this.editorSession),
       new PanelLabelManager(this.editorSession),
       new ReferencesLabelManager(this.editorSession),
-      new ResourcesLabelManager(this.editorSession)
+      new ResourcesLabelManager(this.editorSession),
+      new CitationLabelManager(this.editorSession)
     ]
 
     this._globalEventHandler.addEventListener('keydown', this._onKeydown, this)
