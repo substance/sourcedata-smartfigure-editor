@@ -6,7 +6,7 @@ import {
   MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
   AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
-  AddReferenceCommand, CreateCitationCommand
+  AddReferenceCommand, CreateCitationCommand, CitationComponent
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -23,7 +23,6 @@ import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import ContextualDropdownMenu from './components/ContextualDropdownMenu'
 import JumpToItemCommand from 'substance/commons/JumpToItemCommand'
-import CitationComponent from './components/CitationComponent'
 
 const {
   ParagraphConverter, BoldConverter, ItalicConverter,
