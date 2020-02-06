@@ -6,7 +6,8 @@ import {
   MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
   AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
-  AddReferenceCommand, CreateCitationCommand, EditCitationCommand, CitationComponent
+  AddReferenceCommand, CreateCitationCommand, EditCitationCommand, CitationComponent,
+  RemoveInlineNodeCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -152,7 +153,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-resource-down', MoveItemCommand, { type: 'resource', direction: 'down' })
 
     config.addCommand('edit-citation', EditCitationCommand)
-    config.addCommand('remove-citation', RemoveItemCommand, { type: 'cite' })
+    config.addCommand('remove-citation', RemoveInlineNodeCommand)
 
     // Menus
     const editorToolbar = {
