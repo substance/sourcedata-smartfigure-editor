@@ -10,7 +10,6 @@ import SmartFigureTOC from './SmartFigureTOC'
 import _getContext from './_getContext'
 import PanelLabelManager from './PanelLabelManager'
 import FilesLabelManager from './FilesLabelManager'
-import ReferencesLabelManager from './ReferencesLabelManager'
 import ResourcesLabelManager from './ResourcesLabelManager'
 import CitationLabelManager from './CitationLabelManager'
 
@@ -44,7 +43,6 @@ export default class SmartFigureEditor extends AbstractEditor {
       new AffiliationLabelManager(this.editorSession),
       new FilesLabelManager(this.editorSession),
       new PanelLabelManager(this.editorSession),
-      new ReferencesLabelManager(this.editorSession),
       new ResourcesLabelManager(this.editorSession),
       new CitationLabelManager(this.editorSession)
     ]
