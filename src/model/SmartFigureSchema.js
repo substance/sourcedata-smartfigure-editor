@@ -129,8 +129,8 @@ export default function SmartFigureSchema () {
     }, { omitPropertyElement: true })
     // annotations
     v.addNode('bold', '@annotation')
-    v.addNode('cite', '@annotation', {
-      target: { type: 'many', targetTypes: ['reference'] }
+    v.addNode('cite', '@inlinenode', {
+      references: { type: 'many', targetTypes: ['reference'] }
     })
     v.addNode('italic', '@annotation')
     v.addNode('link', '@annotation', {

@@ -7,7 +7,7 @@ export default class CitationLabelManager extends CollectionItemLabelManager {
   }
 
   getItemLabel (item) {
-    const references = item.resolve('target')
+    const references = item.resolve('references')
     const refLabels = references.map(ref => ref.label)
     refLabels.sort()
     return `[${refLabels.join(',')}]`

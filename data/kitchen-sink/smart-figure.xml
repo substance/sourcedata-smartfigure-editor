@@ -75,7 +75,7 @@
     </panel>
   </panels>
   <additionalInformation>
-    <paragraph id="additional-information-p1">Data information: Values are <cite target="reference-1 reference-3">expressed</cite> as mean ± SEM. *P &lt; 0.05; **P &lt; 0.01; ***P &lt; 0.001. Statistical tests used are as follows: ANOVA for (A, C, F, and G); and t‐test for (D).</paragraph>
+    <paragraph id="additional-information-p1">Data information: Values are expressed <cite references="reference-1 reference-3" /> as mean ± SEM. *P &lt; 0.05; **P &lt; 0.01; ***P &lt; 0.001. Statistical tests used are as follows: ANOVA for (A, C, F, and G); and t‐test for (D).</paragraph>
     <paragraph id="additional-information-p2">Source data are available online for this figure.</paragraph>
   </additionalInformation>
   <files>
