@@ -16,6 +16,7 @@
 @import './_author-modal.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
+@import './_citation.scss';
 @import './_citation-popover.scss';
 @import './_divider.scss';
 @import './_editor-toolbar.scss';
@@ -28,6 +29,7 @@
 @import './_horizontal-stack.scss';
 @import './_input.scss';
 @import './_image.scss';
+@import './_inline-node.scss';
 @import './_isolated-node.scss';
 @import './_keyword-group.scss';
 @import './_keyword-group-modal.scss';
