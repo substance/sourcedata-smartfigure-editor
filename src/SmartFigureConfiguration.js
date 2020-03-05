@@ -170,7 +170,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-subscript', icon: 'subscript', tooltip: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', tooltip: 'Superscript' },
         { command: 'create-link', icon: 'link', tooltip: 'Link' },
-        { command: 'create-citation', icon: 'asterisk', tooltip: 'Citation' },
+        { command: 'create-citation', icon: 'quote-right', tooltip: 'Citation' },
         {
           type: 'menu',
           label: 'Smart Figure',
