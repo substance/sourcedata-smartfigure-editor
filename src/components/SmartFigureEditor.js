@@ -320,6 +320,6 @@ export default class SmartFigureEditor extends AbstractEditor {
   _onScroll (event) {
     // HACK: Popover needs to reposition on scroll
     // we have to provide it with the scroll event
-    this.refs.popover.reposition(event)
+    this.refs.popover.reposition(this._getScrollableElement())
   }
 }
