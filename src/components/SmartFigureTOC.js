@@ -33,6 +33,11 @@ export default class SmartFigureTOC extends Component {
         $$(Section, { name: 'resources', label: 'Resources' })
       )
     )
+    el.append(
+      $$(_DynamicTOCItem, { doc: document, path: [root.id, 'references'], scrollTarget: { section: 'references' } },
+        $$(Section, { name: 'references', label: 'References' })
+      )
+    )
 
     return el
   }

@@ -1,4 +1,7 @@
-import { Component, $$, renderProperty, AuthorsListComponent, AffiliationsListComponent } from 'substance'
+import {
+  Component, $$, renderProperty, AuthorsListComponent,
+  AffiliationsListComponent, ReferenceListComponent
+} from 'substance'
 import FigurePanelsComponent from './SmartFigurePanelsComponent'
 import FileListComponent from './FileListComponent'
 import ResourceListComponent from './ResourceListComponent'
@@ -45,6 +48,9 @@ export default class SmartFigureComponent extends Component {
     )
     el.append(
       $$(ResourceListComponent, { document: doc })
+    )
+    el.append(
+      $$(ReferenceListComponent, { document: doc })
     )
 
     return el

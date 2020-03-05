@@ -1,14 +1,15 @@
 import {
   BasicEditorApi, AuthorApi, AffiliationApi,
-  isString, documentHelpers, cloneDeep
+  ReferenceApi, isString, documentHelpers, cloneDeep
 } from 'substance'
 
 export default class SmartFigureApi extends BasicEditorApi {
   constructor (...args) {
     super(...args)
 
-    this.extendWith(new AuthorApi())
     this.extendWith(new AffiliationApi())
+    this.extendWith(new AuthorApi())
+    this.extendWith(new ReferenceApi())
   }
 
   insertPanels (files, currentPanelId) {

@@ -1,7 +1,7 @@
 import { SchemaBuilder } from 'substance'
 import PanelMixin from './PanelMixin'
 
-const RICH_TEXT_ANNOS = ['bold', 'italic', 'link', 'subscript', 'superscript', 'strike']
+const RICH_TEXT_ANNOS = ['bold', 'cite', 'italic', 'link', 'subscript', 'superscript', 'strike']
 const TITLE = () => {
   return {
     type: 'text',
@@ -50,6 +50,11 @@ export default function SmartFigureSchema () {
       resources: {
         type: 'children',
         childTypes: ['resource'],
+        optional: true
+      },
+      references: {
+        type: 'children',
+        childTypes: ['reference'],
         optional: true
       }
     })
@@ -115,8 +120,18 @@ export default function SmartFigureSchema () {
       title: TITLE(),
       legend: LEGEND()
     })
+    v.addNode('reference', '@node', {
+      label: { type: 'string' },
+      content: {
+        type: 'text',
+        childTypes: ['bold', 'italic', 'link', 'superscript', 'subscript']
+      }
+    }, { omitPropertyElement: true })
     // annotations
     v.addNode('bold', '@annotation')
+    v.addNode('cite', '@inlinenode', {
+      references: { type: 'many', targetTypes: ['reference'] }
+    })
     v.addNode('italic', '@annotation')
     v.addNode('link', '@annotation', {
       href: 'string'

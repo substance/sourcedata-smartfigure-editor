@@ -5,7 +5,9 @@ import {
   UndoCommand, RedoCommand, SelectAllCommand, AnnotationCommand, CreateLinkCommand,
   MoveItemCommand, RemoveItemCommand, MoveValueCommand, RemoveValueCommand,
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
-  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand
+  AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
+  AddReferenceCommand, CreateCitationCommand, EditCitationCommand, CitationComponent,
+  RemoveInlineNodeCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
@@ -49,6 +51,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addComponent('heading', HeadingComponent)
     config.addComponent('image', ImageComponent)
     config.addComponent('link', LinkComponent)
+    config.addComponent('cite', CitationComponent)
 
     // HTML conversion
     config.addConverter('html', ParagraphConverter)
@@ -89,6 +92,10 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('create-link', CreateLinkCommand, {
       nodeType: 'link',
       accelerator: 'CommandOrControl+K'
+    })
+    config.addCommand('create-citation', CreateCitationCommand, {
+      nodeType: 'cite',
+      accelerator: 'CommandOrControl+Shift+C'
     })
     config.addCommand('insert-panel', InsertPanelCommand)
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
@@ -135,10 +142,18 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('move-file-up', MoveItemCommand, { type: 'file', direction: 'up' })
     config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
 
+    config.addCommand('add-reference', AddReferenceCommand)
+    config.addCommand('remove-reference', RemoveItemCommand, { type: 'reference' })
+    config.addCommand('move-reference-up', MoveItemCommand, { type: 'reference', direction: 'up' })
+    config.addCommand('move-reference-down', MoveItemCommand, { type: 'reference', direction: 'down' })
+
     config.addCommand('add-resource', AddResourceCommand)
     config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
     config.addCommand('move-resource-up', MoveItemCommand, { type: 'resource', direction: 'up' })
     config.addCommand('move-resource-down', MoveItemCommand, { type: 'resource', direction: 'down' })
+
+    config.addCommand('edit-citation', EditCitationCommand)
+    config.addCommand('remove-citation', RemoveInlineNodeCommand)
 
     // Menus
     const editorToolbar = {
@@ -155,6 +170,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-subscript', icon: 'subscript', tooltip: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', tooltip: 'Superscript' },
         { command: 'create-link', icon: 'link', tooltip: 'Link' },
+        { command: 'create-citation', icon: 'quote-right', tooltip: 'Citation' },
         {
           type: 'menu',
           label: 'Smart Figure',
@@ -165,7 +181,8 @@ export default class SmartFigureConfiguration extends Configurator {
             { command: 'add-affiliation', label: 'Add Affiliation' },
             { command: 'insert-panel', label: 'Add Panel' },
             { command: 'add-file', label: 'Add File' },
-            { command: 'add-resource', label: 'Add Resource' }
+            { command: 'add-resource', label: 'Add Resource' },
+            { command: 'add-reference', label: 'Add Reference' }
           ]
         },
         {
@@ -188,7 +205,8 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-strike', icon: 'strikethrough', label: 'Strike Through' },
         { command: 'toggle-subscript', icon: 'subscript', label: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', label: 'Superscript' },
-        { command: 'create-link', icon: 'link', label: 'Link' }
+        { command: 'create-link', icon: 'link', label: 'Link' },
+        { command: 'create-citation', icon: 'asterisk', label: 'Citation' }
       ]
     })
     config.addToolPanel('context-menu:panel', {
@@ -255,6 +273,17 @@ export default class SmartFigureConfiguration extends Configurator {
       ]
     })
 
+    config.addToolPanel('context-menu:reference', {
+      type: 'menu',
+      noIcons: true,
+      items: [
+        { command: 'add-reference', label: 'Insert Reference' },
+        { command: 'remove-reference', label: 'Remove Reference' },
+        { command: 'move-reference-up', label: 'Move Reference Up' },
+        { command: 'move-reference-down', label: 'Move Reference Down' }
+      ]
+    })
+
     config.addToolPanel('context-menu:resource', {
       type: 'menu',
       noIcons: true,
@@ -300,6 +329,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addLabel('panel.resources', 'Attached Resource')
     config.addLabel('keyword-group', 'Keyword Group')
     config.addLabel('file', 'File')
+    config.addLabel('reference', 'Reference')
     config.addLabel('resource', 'Resource')
   }
 }

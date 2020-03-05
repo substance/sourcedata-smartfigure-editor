@@ -1,0 +1,33 @@
+.sc-citation-popover {
+  width: 500px;
+  margin: -4px 0;
+}
+
+.sc-citation-popover > .se-reference {
+  @include ts-small-interface;
+  font-weight: 500;
+  padding: var(--half-spacing) var(--default-spacing);
+  word-break: break-all;
+}
+
+.sc-citation-popover > .se-reference > .se-label {
+  align-self: baseline;
+  font-weight: 600;
+}
+
+.sc-citation-popover > .sc-horizontal-stack {
+  padding: var(--half-spacing) var(--default-spacing);
+}
+
+.sc-citation-popover > .se-footer {
+  @include ts-small-interface;
+}
+
+.sc-citation-popover > .se-footer > .se-label {
+  @include ts-quiet;
+}
+
+.sc-citation-popover > .sc-horizontal-stack > .sc-button {
+  width: 100px;
+  margin: 0 var(--half-spacing);
+}
