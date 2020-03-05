@@ -5,23 +5,25 @@
 
 .sc-citation-popover > .se-reference {
   @include ts-small-interface;
+  font-weight: 500;
   padding: var(--half-spacing) var(--default-spacing);
   word-break: break-all;
 }
 
 .sc-citation-popover > .se-reference > .se-label {
   align-self: baseline;
+  font-weight: 600;
 }
 
 .sc-citation-popover > .sc-horizontal-stack {
   padding: var(--half-spacing) var(--default-spacing);
 }
 
-.sc-citation-popover > .sc-horizontal-stack > div {
+.sc-citation-popover > .se-footer {
   @include ts-small-interface;
 }
 
-.sc-citation-popover > .sc-horizontal-stack:last-child > .se-label {
+.sc-citation-popover > .se-footer > .se-label {
   @include ts-quiet;
 }
 
