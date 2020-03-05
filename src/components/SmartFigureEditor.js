@@ -1,7 +1,7 @@
 import {
   AbstractEditor, $$, domHelpers, parseKeyEvent, keys,
   EditorToolbar, Managed, ModalCanvas, Popover, FileSelect,
-  AffiliationLabelManager, platform
+  AffiliationLabelManager, platform, GlobalEventHandler
 } from 'substance'
 import SmartFigureApi from '../model/SmartFigureApi'
 import TwoColumnLayout from './TwoColumnLayout'
@@ -27,6 +27,14 @@ export default class SmartFigureEditor extends AbstractEditor {
     })
   }
 
+  _initialize (props) {
+    super._initialize(props)
+
+    const globalEventHandler = new GlobalEventHandler()
+    this._globalEventHandler = globalEventHandler
+    this.context.globalEventHandler = globalEventHandler
+  }
+
   didMount () {
     super.didMount()
 
@@ -37,10 +45,7 @@ export default class SmartFigureEditor extends AbstractEditor {
       new ResourcesLabelManager(this.editorSession)
     ]
 
-    const globalEventHandler = this.context.globalEventHandler
-    if (globalEventHandler) {
-      globalEventHandler.addEventListener('keydown', this._onKeydown, this)
-    }
+    this._globalEventHandler.addEventListener('keydown', this._onKeydown, this)
 
     this._updateLabels()
   }
@@ -52,10 +57,8 @@ export default class SmartFigureEditor extends AbstractEditor {
       labelManager.dispose()
     }
 
-    const globalEventHandler = this.context.globalEventHandler
-    if (globalEventHandler) {
-      globalEventHandler.removeEventListener(this)
-    }
+    this._globalEventHandler.removeEventListener(this)
+    this._globalEventHandler.dispose()
   }
 
   render () {
@@ -73,9 +76,6 @@ export default class SmartFigureEditor extends AbstractEditor {
       $$(Popover, {
         getContainer: () => {
           return this.getElement()
-        },
-        getScrollable: () => {
-          return this.refs.scrollable.getElement()
         }
       }).ref('popover'),
       $$(FileSelect, {}).ref('fileSelect'),
@@ -133,7 +133,7 @@ export default class SmartFigureEditor extends AbstractEditor {
   }
 
   _requestPopover (params) {
-    return this.refs.popover.acquire(params)
+    return this.refs.popover.acquire(params, this.refs.scrollable.getElement())
   }
 
   _releasePopover (requester) {
