@@ -10,6 +10,10 @@
   word-break: break-all;
 }
 
+.sc-citation-popover > .se-reference > .se-label {
+  align-self: baseline;
+}
+
 .sc-citation-popover > .sc-horizontal-stack {
   padding: var(--half-spacing) var(--default-spacing);
 }
