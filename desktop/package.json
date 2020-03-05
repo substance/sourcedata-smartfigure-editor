@@ -28,7 +28,6 @@
       "build-resource/icon.*",
       "placeholder.svg"
     ],
-    "asar": "false",
     "directories": {
       "output": "build",
       "buildResources": "build-resources"
