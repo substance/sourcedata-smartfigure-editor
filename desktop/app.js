@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
     _showExportDialog(res => {
       const { canceled, filePath } = res
       if (!canceled && filePath) {
-        sharedStorage.clone(archive._archiveId, filePath, cb)
+        sharedStorage.exportAsZip(archive._archiveId, filePath, cb)
       } else {
         cb()
       }
