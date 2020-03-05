@@ -283,6 +283,13 @@ function _saveAs () {
   }
 }
 
+function _exportAsZip () {
+  const focusedWindow = BrowserWindow.getFocusedWindow()
+  if (focusedWindow) {
+    focusedWindow.webContents.send('exportAsZip')
+  }
+}
+
 // TODO: extract this into something more reusable/configurable
 function _createMenu () {
   // Set up the application menu1
@@ -316,6 +323,12 @@ function _createMenu () {
           accelerator: 'CommandOrControl+Shift+S',
           click () {
             _saveAs()
+          }
+        },
+        {
+          label: 'Export as Zip...',
+          click () {
+            _exportAsZip()
           }
         }
       ]

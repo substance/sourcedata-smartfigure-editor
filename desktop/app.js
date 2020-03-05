@@ -6,7 +6,8 @@ window.addEventListener('load', () => {
   // ATTENTION: these variables are provided by preload.js serving as a bridge
   // between the node backend and the web process
   const {
-    ipc, editorConfig, sharedStorage, _showSaveDialog, _updateWindowUrl, windowId
+    ipc, editorConfig, sharedStorage, _showSaveDialog, _showExportDialog,
+    _updateWindowUrl, windowId
   } = window
   const { darPath, readOnly } = editorConfig
 
@@ -44,6 +45,10 @@ window.addEventListener('load', () => {
 
   ipc.on('saveAs', url => {
     _saveAs(_handleSaveError)
+  })
+
+  ipc.on('exportAsZip', url => {
+    _exportAsZip(_handleSaveError)
   })
 
   function _updateWindowTitle () {
@@ -87,6 +92,18 @@ window.addEventListener('load', () => {
           _updateWindowUrl(filePath)
           cb()
         })
+      } else {
+        cb()
+      }
+    })
+  }
+
+  function _exportAsZip (cb) {
+    if (!archive) return
+    _showExportDialog(res => {
+      const { canceled, filePath } = res
+      if (!canceled && filePath) {
+        sharedStorage.clone(archive._archiveId, filePath, cb)
       } else {
         cb()
       }

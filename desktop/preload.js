@@ -22,6 +22,20 @@ window._showSaveDialog = function (cb) {
   ).then(cb)
 }
 
+window._showExportDialog = function (cb) {
+  remote.dialog.showSaveDialog(
+    browserWindow,
+    {
+      title: 'Export as...',
+      buttonLabel: 'Export',
+      properties: ['openFile', 'createDirectory'],
+      filters: [
+        { name: 'ZIP files', extensions: ['zip'] }
+      ]
+    }
+  ).then(cb)
+}
+
 window._updateWindowUrl = function (newArchivePath) {
   const newUrl = url.format({
     pathname: path.join(__dirname, 'index.html'),
