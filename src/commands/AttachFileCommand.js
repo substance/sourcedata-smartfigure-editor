@@ -28,10 +28,7 @@ export default class AttachFileCommand extends Command {
       return $$(AttachFileModal, { node: panel })
     }).then(modal => {
       if (!modal) return
-      const fileId = modal.state.selectedId
-      if (fileId) {
-        api.attachFile(currentItemId, fileId)
-      }
+      api.updateAttachedFiles(currentItemId, modal.state.selectedFiles)
     })
   }
 }

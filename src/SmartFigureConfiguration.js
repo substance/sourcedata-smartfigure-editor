@@ -206,7 +206,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'toggle-subscript', icon: 'subscript', label: 'Subscript' },
         { command: 'toggle-superscript', icon: 'superscript', label: 'Superscript' },
         { command: 'create-link', icon: 'link', label: 'Link' },
-        { command: 'create-citation', icon: 'asterisk', label: 'Citation' }
+        { command: 'create-citation', icon: 'quote-right', label: 'Citation' }
       ]
     })
     config.addToolPanel('context-menu:panel', {

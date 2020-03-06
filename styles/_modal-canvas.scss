@@ -1,4 +1,8 @@
-.sc-modal-canvas {
+.sc-modal-canvas.sm-hidden {
+  display: none;
+}
+
+.sc-modal-canvas > .se-current-modal {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -13,16 +17,17 @@
   z-index: 2;
 }
 
-.sc-modal-canvas.sm-hidden {
+
+.sc-modal-canvas .se-stacked-modal {
   display: none;
 }
 
-.sc-modal-canvas.sm-modal-mobile .sc-modal {
+.sc-modal-canvas.sm-mobile > .se-current-modal .sc-modal {
   max-height: 100%;
   height: 100%;
   border-radius: 0;
 }
 
-.sc-modal-canvas.sm-modal-mobile .sc-modal .se-modal-body {
+.sc-modal-canvas.sm-mobile > .se-current-modal .sc-modal .se-modal-body {
   height: 100%;
 }
