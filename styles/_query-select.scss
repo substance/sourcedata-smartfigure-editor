@@ -1,0 +1,9 @@
+.sc-query-select-option {
+  @include ts-interface;
+  padding: var(--half-spacing);
+  cursor: pointer;
+
+  &.sm-selected {
+    box-shadow: var(--custom-selection-box-shadow);
+  }
+}

@@ -9,6 +9,7 @@
   // to have it out of the way, because we can not use display:none
   top: -10000px;
   left: -10000px;
+  z-index: 1;
 }
 
 .sc-popover.sm-hidden {
