@@ -8,6 +8,7 @@
   font-weight: 500;
   padding: var(--half-spacing) var(--default-spacing);
   word-break: break-all;
+  border-bottom: 1px solid var(--light-border-color);
 }
 
 .sc-citation-popover > .se-reference > .se-label {
@@ -25,6 +26,10 @@
 
 .sc-citation-popover > .se-footer > .se-label {
   @include ts-quiet;
+}
+
+.sc-citation-popover > .sc-divider {
+  display: none;
 }
 
 .sc-citation-popover > .sc-horizontal-stack > .sc-button {

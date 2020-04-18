@@ -3,7 +3,12 @@
   padding: var(--half-spacing);
   cursor: pointer;
 
+  &:hover {
+    background: rgba(0, 123, 255, .2);
+  }
+
   &.sm-selected {
-    box-shadow: var(--custom-selection-box-shadow);
+    background: var(--primary-button-color);
+    color: white;
   }
 }

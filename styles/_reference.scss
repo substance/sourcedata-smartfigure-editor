@@ -16,3 +16,11 @@
   flex: 1;
   margin: 0 0 0 var(--default-spacing)!important;
 }
+
+
+.sc-reference-item {
+  .se-label {
+    align-self: auto;
+    font-weight: bold;
+  }
+}

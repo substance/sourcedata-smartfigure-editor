@@ -58,9 +58,9 @@
 }
 
 .sc-button.sm-style-danger {
-  border: 1px solid rgb(var(--error-color));
-  @include ts-interface;
-  color: rgb(var(--error-color));
+  border: 1px solid var(--error-color);
+  @include ts-small-interface;
+  color: var(--error-color);
 }
 
 .sc-button.sm-style-plain {
