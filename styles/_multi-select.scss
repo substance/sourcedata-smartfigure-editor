@@ -17,6 +17,10 @@
   height: initial;
 }
 
+.sc-multi-select input {
+  font-size: 14px;
+}
+
 .sc-multi-select .se-options {
   @include ts-interface;
   height: var(--small-button-height);
