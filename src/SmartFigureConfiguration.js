@@ -7,14 +7,17 @@ import {
   AddAuthorCommand, InsertAuthorCommand, EditAuthorCommand,
   AddAffiliationCommand, InsertAffiliationCommand, EditAffiliationCommand,
   AddReferenceCommand, CreateCitationCommand, EditCitationCommand, CitationComponent,
-  RemoveInlineNodeCommand
+  RemoveInlineNodeCommand, JumpToItemCommand
 } from 'substance'
 
 import SmartFigureLoader from './model/SmartFigureLoader'
 import SmartFigureComponent from './components/SmartFigureComponent'
+import ContextualDropdownMenu from './components/ContextualDropdownMenu'
+
 import InsertPanelCommand from './commands/InsertPanelCommand'
 import ReplacePanelImageCommand from './commands/ReplacePanelImageCommand'
 import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
+import DownloadPanelImageCommand from './commands/DownloadPanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import RenameFileCommand from './commands/RenameFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
@@ -22,8 +25,6 @@ import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
-import ContextualDropdownMenu from './components/ContextualDropdownMenu'
-import JumpToItemCommand from 'substance/commons/JumpToItemCommand'
 
 const {
   ParagraphConverter, BoldConverter, ItalicConverter,
@@ -101,6 +102,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('remove-panel', RemoveItemCommand, { type: 'panel' })
     config.addCommand('rename-panel-image', RenamePanelImageCommand)
     config.addCommand('replace-panel-image', ReplacePanelImageCommand)
+    config.addCommand('download-panel-image', DownloadPanelImageCommand)
     config.addCommand('move-panel-up', MoveItemCommand, { type: 'panel', direction: 'up' })
     config.addCommand('move-panel-down', MoveItemCommand, { type: 'panel', direction: 'down' })
 
@@ -217,6 +219,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'remove-panel', label: 'Remove Panel' },
         { command: 'rename-panel-image', label: 'Rename Image' },
         { command: 'replace-panel-image', label: 'Replace Image' },
+        { command: 'download-panel-image', label: 'Download Image' },
         { command: 'move-panel-up', label: 'Move Panel Up' },
         { command: 'move-panel-down', label: 'Move Panel Down' },
         { command: 'add-keyword-group', label: 'Add Keyword Group' },

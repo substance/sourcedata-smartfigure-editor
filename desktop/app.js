@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
   // between the node backend and the web process
   const {
     ipc, editorConfig, sharedStorage, _showSaveDialog, _showExportDialog,
-    _updateWindowUrl, windowId
+    _updateWindowUrl, _downloadAsset, windowId
   } = window
   const { darPath, readOnly } = editorConfig
 
@@ -24,7 +24,12 @@ window.addEventListener('load', () => {
       console.error('Could not load DAR:', err)
     } else {
       _updateWindowTitle()
-      SmartFigureEditor.mount({ archive }, window.document.body, { inplace: true })
+      SmartFigureEditor.mount({
+        archive,
+        handleDownloadAsset: (asset) => {
+          return _downloadAsset(archive, asset)
+        }
+      }, window.document.body, { inplace: true })
     }
   })
 

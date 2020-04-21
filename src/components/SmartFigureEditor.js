@@ -24,7 +24,8 @@ export default class SmartFigureEditor extends AbstractEditor {
       requestPopover: this._requestPopover,
       releasePopover: this._releasePopover,
       closePopover: this._closePopover,
-      requestFileSelect: this._openFileSelect
+      requestFileSelect: this._openFileSelect,
+      downloadAsset: this._downloadAsset
     })
   }
 
@@ -34,6 +35,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     const globalEventHandler = new GlobalEventHandler()
     this._globalEventHandler = globalEventHandler
     this.context.globalEventHandler = globalEventHandler
+    this.context.app = this
   }
 
   didMount () {
@@ -150,6 +152,12 @@ export default class SmartFigureEditor extends AbstractEditor {
     const fileSelect = this.refs.fileSelect
     fileSelect.setProps(props)
     return fileSelect.selectFiles()
+  }
+
+  _downloadAsset (asset) {
+    if (this.props.handleDownloadAsset) {
+      return this.props.handleDownloadAsset(asset)
+    }
   }
 
   // TODO: ATM we show the contextmenu for the last selected item
