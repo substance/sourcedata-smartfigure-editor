@@ -1,3 +1,4 @@
+/* global File, FileReader */
 // NOTE: for sake of security, node integration is disabled in the browser windows
 // instead we have to provide/wrap anything needed from the node environment
 const { ipcRenderer, remote, shell } = require('electron')
@@ -61,9 +62,26 @@ window._downloadAsset = function (archive, asset, cb) {
     }
   ).then(async (result) => {
     if (result.canceled) return
-    const buffer = await archive.getBlob(asset.id)
+    let buffer = await archive.getBlob(asset.id)
+    if (buffer instanceof File) {
+      buffer = await file2Buffer(buffer)
+    }
     const filePath = result.filePath
     return fse.outputFile(filePath, buffer)
+  })
+}
+
+async function file2Buffer (file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.addEventListener('loadend', event => {
+      if (event.error) {
+        reject(event.error)
+      } else {
+        resolve(Buffer.from(reader.result))
+      }
+    }, false)
+    reader.readAsArrayBuffer(file)
   })
 }
 
