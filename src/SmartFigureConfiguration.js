@@ -20,6 +20,7 @@ import RenamePanelImageCommand from './commands/RenamePanelImageCommand'
 import DownloadPanelImageCommand from './commands/DownloadPanelImageCommand'
 import AddFileCommand from './commands/AddFileCommand'
 import RenameFileCommand from './commands/RenameFileCommand'
+import DownloadFileCommand from './commands/DownloadFileCommand'
 import AddResourceCommand from './commands/AddResourceCommand'
 import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
@@ -141,6 +142,7 @@ export default class SmartFigureConfiguration extends Configurator {
     config.addCommand('add-file', AddFileCommand)
     config.addCommand('rename-file', RenameFileCommand)
     config.addCommand('remove-file', RemoveItemCommand, { type: 'file' })
+    config.addCommand('download-file', DownloadFileCommand)
     config.addCommand('move-file-up', MoveItemCommand, { type: 'file', direction: 'up' })
     config.addCommand('move-file-down', MoveItemCommand, { type: 'file', direction: 'down' })
 
@@ -271,6 +273,7 @@ export default class SmartFigureConfiguration extends Configurator {
         { command: 'add-file', label: 'Insert File' },
         { command: 'rename-file', label: 'Rename File' },
         { command: 'remove-file', label: 'Remove File' },
+        { command: 'download-file', label: 'Download File' },
         { command: 'move-file-up', label: 'Move File Up' },
         { command: 'move-file-down', label: 'Move File Down' }
       ]
