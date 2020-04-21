@@ -25,11 +25,10 @@ export default class AttachResourceCommand extends Command {
     const panel = doc.get(currentItemId)
     const api = context.api
     return editorSession.getRootComponent().send('requestModal', () => {
-      return $$(AttachResourceModal, { node: panel })
+      return $$(AttachResourceModal, { document: doc, node: panel })
     }).then(modal => {
       if (!modal) return
-      const selectedId = modal.state.selectedId
-      api.attachResource(currentItemId, selectedId)
+      api.updateAttachedResources(currentItemId, modal.state.selectedResources)
     })
   }
 }

@@ -203,10 +203,10 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  attachResource (panelId, resourceId) {
+  updateAttachedResources (panelId, selectedResources) {
     this.editorSession.transaction(tx => {
-      documentHelpers.append(tx, [panelId, 'resources'], resourceId)
-      this._selectValue(tx, panelId, 'resources', resourceId)
+      documentHelpers.updateProperty(tx, [panelId, 'resources'], selectedResources.map(f => f.id))
+      this._selectItem(tx, tx.get(panelId))
     })
   }
 

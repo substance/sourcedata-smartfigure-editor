@@ -87,7 +87,7 @@ export default class AttachFileModal extends Component {
   _onFilesAction (e) {
     domHelpers.stopAndPrevent(e)
     const option = e.detail
-    if (option.action === 'attach-file') {
+    if (option.id === '#create') {
       this.send('requestFileSelect', { multiple: false }).then(files => {
         if (files.length > 0) {
           const file = files[0]

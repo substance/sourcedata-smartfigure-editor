@@ -1,72 +1,98 @@
-import { Component, $$, Form, FormRow, Modal, Button, HorizontalStack, domHelpers } from 'substance'
+import {
+  Component, $$, Form, Modal, HorizontalStack, domHelpers,
+  MultiSelect
+} from 'substance'
 import ResourceModal from './ResourceModal'
 
 export default class AttachResourceModal extends Component {
   getInitialState () {
     const node = this.props.node
-    const doc = node.getDocument()
-    const availableResources = new Set(doc.root.resources)
-    // remove already attached resources
-    this.props.node.resources.forEach(id => {
-      availableResources.delete(id)
-    })
+    const selectedResources = node.resolve('resources')
     return {
-      selectedId: null,
-      availableResources: Array.from(availableResources).map(id => doc.get(id))
+      selectedResources
     }
   }
 
   render () {
-    const { selectedId, availableResources } = this.state
-    const el = $$(Modal, { title: 'Attach Resource', size: 'large', confirmLabel: 'Ok', disableConfirm: !selectedId })
+    const { selectedResources } = this.state
+    const el = $$(Modal, { title: 'Attach Resource', size: 'large', confirmLabel: 'Ok' })
     el.addClass('sc-attach-resource-modal')
-
-    const form = $$(Form)
-    if (availableResources.length > 0) {
-      form.append(
-        $$(FormRow, { label: 'Choose an existing Resource' },
-          $$('select', { class: 'se-resource-select', autofocus: true, onchange: this._onSelect },
-            $$('option', { value: '' }, ''),
-            ...availableResources.map(resource => this.renderResourceOption(resource))
-          ).ref('select')
-        )
-      )
-    }
-    form.append(
-      $$(HorizontalStack, {},
-        $$(Button, { style: 'plain', size: 'small', class: 'se-add-new-resource', onclick: this._onClickNewResource }, 'Add a new Resource')
-      )
+    const form = $$(Form, {},
+      $$(MultiSelect, {
+        placeholder: 'No resources attached.',
+        selectedItems: selectedResources,
+        queryPlaceHolder: 'Select a resource or attach a new one',
+        query: this._queryResources.bind(this),
+        itemRenderer: this._renderAttachedResource.bind(this),
+        local: true,
+        onchange: this._onResourcesChange,
+        onaction: this._onResourcesAction
+      }).ref('resources')
     )
     el.append(form)
     return el
   }
 
-  renderResourceOption (resourceNode) {
-    const option = $$('option', { class: 'se-resource', value: resourceNode.id },
-      resourceNode.title || resourceNode.href
-    ).ref(resourceNode.id)
-    if (this.state.selectedId === resourceNode.id) {
-      option.setAttribute('selected', true)
-    }
-    return option
+  _renderAttachedResource (item) {
+    return $$(HorizontalStack, { class: 'se-attached-file-item' },
+      $$('div', { class: 'se-label' }, item.title ? `${item.title} (${item.href})` : item.href)
+    )
   }
 
-  _onSelect () {
-    const val = this.refs.select.val()
+  _onResourcesChange () {
+    const val = this.refs.resources.val()
     this.extendState({
-      selectedId: val
+      selectedResources: val
     })
   }
 
-  _onClickNewResource (event) {
-    domHelpers.stopAndPrevent(event)
-    return this.send('requestModal', () => {
-      return $$(ResourceModal)
-    }).then(modal => {
-      if (!modal) return
-      const api = this.context.api
-      const resourceNode = api.addResource(modal.state.data)
-      api.attachResource(this.props.node.id, resourceNode.id)
+  _queryResources (str) {
+    const { document } = this.props
+    const root = document.root
+    const items = root.resolve('resources').map(item => {
+      const label = item.title ? `${item.title} (${item.href})` : item.href
+      return {
+        id: item.id,
+        label,
+        _data: label,
+        node: item
+      }
     })
+    let filteredItems
+    // if no query string provided show all items
+    if (str) {
+      filteredItems = items.filter(item => {
+        return item._data.indexOf(str) > -1
+      })
+    } else {
+      filteredItems = items
+    }
+    let options = []
+    options.push(
+      { action: 'attach-resource', id: '#create', label: 'Attach a new resource' }
+    )
+    options = options.concat(
+      filteredItems.map(item => {
+        return { action: 'select', id: item.id, label: item.label, item: item.node }
+      })
+    )
+    return options
+  }
+
+  _onResourcesAction (e) {
+    domHelpers.stopAndPrevent(e)
+    const option = e.detail
+    if (option.id === '#create') {
+      return this.send('requestModal', () => {
+        return $$(ResourceModal)
+      }).then(modal => {
+        if (!modal) return
+        const api = this.context.api
+        const resourceNode = api.addResource(modal.state.data)
+        const selectedResources = this.state.selectedResources
+        selectedResources.push(resourceNode)
+        this.extendState({ selectedResources })
+      })
+    }
   }
 }
