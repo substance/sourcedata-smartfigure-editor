@@ -198,7 +198,7 @@ export default class SmartFigureApi extends BasicEditorApi {
 
   updateAttachedFiles (panelId, selectedFiles) {
     this.editorSession.transaction(tx => {
-      documentHelpers.updateProperty(tx, [panelId, 'files'], selectedFiles)
+      documentHelpers.updateProperty(tx, [panelId, 'files'], selectedFiles.map(f => f.id))
       this._selectItem(tx, tx.get(panelId))
     })
   }

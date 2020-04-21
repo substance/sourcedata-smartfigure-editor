@@ -1,75 +1,109 @@
 import {
   Component, $$, Form, FormRow, Modal, domHelpers,
-  MultiSelect, AssetModal
+  MultiSelect, AssetModal, HorizontalStack
 } from 'substance'
 
 export default class AttachFileModal extends Component {
   getInitialState () {
     const { node } = this.props
-    const selectedFiles = node.files.slice()
+    const selectedFiles = node.resolve('files')
     return { selectedFiles }
   }
 
   render () {
-    const { node } = this.props
     const { selectedFiles } = this.state
     const title = 'Attach File'
-    const archive = this.context.archive
-
-    const root = node.getDocument().root
-    const fileList = root.resolve('files')
 
     const modalProps = { title, cancelLabel: 'Cancel', confirmLabel: 'Ok', size: 'medium', class: 'sc-attach-file-modal' }
-    const selectFileOptions = fileList.map(file => {
-      return { value: file.id, label: archive.getFilename(file.src) }
-    })
     return $$(Modal, modalProps,
       $$(Form, {},
         $$(FormRow, {},
-          $$('div', {},
-            'Select an existing file or add a ',
-            $$('a', { class: 'se-add-new-file', onclick: this._onAddNewFile }, 'New File')
-          )
-        ),
-        $$(FormRow, {},
           $$(MultiSelect, {
-            options: selectFileOptions,
-            value: selectedFiles,
-            label: 'Select File',
-            // placeholder: 'Please select one or more files',
-            onchange: this._onChange,
-            onaction: this._onAddNewFile
+            placeholder: 'No files attached.',
+            selectedItems: selectedFiles,
+            queryPlaceHolder: 'Select a file or attach a new one',
+            query: this._queryFiles.bind(this),
+            itemRenderer: this._renderAttachedFile.bind(this),
+            local: true,
+            onchange: this._onFilesChange,
+            onaction: this._onFilesAction
           }).ref('files')
         )
       )
     )
   }
 
-  _onChange () {
+  _renderAttachedFile (item) {
+    const archive = this.context.archive
+    return $$(HorizontalStack, { class: 'se-attached-file-item' },
+      $$('div', { class: 'se-filename' }, archive.getFilename(item.src)),
+      $$('div', { class: 'se-title' }, item.title)
+    )
+  }
+
+  _queryFiles (str) {
+    const archive = this.context.archive
+    const { document } = this.props
+    const root = document.root
+    const items = root.resolve('files').map(item => {
+      const filename = archive.getFilename(item.src)
+      return {
+        id: item.id,
+        filename,
+        title: item.title,
+        label: filename,
+        _data: filename + item.title ? ` ${item.title}` : '',
+        node: item
+      }
+    })
+    let filteredItems
+    // if no query string provided show all items
+    if (str) {
+      filteredItems = items.filter(item => {
+        return item._data.indexOf(str) > -1
+      })
+    } else {
+      filteredItems = items
+    }
+    let options = []
+    options.push(
+      { action: 'attach-file', id: '#create', label: 'Attach a new file' }
+    )
+    options = options.concat(
+      filteredItems.map(item => {
+        return { action: 'select', id: item.id, label: item.label, item: item.node }
+      })
+    )
+    return options
+  }
+
+  _onFilesChange () {
     const val = this.refs.files.val()
     this.extendState({
       selectedFiles: val
     })
   }
 
-  _onAddNewFile (event) {
-    domHelpers.stopAndPrevent(event)
-    this.send('requestFileSelect', { multiple: false }).then(files => {
-      if (files.length > 0) {
-        const file = files[0]
-        return this.send('requestModal', () => {
-          return $$(AssetModal, { file })
-        }).then(modal => {
-          if (!modal) return
-          const api = this.context.api
-          const { filename } = modal.state.data
-          const fileNode = api.addFile(filename, file)
-          const selectedFiles = this.state.selectedFiles.concat(fileNode.id)
-          this.extendState({
-            selectedFiles
+  _onFilesAction (e) {
+    domHelpers.stopAndPrevent(e)
+    const option = e.detail
+    if (option.action === 'attach-file') {
+      this.send('requestFileSelect', { multiple: false }).then(files => {
+        if (files.length > 0) {
+          const file = files[0]
+          return this.send('requestModal', () => {
+            return $$(AssetModal, { file })
+          }).then(modal => {
+            if (!modal) return
+            const api = this.context.api
+            const { filename } = modal.state.data
+            const fileNode = api.addFile(filename, file)
+            const selectedFiles = this.state.selectedFiles
+            selectedFiles.push(fileNode)
+            this.extendState({ selectedFiles })
           })
-        })
-      }
-    })
+        }
+      })
+    }
   }
 }

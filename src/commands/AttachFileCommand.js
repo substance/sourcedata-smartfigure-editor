@@ -25,7 +25,7 @@ export default class AttachFileCommand extends Command {
     const panel = doc.get(currentItemId)
     const api = context.api
     return editorSession.getRootComponent().send('requestModal', () => {
-      return $$(AttachFileModal, { node: panel })
+      return $$(AttachFileModal, { document: doc, node: panel })
     }).then(modal => {
       if (!modal) return
       api.updateAttachedFiles(currentItemId, modal.state.selectedFiles)
