@@ -1,6 +1,7 @@
-import { SelectableNodeComponent, $$, renderProperty, domHelpers } from 'substance'
+import { SelectableNodeComponent, $$, renderProperty, domHelpers, HorizontalStack } from 'substance'
 import Section from './Section'
 import getLabel from './_getLabel'
+import AttachedToComponent from './AttachedToComponent'
 
 export default class FileComponent extends SelectableNodeComponent {
   didMount () {
@@ -36,6 +37,10 @@ export default class FileComponent extends SelectableNodeComponent {
       $$(Section, { label: 'Legend' },
         renderProperty(this, document, [node.id, 'legend'], { placeholder: 'Enter legend' }).addClass('se-legend')
       )
+    )
+
+    el.append(
+      $$(AttachedToComponent, { document, nodeId: node.id })
     )
 
     el.on('mousedown', this._onMousedown)

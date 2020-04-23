@@ -1,0 +1,13 @@
+.sc-attached-to {
+  @include ts-interface;
+  margin-top: var(--default-spacing);
+
+  button {
+    display: inline-block;
+    color: var(--link-color);
+  }
+
+  button + button::before {
+    content: ', '
+  }
+}

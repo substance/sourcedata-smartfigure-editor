@@ -13,6 +13,7 @@
 @import './_attach-resource-modal.scss';
 @import './_attached-file.scss';
 @import './_attached-resource.scss';
+@import './_attached-to.scss';
 @import './_author-modal.scss';
 @import './_authors-list.scss';
 @import './_button.scss';
