@@ -18,6 +18,8 @@ const KITCHEN_SINK_DOCUMENT = path.join(__dirname, 'examples', 'kitchen-sink.dar
 
 const argv = process.argv
 
+app.allowRendererProcessReuse = true
+
 // initialize a shared storage where DAR files are extracted to
 const tmpDir = app.getPath('temp')
 const darStorageFolder = path.join(tmpDir, app.name, 'dar-storage')
