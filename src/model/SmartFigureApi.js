@@ -173,11 +173,11 @@ export default class SmartFigureApi extends BasicEditorApi {
     })
   }
 
-  addResource (data) {
-    return this.insertResourceAfter(data)
+  addResource (data, options) {
+    return this.insertResourceAfter(data, null, options)
   }
 
-  insertResourceAfter (data, currentFileId) {
+  insertResourceAfter (data, currentFileId, options = {}) {
     const doc = this.getDocument()
     const root = doc.root
     let insertPos = root.resources.length
@@ -191,7 +191,9 @@ export default class SmartFigureApi extends BasicEditorApi {
       const node = documentHelpers.createNodeFromJson(tx, nodeData)
       newResourceNodeId = node.id
       documentHelpers.insertAt(tx, [root.id, 'resources'], insertPos, node.id)
-      this._selectItem(tx, node)
+      if (options.select !== false) {
+        this._selectItem(tx, node)
+      }
     })
     return doc.get(newResourceNodeId)
   }

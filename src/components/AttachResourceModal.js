@@ -21,7 +21,7 @@ export default class AttachResourceModal extends Component {
       $$(MultiSelect, {
         placeholder: 'No resources attached.',
         selectedItems: selectedResources,
-        queryPlaceHolder: 'Select a resource or attach a new one',
+        queryPlaceHolder: 'Select a resource or enter a URL to attach a new one',
         query: this._queryResources.bind(this),
         itemRenderer: this._renderAttachedResource.bind(this),
         local: true,
@@ -68,9 +68,11 @@ export default class AttachResourceModal extends Component {
       filteredItems = items
     }
     let options = []
-    options.push(
-      { action: 'attach-resource', id: '#create', label: 'Attach a new resource' }
-    )
+    if ((/(https?|ftps?)/.exec(str))) {
+      options.push(
+        { action: 'attach-resource', id: '#create', label: `Attach a new resource "${str}"`, value: str }
+      )
+    }
     options = options.concat(
       filteredItems.map(item => {
         return { action: 'select', id: item.id, label: item.label, item: item.node }
@@ -83,16 +85,11 @@ export default class AttachResourceModal extends Component {
     domHelpers.stopAndPrevent(e)
     const option = e.detail
     if (option.id === '#create') {
-      return this.send('requestModal', () => {
-        return $$(ResourceModal)
-      }).then(modal => {
-        if (!modal) return
-        const api = this.context.api
-        const resourceNode = api.addResource(modal.state.data)
-        const selectedResources = this.state.selectedResources
-        selectedResources.push(resourceNode)
-        this.extendState({ selectedResources })
-      })
+      const api = this.context.api
+      const resourceNode = api.addResource({ href: option.value }, { select: false })
+      const selectedResources = this.state.selectedResources
+      selectedResources.push(resourceNode)
+      this.extendState({ selectedResources })
     }
   }
 }
