@@ -71,11 +71,11 @@ export default class SmartFigureApi extends BasicEditorApi {
     this.editorSession.updateNodeStates([[panel.id, {}]])
   }
 
-  addFile (fileName, file) {
-    return this.insertFileAfter(fileName, file)
+  addFile (fileName, file, options) {
+    return this.insertFileAfter(fileName, file, null, options)
   }
 
-  insertFileAfter (fileName, file, currentFileId) {
+  insertFileAfter (fileName, file, currentFileId, options = {}) {
     const doc = this.getDocument()
     const root = doc.root
     let insertPos = root.files.length
@@ -92,11 +92,14 @@ export default class SmartFigureApi extends BasicEditorApi {
       const newFileNode = documentHelpers.createNodeFromJson(tx, {
         type: 'file',
         src: assetId,
+        title: options.title || '',
         legend: [{ type: 'paragraph' }]
       })
       newNodeId = newFileNode.id
       documentHelpers.insertAt(tx, [root.id, 'files'], insertPos, newFileNode.id)
-      this._selectItem(tx, newFileNode)
+      if (options.select !== false) {
+        this._selectItem(tx, newFileNode)
+      }
     })
     return doc.get(newNodeId)
   }

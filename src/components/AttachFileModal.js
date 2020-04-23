@@ -1,6 +1,6 @@
 import {
   Component, $$, Form, FormRow, Modal, domHelpers,
-  MultiSelect, AssetModal, HorizontalStack
+  MultiSelect, HorizontalStack, getFilenameAndExtension
 } from 'substance'
 
 export default class AttachFileModal extends Component {
@@ -91,18 +91,14 @@ export default class AttachFileModal extends Component {
     if (option.id === '#create') {
       this.send('requestFileSelect', { multiple: false }).then(files => {
         if (files.length > 0) {
+          const { archive, api } = this.context
           const file = files[0]
-          return this.send('requestModal', () => {
-            return $$(AssetModal, { file })
-          }).then(modal => {
-            if (!modal) return
-            const api = this.context.api
-            const { filename } = modal.state.data
-            const fileNode = api.addFile(filename, file)
-            const selectedFiles = this.state.selectedFiles
-            selectedFiles.push(fileNode)
-            this.extendState({ selectedFiles })
-          })
+          const filename = archive.getUniqueFileName(file.name)
+          const [basename] = getFilenameAndExtension(filename)
+          const fileNode = api.addFile(filename, file, { select: false, title: basename })
+          const selectedFiles = this.state.selectedFiles
+          selectedFiles.push(fileNode)
+          this.extendState({ selectedFiles })
         }
       })
     }
