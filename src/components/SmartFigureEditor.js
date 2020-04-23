@@ -89,6 +89,7 @@ export default class SmartFigureEditor extends AbstractEditor {
     // important not to preventDefault here, as otherwise native mouse stuff, like focussing is not working anymore
     el.on('mousedown', domHelpers.stop)
     el.on('contextmenu', this._onContextMenu)
+    el.on('dblclick', this._onDblclick)
 
     return el
   }
@@ -325,6 +326,11 @@ export default class SmartFigureEditor extends AbstractEditor {
 
   _handleRight () {
 
+  }
+
+  _onDblclick (e) {
+    e.stopPropagation()
+    this._handleEnter(e)
   }
 
   _onScroll (event) {
