@@ -1,4 +1,4 @@
-import { SelectableNodeComponent, $$, renderProperty, domHelpers, HorizontalStack } from 'substance'
+import { SelectableNodeComponent, $$, renderProperty, domHelpers } from 'substance'
 import Section from './Section'
 import getLabel from './_getLabel'
 import AttachedToComponent from './AttachedToComponent'
