@@ -25,6 +25,7 @@ export default class AttachResourceModal extends Component {
         query: this._queryResources.bind(this),
         itemRenderer: this._renderAttachedResource.bind(this),
         local: true,
+        autofocus: true,
         onchange: this._onResourcesChange,
         onaction: this._onResourcesAction
       }).ref('resources')

@@ -25,6 +25,7 @@ export default class AttachFileModal extends Component {
             query: this._queryFiles.bind(this),
             itemRenderer: this._renderAttachedFile.bind(this),
             local: true,
+            autofocus: true,
             onchange: this._onFilesChange,
             onaction: this._onFilesAction
           }).ref('files')
