@@ -267,8 +267,8 @@ export default class SmartFigureEditor extends AbstractEditor {
             // nothing
         }
       } else if (sel.customType === 'value') {
-        // TODO: maybe jump to ref'd item?
-        // this.api.selectItem(sel.data.valueId)
+        // jumping to the selected item
+        this.api.selectItem(sel.data.valueId)
       }
     }
   }
