@@ -9,10 +9,8 @@ export default class AttachedResourceComponent extends SelectableNodeComponent {
     const { title, href } = node
     el.append(
       $$('span', {},
-        title ? $$('span', { class: 'se-title' }, title) : null,
-        $$('span', { class: 'se-href' },
-          title ? `(${href})` : href
-        )
+        $$('span', { class: 'se-title' }, title || 'Untitled'),
+        $$('span', { class: 'se-href' }, `(${href})`)
       )
     )
     return el
