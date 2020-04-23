@@ -44,7 +44,7 @@ b.task('default', ['demo'])
 
 b.task('build:demo', () => {
   rollup(b, {
-    input: 'web-page/demo.js',
+    input: 'demo/demo.js',
     output: {
       file: DIST + 'demo.js',
       format: 'es',
@@ -89,8 +89,8 @@ b.task('build:vfs', () => {
 })
 
 b.task('build:web:assets', ['build:vfs'], () => {
-  b.copy('./web-page/images', DIST + 'images')
-  b.copy('./web-page/index.html', DIST)
+  b.copy('./demo/images', DIST + 'images')
+  b.copy('./demo/index.html', DIST)
   b.copy('./data', DIST + 'data')
   b.copy('./desktop/placeholder.svg', DIST)
 })
