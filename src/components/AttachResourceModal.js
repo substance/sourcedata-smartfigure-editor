@@ -2,7 +2,6 @@ import {
   Component, $$, Form, Modal, HorizontalStack, domHelpers,
   MultiSelect
 } from 'substance'
-import ResourceModal from './ResourceModal'
 
 export default class AttachResourceModal extends Component {
   getInitialState () {
