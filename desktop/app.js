@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
   // between the node backend and the web process
   const {
     ipc, editorConfig, sharedStorage, _showSaveDialog, _showExportDialog,
-    _updateWindowUrl, _downloadAsset, windowId
+    _updateWindowUrl, _downloadAsset, windowId, _openExternal
   } = window
   const { darPath, readOnly } = editorConfig
 
@@ -28,6 +28,9 @@ window.addEventListener('load', () => {
         archive,
         handleDownloadAsset: (asset) => {
           return _downloadAsset(archive, asset)
+        },
+        handleOpenExternalLink: (url) => {
+          return _openExternal(url)
         }
       }, window.document.body, { inplace: true })
     }

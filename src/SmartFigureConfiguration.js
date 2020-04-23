@@ -27,6 +27,8 @@ import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
 import DownloadAttachedFileCommand from './commands/DownloadAttachedFileCommand'
+import OpenAttachedResourceCommand from './commands/OpenAttachedResourceCommand'
+import OpenResourceCommand from './commands/OpenResourceCommand'
 
 const {
   ParagraphConverter, BoldConverter, ItalicConverter,
@@ -123,6 +125,7 @@ export default class SmartFigureConfiguration extends Configurator {
 
     config.addCommand('attach-resource', AttachResourceCommand)
     config.addCommand('remove-attached-resource', RemoveValueCommand, { propertySelector: 'panel.resources' })
+    config.addCommand('open-attached-resource', OpenAttachedResourceCommand)
     config.addCommand('move-attached-resource-up', MoveValueCommand, { propertySelector: 'panel.resources', direction: 'up' })
     config.addCommand('move-attached-resource-down', MoveValueCommand, { propertySelector: 'panel.resources', direction: 'down' })
     config.addCommand('jump-to-resource', JumpToItemCommand, { propertySelector: 'panel.resources' })
@@ -155,6 +158,7 @@ export default class SmartFigureConfiguration extends Configurator {
 
     config.addCommand('add-resource', AddResourceCommand)
     config.addCommand('remove-resource', RemoveItemCommand, { type: 'resource' })
+    config.addCommand('open-resource', OpenResourceCommand)
     config.addCommand('move-resource-up', MoveItemCommand, { type: 'resource', direction: 'up' })
     config.addCommand('move-resource-down', MoveItemCommand, { type: 'resource', direction: 'down' })
 
@@ -298,6 +302,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'add-resource', label: 'Insert Resource' },
         { command: 'remove-resource', label: 'Remove Resource' },
+        { command: 'open-resource', label: 'Open Resource' },
         { command: 'move-resource-up', label: 'Move Resource Up' },
         { command: 'move-resource-down', label: 'Move Resource Down' }
       ]
@@ -322,6 +327,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'attach-resource', label: 'Attach Resource' },
         { command: 'remove-attached-resource', label: 'Remove Attached Resource' },
+        { command: 'open-attached-resource', label: 'Open Attached Resource' },
         { command: 'move-attached-resource-up', label: 'Move Attached Resource Up' },
         { command: 'move-attached-resource-down', label: 'Move Attached Resource Down' },
         { command: 'jump-to-resource', label: 'Jump to Resource' }

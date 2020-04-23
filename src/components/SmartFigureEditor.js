@@ -25,7 +25,8 @@ export default class SmartFigureEditor extends AbstractEditor {
       releasePopover: this._releasePopover,
       closePopover: this._closePopover,
       requestFileSelect: this._openFileSelect,
-      downloadAsset: this._downloadAsset
+      downloadAsset: this._downloadAsset,
+      openLink: this._openLink
     })
   }
 
@@ -158,6 +159,12 @@ export default class SmartFigureEditor extends AbstractEditor {
   _downloadAsset (asset) {
     if (this.props.handleDownloadAsset) {
       return this.props.handleDownloadAsset(asset)
+    }
+  }
+
+  _openLink (url) {
+    if (this.props.handleOpenExternalLink) {
+      return this.props.handleOpenExternalLink(url)
     }
   }
 
