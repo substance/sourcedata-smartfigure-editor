@@ -21,8 +21,8 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "debug": "4.1.1",
-    "electron": "8.0.2",
-    "electron-builder": "22.3.2",
+    "electron": "8.2.3",
+    "electron-builder": "22.5.1",
     "electron-window-state": "5.0.3",
     "fs-extra": "8.1.0",
     "postcss": "7.0.27",
