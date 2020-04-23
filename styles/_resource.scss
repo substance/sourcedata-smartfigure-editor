@@ -1,3 +1,7 @@
 .sc-resource {
   @include card-style;
+
+  .sc-attached-to {
+    margin-top: var(--default-spacing);
+  }
 }

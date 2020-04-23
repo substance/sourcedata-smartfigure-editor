@@ -1,5 +1,6 @@
 import { Component, $$, domHelpers } from 'substance'
 import getLabel from './_getLabel'
+import Section from './Section'
 
 export default class AttachedToComponent extends Component {
   constructor (...args) {
@@ -20,7 +21,7 @@ export default class AttachedToComponent extends Component {
   render () {
     const { document, nodeId } = this.props
     const relationships = Array.from(this._relationshipIndex.get(nodeId))
-    const el = $$('div', { class: 'sc-attached-to' })
+    const el = $$(Section, { class: 'sc-attached-to', label: 'Attached to', hideIfEmpty: true })
     if (relationships.length > 0) {
       const items = relationships.map(targetId => {
         // ATTENTION: this assumes that we have ony Figure panels where files are attached to
@@ -31,7 +32,6 @@ export default class AttachedToComponent extends Component {
       if (items.length > 1) {
         items.sort((a, b) => a.label.localeCompare(b.label))
       }
-      el.append($$('span', { class: 'se-label' }, 'Attached to: '))
       for (const item of items) {
         el.append(
           $$('button', { class: 'se-panel-link' }, item.label).on('click', (e) => {

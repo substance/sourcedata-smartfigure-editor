@@ -2,3 +2,7 @@
   @include ts-small-interface;
   color: var(--quiet-text-color);
 }
+
+.sc-section.sm-hidden {
+  display: none;
+}
