@@ -11,10 +11,8 @@ export default class AttachedFileComponent extends SelectableNodeComponent {
     const title = node.title
     el.append(
       $$('span', {},
-        title ? $$('span', { class: 'se-title' }, title) : null,
-        $$('span', { class: 'se-filename' },
-          title ? `(${filename})` : filename
-        )
+        $$('span', { class: 'se-title' }, title || 'Untitled'),
+        $$('span', { class: 'se-filename' }, `(${filename})`)
       )
     )
     return el
