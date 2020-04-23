@@ -26,6 +26,7 @@ import AddKeywordGroupCommand from './commands/AddKeywordGroupCommand'
 import EditKeywordGroupCommand from './commands/EditKeywordGroupCommand'
 import AttachFileCommand from './commands/AttachFileCommand'
 import AttachResourceCommand from './commands/AttachResourceCommand'
+import DownloadAttachedFileCommand from './commands/DownloadAttachedFileCommand'
 
 const {
   ParagraphConverter, BoldConverter, ItalicConverter,
@@ -115,6 +116,7 @@ export default class SmartFigureConfiguration extends Configurator {
 
     config.addCommand('attach-file', AttachFileCommand)
     config.addCommand('remove-attached-file', RemoveValueCommand, { propertySelector: 'panel.files' })
+    config.addCommand('download-attached-file', DownloadAttachedFileCommand)
     config.addCommand('move-attached-file-up', MoveValueCommand, { propertySelector: 'panel.files', direction: 'up' })
     config.addCommand('move-attached-file-down', MoveValueCommand, { propertySelector: 'panel.files', direction: 'down' })
     config.addCommand('jump-to-file', JumpToItemCommand, { propertySelector: 'panel.files' })
@@ -307,6 +309,7 @@ export default class SmartFigureConfiguration extends Configurator {
       items: [
         { command: 'attach-file', label: 'Attach File' },
         { command: 'remove-attached-file', label: 'Remove Attached File' },
+        { command: 'download-attached-file', label: 'Download Attached File' },
         { command: 'move-attached-file-up', label: 'Move Attached File Up' },
         { command: 'move-attached-file-down', label: 'Move Attached File Down' },
         { command: 'jump-to-file', label: 'Jump to File' }
