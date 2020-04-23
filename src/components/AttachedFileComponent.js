@@ -7,15 +7,16 @@ export default class AttachedFileComponent extends SelectableNodeComponent {
     const { selected } = this.state
     const el = $$('button', { class: 'sc-attached-file', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
+    const filename = archive.getFilename(node.src)
+    const title = node.title
     el.append(
-      $$('span', { class: 'se-filename' }, archive.getFilename(node.src))
-    )
-    if (node.title) {
-      el.append(
-        ': ',
-        $$('span', { class: 'se-title' }, node.title)
+      $$('span', {},
+        title ? $$('span', { class: 'se-title' }, title) : null,
+        $$('span', { class: 'se-filename' },
+          title ? `(${filename})` : filename
+        )
       )
-    }
+    )
     return el
   }
 

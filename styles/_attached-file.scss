@@ -1,12 +1,15 @@
 .sc-attached-file {
   @include ts-interface;
-  font-weight: 500
-}
 
-.sc-attached-file.sm-selected {
-  background: rgba(176, 210, 251, 0.8);
-}
+  &.sm-selected {
+    background: rgba(176, 210, 251, 0.8);
+  }
 
-.sc-attached-file .se-filename {
-  font-weight: 600
+  .se-filename {
+    font-style: italic;
+  }
+
+  .se-title + .se-filename {
+    margin-left: 3px;
+  }
 }

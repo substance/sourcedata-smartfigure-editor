@@ -6,17 +6,15 @@ export default class AttachedResourceComponent extends SelectableNodeComponent {
     const { selected } = this.state
     const el = $$('button', { class: 'sc-attached-resource', 'data-id': this._getSelectableId() })
     if (selected) el.addClass('sm-selected')
-    if (node.title) {
-      el.append(
-        $$('span', { class: 'se-title' }, node.title)
+    const { title, href } = node
+    el.append(
+      $$('span', {},
+        title ? $$('span', { class: 'se-title' }, title) : null,
+        $$('span', { class: 'se-href' },
+          title ? `(${href})` : href
+        )
       )
-      if (node.href) el.append(': ')
-    }
-    if (node.href) {
-      el.append(
-        $$('span', { class: 'se-href' }, node.href)
-      )
-    }
+    )
     return el
   }
 
